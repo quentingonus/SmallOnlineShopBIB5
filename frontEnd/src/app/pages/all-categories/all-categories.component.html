@@ -1,5 +1,7 @@
-<app-item-card
-  *ngFor="let shopItem of shopItems"
-  [cardItem]="shopItem"
-  (addToCartFunc)="addToCart(shopItem)"
-></app-item-card>
+<div class="d-flex justify-content-center align-items-center flex-wrap">
+  <app-item-card
+    *ngFor="let shopItem of shopItems"
+    [cardItem]="shopItem"
+    (addToCartFunc)="addToCart($event)"
+  ></app-item-card>
+</div>
