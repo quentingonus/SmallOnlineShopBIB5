@@ -14,14 +14,31 @@
 
   </div>
 
+  <section class="feature-ttl">
+    <h3>Features Categories</h3>
+    <div class="slick-wrapper">
+
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
+        (breakpoint)="breakpoint($event)" >
+        <div ngxSlickItem *ngFor="let product of products" class="slide">
+          <div class="card">
+            <img [src]="product.imageUrl" alt="" width="100%">
+          </div>
+        </div>
+      </ngx-slick-carousel>
+      
+      </div>
+  </section>
+
   <section class="popular-ttl">
     <h3 class="popular-ttl">Popular Products</h3>
     <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-3">
       <div class="col" *ngFor="let product of products">
-        <div class="card">
+        <div class="card popular-card">
           <img class="card-img-top item-img" [src]="product.imageUrl" alt="Card image cap">
           <div class="card-body">
-            <h4 class="card-title"> {{ product.title }} </h4>
+            <small class="text-small mb-1 text-muted">{{ product.category }}</small>
+            <h2 class="card-title fs-6"> {{ product.title }} </h2>
             <p class="card-text"> {{ product.price | currency:'USD' }}</p>
     
             <button type="button" *ngIf="!isAddToCart" class="btn btn-success" (click)="onClick(product)">Add to cart</button>

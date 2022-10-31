@@ -121,10 +121,15 @@ ngb-carousel .wrapper>img {
 }
 
 .card {
+  border: 1px solid rgba(204, 204, 204, .8);
   transition: .3s;
 }
 .card:hover {
-  transform: scale(1.03);
+ border: 1px solid#198754;
+}
+
+.popular-card {
+  height: 340px;
 }
 
 .btn-outline-success fa-icon{
@@ -133,4 +138,22 @@ ngb-carousel .wrapper>img {
 
 .btn-outline-success:hover fa-icon{
   color: #fff;
+}
+
+.slick-wrapper{
+  width: 1000px;
+  margin: 20px auto;
+}
+
+.slick-prev::before, .slick-next::before {
+  color: black!important;
+}
+
+.slide {
+  margin-left: 10px;
+  margin-right: 10px
+}
+
+section {
+  margin-top: 50px;
 }
