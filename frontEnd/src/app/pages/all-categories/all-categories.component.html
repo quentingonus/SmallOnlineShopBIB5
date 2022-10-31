@@ -1,0 +1,5 @@
+<app-item-card
+  *ngFor="let shopItem of shopItems"
+  [cardItem]="shopItem"
+  (addToCartFunc)="addToCart(shopItem)"
+></app-item-card>
