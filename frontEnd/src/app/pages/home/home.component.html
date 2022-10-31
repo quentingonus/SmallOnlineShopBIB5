@@ -14,24 +14,23 @@
 
   </div>
 
-  <div class="row mx-auto">
-    <div class="col-sm-3">All Categories</div>
-    <div class="row card-deck col-sm-9">
-      <div class="col-lg-3 col-md-4 col-sm-12 mb-3 " *ngFor="let product of products">
+  <section class="popular-ttl">
+    <h3 class="popular-ttl">Popular Products</h3>
+    <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-3">
+      <div class="col" *ngFor="let product of products">
         <div class="card">
           <img class="card-img-top item-img" [src]="product.imageUrl" alt="Card image cap">
           <div class="card-body">
             <h4 class="card-title"> {{ product.title }} </h4>
             <p class="card-text"> {{ product.price | currency:'USD' }}</p>
-          </div>
-          <div class="card-footer">
-            <button type="button" *ngIf="!isAddToCart" class="btn btn-primary w-100" (click)="onClick(product)">Add to cart</button>
+    
+            <button type="button" *ngIf="!isAddToCart" class="btn btn-success" (click)="onClick(product)">Add to cart</button>
             <div class="btn-click" *ngIf="isAddToCart">
-              <span class="btn-quantity btn-quantity-minus">
+              <span class="btn btn-outline-success">
                 <fa-icon icon="minus"></fa-icon>
               </span>
               <span class="quantity"> 1 </span>
-              <span class="btn-quantity btn-quantity-plus">
+              <span class="btn btn-outline-success">
                 <fa-icon icon="plus"></fa-icon>
               </span>
             </div>
@@ -39,5 +38,6 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
 </section>

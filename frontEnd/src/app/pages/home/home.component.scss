@@ -76,12 +76,12 @@ nav {
   color: #fff;
 }
 
-.btn-quantity-plus{
+.btn-quantity-plus {
   border-radius: 0 5px 5px 0;
 }
 
 .btn-quantity-minus {
-  border-radius:5px 0 0 5px;
+  border-radius: 5px 0 0 5px;
 }
 
 .quantity {
@@ -94,12 +94,12 @@ fa-icon {
 }
 
 ngb-carousel .wrapper {
- width: 100%;
- height: 200px
- 
+  width: 100%;
+  height: 200px
 }
+
 ngb-carousel .wrapper>img {
- width: 100%;
+  width: 100%;
 }
 
 .container-fluid {
@@ -107,15 +107,30 @@ ngb-carousel .wrapper>img {
 }
 
 .col-lg-3 .card-img-top {
-  
-height: 100px;
-object-fit: cover;
-  
+
+  height: 100px;
+  object-fit: cover;
+
 }
 
 .col-lg-3 .card-img-top {
-  
+
   height: 100px;
   object-fit: cover;
-    
-  }
+
+}
+
+.card {
+  transition: .3s;
+}
+.card:hover {
+  transform: scale(1.03);
+}
+
+.btn-outline-success fa-icon{
+  color: #198754;
+}
+
+.btn-outline-success:hover fa-icon{
+  color: #fff;
+}

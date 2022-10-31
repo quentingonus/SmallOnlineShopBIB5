@@ -105,14 +105,14 @@ export class HomeComponent implements OnInit {
 
   constructor(library: FaIconLibrary, config: NgbCarouselConfig) { 
     library.addIcons(faPlus, faMinus);
-    config.interval = 2000;
+    config.interval = 3000;
     config.keyboard = true;
     config.pauseOnHover = true;
     config.showNavigationArrows = true;
   }
 
   onClick(product:any) {
-    this.isAddToCart = this.isAddToCart;
+    this.isAddToCart = !this.isAddToCart;
     console.log(product);
 
     const index = this.cart.findIndex(_product => {
