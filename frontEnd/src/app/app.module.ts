@@ -7,6 +7,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { LoginComponent } from './pages/login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule, 
+    SlickCarouselModule, NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

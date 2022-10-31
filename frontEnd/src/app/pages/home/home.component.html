@@ -1,1 +1,43 @@
-<p>home works!</p>
+<section class="container mt-2">
+
+  <div class="container-fluid">
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let image of products">
+        <div class="wrapper">
+          <img [src]="image.imageUrl" alt="Random first slide">
+        </div>
+        <div class="carousel-caption">
+          <h3>{{ image.title }}</h3>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+
+  </div>
+
+  <div class="row mx-auto">
+    <div class="col-sm-3">All Categories</div>
+    <div class="row card-deck col-sm-9">
+      <div class="col-lg-3 col-md-4 col-sm-12 mb-3 " *ngFor="let product of products">
+        <div class="card">
+          <img class="card-img-top item-img" [src]="product.imageUrl" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title"> {{ product.title }} </h4>
+            <p class="card-text"> {{ product.price | currency:'USD' }}</p>
+          </div>
+          <div class="card-footer">
+            <button type="button" *ngIf="!isAddToCart" class="btn btn-primary w-100" (click)="onClick(product)">Add to cart</button>
+            <div class="btn-click" *ngIf="isAddToCart">
+              <span class="btn-quantity btn-quantity-minus">
+                <fa-icon icon="minus"></fa-icon>
+              </span>
+              <span class="quantity"> 1 </span>
+              <span class="btn-quantity btn-quantity-plus">
+                <fa-icon icon="plus"></fa-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
