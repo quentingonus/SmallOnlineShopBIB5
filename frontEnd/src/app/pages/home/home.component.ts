@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     {
       id: 1,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     {
       id: 2,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     {
       id: 3,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     {
       id: 4,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     {
       id: 5,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
     {
       id: 6,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
     {
       id: 7,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
     {
       id: 8,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
     {
       id: 9,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
     {
       id: 10,
       category: 'shoes',
-      imageUrl: 'https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg?w=2000',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
       title: 'Shoe',
       price: 7
     },
