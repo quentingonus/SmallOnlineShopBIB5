@@ -1,6 +1,6 @@
 <section class="container mt-2">
 
-  <!--<div class="container-fluid">
+  <div class="container-fluid">
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let image of products">
         <div class="wrapper">
@@ -12,7 +12,7 @@
       </ng-template>
     </ngb-carousel>
 
-  </div>-->
+  </div>
 
   <section class="feature">
     <h3>Features Categories</h3>
@@ -20,13 +20,13 @@
 
       <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)" (breakpoint)="breakpoint($event)">
         <div ngxSlickItem *ngFor="let category of categories" class="slide">
-          <div class="card" style="height: 250px">
-            <div class="card-body m-auto py-1">
-              <img [src]="category.imageUrl" [alt]="category.title" width="200px">
-            </div>
-            <div class="card-footer text-center">
+          <div class="card" style="height: 300px">
+            <div class="card-body m-auto text-center">
+              <img class="card-img-top" [src]="category.imageUrl" [alt]="category.title" width="80%" height="70%">
               <div class="text-truncate">{{ category.title }}</div>
             </div>
+            <!--<div class="card-footer text-center">-->
+            <!--</div>-->
           </div>
         </div>
       </ngx-slick-carousel>
@@ -80,13 +80,13 @@
             <h2 class="card-title fs-6"> {{ product.title }} </h2>
             <p class="card-text"> {{ product.price | currency:'USD' }}</p>
 
-            <button type="button" *ngIf="!isAddToCart" class="btn btn-success" (click)="onClick(product)">Add to cart</button>
-            <div class="btn-click" *ngIf="isAddToCart">
-              <span class="btn btn-outline-success">
+            <button type="button" *ngIf="!getAmount(product)" class="btn btn-success w-100" (click)="onClick(product)">Add to cart</button>
+            <div class="btn-click" *ngIf="getAmount(product) > 0">
+              <span class="btn btn-outline-success" (click)="removeItem(product)">
                 <fa-icon icon="minus"></fa-icon>
               </span>
-              <span class="quantity"> 1 </span>
-              <span class="btn btn-outline-success">
+              <span class="quantity"> {{ this.getAmount(product) }} </span>
+              <span class="btn btn-outline-success" (click)="addItem(product)">
                 <fa-icon icon="plus"></fa-icon>
               </span>
             </div>
