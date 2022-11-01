@@ -10,6 +10,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { AllCategoriesComponent } from './pages/all-categories/all-categories.component';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { AllCategoriesComponent } from './pages/all-categories/all-categories.co
     BrowserModule,
     AppRoutingModule,
     NgbModule
+    FontAwesomeModule,
+    SlickCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
