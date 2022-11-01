@@ -1,4 +1,4 @@
-<form (submit)="loginUser($event)">
+<!--<form (submit)="loginUser($event)">
   <h2>Small Online Shop</h2>
   <div class="input">
     <label>Username</label>
@@ -11,4 +11,21 @@
   <div class="input">
     <input class="btn-primary" type="submit" value="Login">
   </div>
-</form>
+</form>-->
+
+
+<div class="login-form">
+  <h2>Small Online Shop</h2>
+  <div class="form-group">
+    <label for="uname">Username</label>
+    <input type="text" name="uname" class="form-control" [(ngModel)]="username">
+  </div>
+  <div class="form-group">
+    <label for="pword">Password</label>
+    <input type="password" name="pword" class="form-control" [(ngModel)]="password">
+  </div>
+  <div class="btn-container">
+    <div class="error">{{ errorMsg }}</div>
+    <button class="btn btn-dark" (click)="login()">Login</button>
+  </div>
+</div>

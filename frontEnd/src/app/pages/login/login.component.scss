@@ -9,37 +9,29 @@
   font-family: 'Aladin', cursive;
 }
 
-form {
+.login-form {
   width: 500px;
   height: 300px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
+  box-shadow: 5px 5px 20px #383838;
 }
 
-div.input {
-  position: relative;
+.form-group {
   margin-top: 20px;
 }
 
-div.input label {
-  position: absolute;
-  top: 0;
-  transform: translateY(-50%);
-  left: 10px;
-  background: white;
-  padding: 5px 2px;
+label {
   font-weight: bold;
 }
 
-
-div.input input {
-  padding: 10px 20px;
-  font-size: 25px;
-  outline: 0;
+.btn {
+  margin-top: 20px;
 }
 
-div.input .btn-primary {
-  background-color: #008b8b;
+.error {
+  color: red;
 }
+
 
