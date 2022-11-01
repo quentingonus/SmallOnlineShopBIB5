@@ -3,6 +3,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffe645, #e2aa02 100%);
+  font-family: 'Aladin', cursive;
+}
+
+form {
+  width: 500px;
+  height: 300px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 div.input {
@@ -17,6 +29,7 @@ div.input label {
   left: 10px;
   background: white;
   padding: 5px 2px;
+  font-weight: bold;
 }
 
 
@@ -25,3 +38,8 @@ div.input input {
   font-size: 25px;
   outline: 0;
 }
+
+div.input .btn-primary {
+  background-color: #008b8b;
+}
+
