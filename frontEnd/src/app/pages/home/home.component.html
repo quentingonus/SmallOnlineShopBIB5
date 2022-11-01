@@ -1,1 +1,99 @@
-<p>home works!</p>
+<section class="container mt-2">
+
+  <!--<div class="container-fluid">
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let image of products">
+        <div class="wrapper">
+          <img [src]="image.imageUrl" alt="Random first slide">
+        </div>
+        <div class="carousel-caption">
+          <h3>{{ image.title }}</h3>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+
+  </div>-->
+
+  <section class="feature">
+    <h3>Features Categories</h3>
+    <div class="slick-wrapper">
+
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)" (breakpoint)="breakpoint($event)">
+        <div ngxSlickItem *ngFor="let category of categories" class="slide">
+          <div class="card" style="height: 250px">
+            <div class="card-body m-auto py-1">
+              <img [src]="category.imageUrl" [alt]="category.title" width="200px">
+            </div>
+            <div class="card-footer text-center">
+              <div class="text-truncate">{{ category.title }}</div>
+            </div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+
+    </div>
+  </section>
+
+  <section class="discount">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3 mb-lg-0">
+          <div>
+            <div class="px-3 py-5 rounded-3" style="background:url(https://freshcart.codescandy.com/assets/images/banner/grocery-banner.png)no-repeat; background-size: cover; background-position: center;">
+              <div>
+                <h3 class="fw-bold mb-1">Fruits &amp; Vegetables
+                </h3>
+                <p class="mb-4">Get <span class="fw-bold">30%</span> Off Today</p>
+                <a href="#!" class="btn btn-success">Shop Now</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-12 col-md-6 ">
+          <div>
+            <div class="px-3 py-5 rounded-3" style="background:url(https://freshcart.codescandy.com/assets/images/banner/grocery-banner-2.jpg)no-repeat; background-size: cover; background-position: center;">
+              <div>
+                <h3 class="fw-bold mb-1">Freshly Baked
+                  Buns
+                </h3>
+                <p class="mb-4">Get <span class="fw-bold">25%</span> Off Today</p>
+                <a href="#!" class="btn btn-success">Shop Now</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="popular-ttl">
+    <h3 class="popular-ttl">Popular Products</h3>
+    <div class="row g-4 row-cols-lg-4 row-cols-2 row-cols-md-3">
+      <div class="col-12" *ngFor="let product of products">
+        <div class="card popular-card mb-3 mb-lg-0">
+          <img class="card-img-top item-img" [src]="product.imageUrl" alt="Card image cap">
+          <div class="card-body">
+            <small class="text-small mb-1 text-muted">{{ product.category }}</small>
+            <h2 class="card-title fs-6"> {{ product.title }} </h2>
+            <p class="card-text"> {{ product.price | currency:'USD' }}</p>
+
+            <button type="button" *ngIf="!isAddToCart" class="btn btn-success" (click)="onClick(product)">Add to cart</button>
+            <div class="btn-click" *ngIf="isAddToCart">
+              <span class="btn btn-outline-success">
+                <fa-icon icon="minus"></fa-icon>
+              </span>
+              <span class="quantity"> 1 </span>
+              <span class="btn btn-outline-success">
+                <fa-icon icon="plus"></fa-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</section>
