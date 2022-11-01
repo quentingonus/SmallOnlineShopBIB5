@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
 
   isAddToCart = false;
   cart: any[] = [];
-
   products: any;
 
   categories: any;
@@ -63,42 +62,39 @@ export class HomeComponent implements OnInit {
 
     this.products = productService.products;
     this.categories = productService.categories;
+    this.cartService.getCart().subscribe(data => this.cart = data);
   }
 
   onClick(product: any) {
-    this.cartService.addToCart(product)
-    //    this.isAddToCart = !this.isAddToCart;
-    //    console.log(product.id);
-    //
-    //    if (this.cart.length > 0) {
-    //      const index = this.cart.findIndex(value => {
-    //        value.id == product.id;
-    //
-    //        console.log('Product: ', value.id)
-    //      });
-    //
-    //      console.log('Index :', index);
-    //
-    //
-    //      if (index != -1) {
-    //        console.log('Found')
-    //        product.quantity = +1;
-    //      }
-    //
-    //      else {
-    //        console.log('Not Found')
-    //        this.cart.push(product);
-    //      }
-    //    }
-    //
-    //    else {
-    //      this.cart.push(product);
-    //    }
-    //
-    //
-    //    console.log(this.cart)
+    this.cartService.addToCart(product);
+    //this.isAddToCart = !this.isAddToCart;
+  }
+
+  addItem(product: any) {
+    let index = this.cart.indexOf(product);
+    this.cart[index].amount++;
+    this.cartService.cartItem$.next(this.cart);
+  }
+
+  removeItem(product: any) {
+    let index = this.cart.indexOf(product);
+    this.cart[index].amount--;
+    //this.cartService.cartItem$.next(this.cart);
+  }
+
+  getAmount(product: any) {
+    let index = this.cart.indexOf(product);
+    if (this.cart.length > 0) {
+      let item = this.cart[index].amount;
+      return (item ? item : 0);
+    }
+
+    else {
+      return 0;
+    }
 
   }
+
   slickInit(e: any) {
     console.log('slick initialized');
   }
