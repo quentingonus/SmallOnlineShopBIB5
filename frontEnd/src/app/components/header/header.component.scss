@@ -1,0 +1,23 @@
+.cart-detail-img{
+  width: 100px;
+  height: 150px;
+}
+
+.cart-detail-img img{
+  width: 100%;
+  height: 100%;
+  
+}
+
+.nav-link{
+  cursor: pointer;
+}
+
+.checkout-btn{
+  position: relative;
+  button{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }
+}
