@@ -40,8 +40,23 @@
           <div>
             <p>{{ citem.name }}</p>
             <p>Price: {{ citem.price | currency }}</p>
-            <p>Amount: {{ citem.amount }}</p>
-            <button type="button" class="btn btn-outline-secondary">
+            <p class="d-flex justify-content-center align-items-center">
+              Amount:
+              <input
+                type="number"
+                class="form-control form-control-sm ms-3 cartItemValue"
+                min="0"
+                max="100"
+                step="1"
+                (input)="changeValue($event, citem)"
+                [value]="citem.amount"
+              />
+            </p>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="removeFromCart(citem)"
+            >
               Remove
             </button>
           </div>
