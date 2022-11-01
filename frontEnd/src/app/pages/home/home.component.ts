@@ -97,6 +97,33 @@ export class HomeComponent implements OnInit {
 
   ]; 
 
+  categories = [
+    {
+      title: 'Phones',
+      imageUrl: 'http://cdn.shopify.com/s/files/1/0482/6189/0203/products/dd2fb7e9-c955-47d5-b894-770ffb6c44c0.jpg?v=1666110800'
+    },
+
+    {
+      title: 'Washing Machine',
+      imageUrl: 'https://static.vecteezy.com/system/resources/previews/006/600/010/original/washing-machine-isolated-on-white-background-free-vector.jpg'
+    },
+
+    {
+      title: 'Shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4='
+    },
+
+    {
+      title: 'Clothes',
+      imageUrl: 'https://i.pinimg.com/originals/1f/db/1d/1fdb1d531cd5e358db9b297997acdec5.jpg'
+    },
+
+    {
+      title: 'Tablets',
+      imageUrl: 'https://www.fonewalls.com/wp-content/uploads/2020/03/Apple-iPad-Pro-12.9-2020.jpg'
+    },
+  ];
+
   slideConfig = {
     "slidesToShow": 4,
     "slidesToScroll": 1,
@@ -116,14 +143,14 @@ export class HomeComponent implements OnInit {
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
@@ -147,13 +174,18 @@ export class HomeComponent implements OnInit {
   }
 
   onClick(product:any) {
-    this.isAddToCart = !this.isAddToCart;
-    console.log(product);
+    this.isAddToCart = this.isAddToCart;
+    console.log(product.id);
 
     if (this.cart.length > 0) {
-      const index = this.cart.findIndex(_product => {
-        _product.id == product.id
+      const index = this.cart.findIndex(value => {
+        value.id == product.id;
+
+        console.log('Product: ', value.id)
       });
+
+      console.log('Index :', index);
+      
   
       if (index != -1) {
         console.log('Found')
