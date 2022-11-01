@@ -1,6 +1,6 @@
 <section class="container mt-2">
 
-  <div class="container-fluid">
+  <!--<div class="container-fluid">
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let image of products">
         <div class="wrapper">
@@ -12,14 +12,13 @@
       </ng-template>
     </ngb-carousel>
 
-  </div>
+  </div>-->
 
   <section class="feature">
     <h3>Features Categories</h3>
     <div class="slick-wrapper">
 
-      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
-        (breakpoint)="breakpoint($event)" >
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)" (breakpoint)="breakpoint($event)">
         <div ngxSlickItem *ngFor="let category of categories" class="slide">
           <div class="card" style="height: 250px">
             <div class="card-body m-auto py-1">
@@ -31,8 +30,8 @@
           </div>
         </div>
       </ngx-slick-carousel>
-      
-      </div>
+
+    </div>
   </section>
 
   <section class="discount">
@@ -53,7 +52,6 @@
 
         </div>
         <div class="col-12 col-md-6 ">
-
           <div>
             <div class="px-3 py-5 rounded-3" style="background:url(https://freshcart.codescandy.com/assets/images/banner/grocery-banner-2.jpg)no-repeat; background-size: cover; background-position: center;">
               <div>
@@ -81,7 +79,7 @@
             <small class="text-small mb-1 text-muted">{{ product.category }}</small>
             <h2 class="card-title fs-6"> {{ product.title }} </h2>
             <p class="card-text"> {{ product.price | currency:'USD' }}</p>
-    
+
             <button type="button" *ngIf="!isAddToCart" class="btn btn-success" (click)="onClick(product)">Add to cart</button>
             <div class="btn-click" *ngIf="isAddToCart">
               <span class="btn btn-outline-success">
