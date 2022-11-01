@@ -34,9 +34,27 @@ export class HeaderComponent implements OnInit {
     }
     let totalAmount = 0
     this.cartItem.map((item: any) => {
-      totalAmount += item.price
+      totalAmount += (item.price * item.amount)
     })
     return totalAmount
+  }
+
+  removeFromCart(item: any) {
+    this.cart.removeFromCart(item)
+  }
+
+  changeValue(event: any, item: any) {
+    console.log("Change Value")
+    let amount = event.target.value;
+    if (parseInt(amount) < 0) {
+      return
+    }
+    if (parseInt(amount) == 0) {
+      this.removeFromCart(item)
+    }
+    else {
+      item.amount = parseInt(amount)
+    }
   }
 
   ngOnInit(): void {

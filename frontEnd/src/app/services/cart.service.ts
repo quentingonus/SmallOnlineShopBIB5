@@ -85,6 +85,7 @@ export class CartService {
   }
 
   addToCart(newItem: any) {
+    console.log("Add to Cart: " + newItem.title + " | id: " + newItem.id)
     let newIndex = this.cartItem.indexOf(newItem)
     if (newIndex > -1) {
       this.cartItem[newIndex].amount++;
@@ -92,6 +93,15 @@ export class CartService {
     else {
       newItem.amount = 1
       this.cartItem.push(newItem)
+    }
+    this.cartItem$.next(this.cartItem)
+  }
+
+  removeFromCart(item: any) {
+    console.log("Remove Cart: " + item.title + " | id: " + item.id)
+    const index = this.cartItem.indexOf(item);
+    if (index > -1) {
+      this.cartItem.splice(index, 1);
     }
     this.cartItem$.next(this.cartItem)
   }
