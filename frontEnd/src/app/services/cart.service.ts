@@ -12,52 +12,67 @@ export class CartService {
 
   public shopItems = [
     {
-      name: "iPhone 14 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1499,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 1,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 13 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1399,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 2,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 12 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1299,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 3,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 11 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1199,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 4,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 10 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1099,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 5,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 12 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1299,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 6,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 11 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1199,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 7,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     },
+
     {
-      name: "iPhone 10 Pro Max",
-      about: "iPhone is a device powered by iOS produced by Apple.",
-      price: 1099,
-      img: "https://i.expansys.net/i/b/b361875-5.jpg"
+      id: 8,
+      category: 'shoes',
+      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      title: 'Shoe',
+      price: 7
     }
   ]
 
