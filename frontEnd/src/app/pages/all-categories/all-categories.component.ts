@@ -12,10 +12,6 @@ export class AllCategoriesComponent implements OnInit {
 
   constructor(private cart: CartService) { }
 
-  addToCart(item: any) {
-    this.cart.addToCart(item)
-  }
-
   ngOnInit(): void {
     this.shopItems = this.cart.getShop()
   }
