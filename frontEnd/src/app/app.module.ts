@@ -13,6 +13,7 @@ import { AllCategoriesComponent } from './pages/all-categories/all-categories.co
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
     LoginComponent,
     ItemCardComponent,
     AllCategoriesComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
