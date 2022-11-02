@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,9 @@ import { Injectable } from '@angular/core';
 export class ProductsService {
 
   selectProduct: any;
-  constructor() { }
+  constructor(private cartService: CartService) {
+    this.products = this.cartService.shopItems;
+  }
 
   products = [
     {
@@ -72,7 +75,7 @@ export class ProductsService {
       title: 'Shoe',
       price: 7
     }
-  ]; 
+  ];
 
   categories = [
     {
