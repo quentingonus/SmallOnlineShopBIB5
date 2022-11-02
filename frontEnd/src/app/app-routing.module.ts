@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { AllCategoriesComponent } from './pages/all-categories/all-categories.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent},
   { path: 'detail', component: ProductDetailsComponent},
   { path: '**', component: LoginComponent }
 ];
