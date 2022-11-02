@@ -1,8 +1,28 @@
-.card{
-  width: 18rem;
+//.card{
+//  width: 18rem;
+//}
+
+.card {
+  border: 1px solid rgba(204, 204, 204, .8);
+  transition: .3s;
+  overflow: hidden;
 }
 
-.card-img-top{
+.card:hover {
+  border: 1px solid#198754;
+}
+
+.card-img-top {
+  cursor: pointer;
+  transition: .6s;
+  object-fit: cover;
+}
+
+.card-img-top:hover {
+  transform: scale(1.1);
+}
+
+.card-img-top {
   width: 100%;
   height: 250px;
 }

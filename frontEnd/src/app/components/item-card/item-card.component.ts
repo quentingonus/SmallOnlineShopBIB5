@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ProductsService } from './../../services/products.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -34,8 +36,15 @@ export class ItemCardComponent implements OnInit {
     return product.amount ? product.amount : 0;
   }
 
-  constructor(library: FaIconLibrary, private cartService: CartService) {
+  showDetail() {
+    this.productService.selectProduct = this.cardItem;
+    this.router.navigate(['/products/detail']);
+  }
+
+  constructor(library: FaIconLibrary, private cartService: CartService, private productService: ProductsService, private router: Router) {
     library.addIcons(faPlus, faMinus);
+
+    productService.selectProduct = this.cardItem;
   }
 
   ngOnInit(): void {

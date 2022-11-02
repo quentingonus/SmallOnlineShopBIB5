@@ -5,13 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class ProductsService {
 
+  selectProduct: any;
   constructor() { }
 
   products = [
     {
       id: 1,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -19,7 +20,7 @@ export class ProductsService {
     {
       id: 2,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -27,7 +28,7 @@ export class ProductsService {
     {
       id: 3,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -35,7 +36,7 @@ export class ProductsService {
     {
       id: 4,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -43,7 +44,7 @@ export class ProductsService {
     {
       id: 5,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -51,7 +52,7 @@ export class ProductsService {
     {
       id: 6,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -59,7 +60,7 @@ export class ProductsService {
     {
       id: 7,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     },
@@ -67,7 +68,7 @@ export class ProductsService {
     {
       id: 8,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7
     }
@@ -86,7 +87,7 @@ export class ProductsService {
 
     {
       title: 'Shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4='
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg'
     },
 
     {
@@ -100,3 +101,5 @@ export class ProductsService {
     },
   ];
 }
+
+//imageUrl = 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4='

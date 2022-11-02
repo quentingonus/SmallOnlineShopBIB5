@@ -19,6 +19,7 @@
     class="card-img-top item-img"
     [src]="cardItem.imageUrl"
     alt="Card image cap"
+    (click) = "showDetail()"
   />
   <div class="card-body">
     <small class="text-small mb-1 text-muted">{{ cardItem.category }}</small>
