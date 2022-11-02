@@ -4,6 +4,10 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+.slick-track {
+  padding: 10px 0;
+}
+
 .slick-prev, 
 .slick-next {
   height: 45px;
@@ -13,10 +17,32 @@
 
 .slick-prev::before {
   content: "←";
-  color: #000;
+  color: #198754;
+  font-size: 30px;
 }
 
 .slick-next::before {
   content: "→";
-  color: #000;
+  color: #198754;
+  font-size: 30px;
+}
+
+.slick-prev {
+  left: -30px;
+}
+
+.slick-next {
+  right: -30px;
+}
+
+.slick-dots li button:before {
+  color: #198754;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #198754;
+}
+
+.card:hover {
+  box-shadow: 1px 1px 10px 1px #198754;
 }
