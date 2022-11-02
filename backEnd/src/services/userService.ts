@@ -1,6 +1,7 @@
 import {Response} from "express";
 import User from "../models/User";
 import {deleteFile} from "../utils";
+import bcrypt from "bcrypt";
 
 export const getUserService = async (_req :any, res:Response) => {
   try {
@@ -21,7 +22,7 @@ export const createUserService = async (req :any, res:Response) => {
       profile : profile,
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, 12),
       address: req.body.address,
       phone: req.body.phone,
       dob: req.body.dob,
