@@ -14,6 +14,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SignupComponent } from './pages/signup/signup.component';
     ItemCardComponent,
     AllCategoriesComponent,
     ProductDetailsComponent,
-    SignupComponent
+    SignupComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

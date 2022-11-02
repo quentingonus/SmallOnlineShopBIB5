@@ -1,0 +1,25 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Title</th>
+			<th scope="col">Price</th>
+			<th scope="col">Category</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let product of products; index as i">
+			<th scope="row">{{ product.id }}</th>
+			<td>
+				<img
+					[src]="product.imageUrl"
+					class="me-2"
+					style="width: 40px"
+				/>
+				{{ product.title }}
+			</td>
+			<td>{{ product.price | currency:'USD' }}</td>
+			<td>{{ product.category }}</td>
+		</tr>
+	</tbody>
+</table>
