@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import multer, { FileFilterCallback } from 'multer';
 import user_route from "./routes/user_route";
+import cart_route from "./routes/cart_route";
 import path from "path";
 import { rootDir } from "./utils";
 import { v4 } from 'uuid';
@@ -44,5 +45,6 @@ mongoose
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     app.use('/users', user_route);
+    app.use('/carts', cart_route);
   })
 
