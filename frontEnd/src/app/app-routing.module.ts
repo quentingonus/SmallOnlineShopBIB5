@@ -1,3 +1,4 @@
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'products/detail', component: ProductDetailsComponent},
+  { path: 'admin', component: AdminDashboardComponent},
   { path: 'signup', component: SignupComponent},
   { path: '**', component: LoginComponent }
 ];
