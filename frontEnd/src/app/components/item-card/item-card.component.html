@@ -1,4 +1,4 @@
-<div class="card m-4">
+<!--<div class="card m-4">
   <img class="card-img-top" [src]="cardItem.imageUrl" [alt]="cardItem.name" />
   <div class="card-body">
     <h5 class="card-title">{{ cardItem.title }}</h5>
@@ -11,5 +11,36 @@
     <button href="#" class="btn btn-primary" (click)="addToCart(cardItem)">
       Add to cart
     </button>
+  </div>
+</div>-->
+
+<div class="card popular-card mb-3 mb-lg-0">
+  <img
+    class="card-img-top item-img"
+    [src]="cardItem.imageUrl"
+    alt="Card image cap"
+  />
+  <div class="card-body">
+    <small class="text-small mb-1 text-muted">{{ cardItem.category }}</small>
+    <h2 class="card-title fs-6">{{ cardItem.title }}</h2>
+    <p class="card-text">{{ cardItem.price | currency }}</p>
+
+    <button
+      type="button"
+      *ngIf="!getAmount(cardItem)"
+      class="btn btn-success w-100"
+      (click)="onClick(cardItem)"
+    >
+      Add to cart
+    </button>
+    <div class="btn-click" *ngIf="getAmount(cardItem) > 0">
+      <span class="btn btn-outline-success" (click)="removeItem(cardItem)">
+        <fa-icon icon="minus"></fa-icon>
+      </span>
+      <span class="quantity"> {{ this.getAmount(cardItem) }} </span>
+      <span class="btn btn-outline-success" (click)="addItem(cardItem)">
+        <fa-icon icon="plus"></fa-icon>
+      </span>
+    </div>
   </div>
 </div>
