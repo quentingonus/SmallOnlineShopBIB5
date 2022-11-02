@@ -28,7 +28,6 @@ export class AllCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.shopItems = this.modifyCategory(this.cart.getShop())
-    console.log(this.shopItems)
   }
 
 }

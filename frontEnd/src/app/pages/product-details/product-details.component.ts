@@ -5,6 +5,7 @@ import { faHeart, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { parse } from '@fortawesome/fontawesome-svg-core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-details',
@@ -15,6 +16,8 @@ export class ProductDetailsComponent implements OnInit {
 
   isFavorite = false;
   product: any;
+  productAmount: any;
+
   constructor(library: FaIconLibrary, private productService: ProductsService, private cartService: CartService, private router: Router) {
     library.addIcons(faHeart, faHeartBroken);
     if (!this.productService.selectProduct) {
@@ -22,17 +25,15 @@ export class ProductDetailsComponent implements OnInit {
     }
     this.product = this.productService.selectProduct;
     if (!('amount' in this.product)) {
-      this.product.amount = 1
+      this.product.amount = 0
     }
+    this.productAmount = new FormControl(1)
   }
 
   addItem() {
-    console.log('Button Clicked')
+    this.product.amount += this.productAmount.value
     this.cartService.addToCart(this.product)
-  }
-  changeValue(event: any) {
-    let amount = event.target.value
-    this.product.amount = parseInt(amount)
+    this.productAmount.setValue(1)
   }
 
   ngOnInit(): void { }
