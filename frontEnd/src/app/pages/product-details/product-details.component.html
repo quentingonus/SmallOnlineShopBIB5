@@ -3,24 +3,35 @@
     <div class="container-fliud">
       <div class="wrapper row">
         <div class="col-md-6">
-          <img [src]="product.imageUrl" width="100%">
+          <img [src]="product.imageUrl" width="100%" />
         </div>
 
         <div class="details col-md-6 p-3">
-          <a routerLink="/home"class="home-link">Back to Home page</a>
+          <a routerLink="/home" class="home-link">Back to Home page</a>
           <h3 class="product-title mt-3">men's shoes fashion</h3>
-  
-          <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+
+          <p class="product-description">
+            Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia
+            sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus
+            posuere.
+          </p>
           <p><strong>Name </strong> {{ product.title }}</p>
           <p><strong>Category</strong> {{ product.category }}</p>
-          <p class="price"> {{ product.price | currency:'USD' }}</p>
-          <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+          <p class="price">{{ product.price | currency: "USD" }}</p>
+          <p class="vote">
+            <strong>91%</strong> of buyers enjoyed this product!
+            <strong>(87 votes)</strong>
+          </p>
 
           <form>
             <div class="form-group row mt-5">
               <div class="col-md-3">
                 <label for="colors">Select Colors</label>
-                <select id="colors" class="form-select form-control" aria-label="Default select example">
+                <select
+                  id="colors"
+                  class="form-select form-control"
+                  aria-label="Default select example"
+                >
                   <option value="1">White</option>
                   <option value="2">Black</option>
                   <option value="3">Yellow</option>
@@ -28,7 +39,11 @@
               </div>
               <div class="col-md-3">
                 <label for="sizes">Select Sizes</label>
-                <select id="colors" class="form-select form-control" aria-label="Default select example">
+                <select
+                  id="colors"
+                  class="form-select form-control"
+                  aria-label="Default select example"
+                >
                   <option value="1">S</option>
                   <option value="2">M</option>
                   <option value="3">XL</option>
@@ -36,19 +51,31 @@
               </div>
               <div class="col-md-3">
                 <label for="amount">Select Amounts</label>
-                <input type="number" [(ngModel)]="product.amount" name="amount" id="amount" class="form-control"  step="1" min="0" max="100" (input)="changeValue($event)"/>
+                <input
+                  type="number"
+                  name="amount"
+                  id="amount"
+                  class="form-control"
+                  step="1"
+                  min="0"
+                  max="100"
+                  (input)="changeValue($event)"
+                />
               </div>
             </div>
           </form>
 
           <div class="action mt-3">
-            <button class="btn btn-success" type="button" (click)="addItem()">add to cart</button>
+            <button class="btn btn-success" type="button" (click)="addItem()">
+              add to cart
+            </button>
 
             <span class="favorite" (click)="isFavorite = !isFavorite">
               <span *ngIf="isFavorite"><fa-icon icon="heart"></fa-icon></span>
-              <span *ngIf="!isFavorite"><fa-icon icon="heart-broken"></fa-icon></span>
+              <span *ngIf="!isFavorite"
+                ><fa-icon icon="heart-broken"></fa-icon
+              ></span>
             </span>
-
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faHeart, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/cart.service';
+import { Router } from '@angular/router';
+import { parse } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-product-details',
@@ -13,31 +15,26 @@ export class ProductDetailsComponent implements OnInit {
 
   isFavorite = false;
   product: any;
-  constructor(library: FaIconLibrary, private productService: ProductsService, private cartService: CartService) {
+  constructor(library: FaIconLibrary, private productService: ProductsService, private cartService: CartService, private router: Router) {
     library.addIcons(faHeart, faHeartBroken);
+    if (!this.productService.selectProduct) {
+      this.router.navigate(['/home']);
+    }
     this.product = this.productService.selectProduct;
-    console.log(this.product);
+    if (!('amount' in this.product)) {
+      this.product.amount = 1
+    }
   }
-  
+
   addItem() {
     console.log('Button Clicked')
-    if (!this.productService.selectProduct.amount) {
-      this.productService.selectProduct.amount = 0;
-      console.log(this.productService.selectProduct);
-      this.cartService.cartItem$.next(this.productService.selectProduct);
-    }
-    this.productService.selectProduct.amount++;
+    this.cartService.addToCart(this.product)
   }
-
   changeValue(event: any) {
-    console.log('changeValue')
-    if (event.target.value == 0) 
-      return this.cartService.removeFromCart(this.product)
-    
-    this.cartService.addToCart(this.product);
-  
+    let amount = event.target.value
+    this.product.amount = parseInt(amount)
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
 }

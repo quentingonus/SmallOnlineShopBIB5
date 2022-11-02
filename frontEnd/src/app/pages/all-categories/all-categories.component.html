@@ -1,11 +1,10 @@
 <div class="container">
-  <div class="row" *ngFor="let category of getKeyArr(shopItems)">
+  <div class="row col-12" *ngFor="let category of getKeyArr(shopItems)">
     <h3 class="text-left mt-5">{{ category }}</h3>
-    <div class="d-flex justify-content-center align-items-center flex-wrap">
-      <app-item-card
-        *ngFor="let shopItem of shopItems[category]"
-        [cardItem]="shopItem"
-      ></app-item-card>
-    </div>
+    <app-item-card
+      class="col-3 mb-3"
+      *ngFor="let shopItem of shopItems[category]"
+      [cardItem]="shopItem"
+    ></app-item-card>
   </div>
 </div>
