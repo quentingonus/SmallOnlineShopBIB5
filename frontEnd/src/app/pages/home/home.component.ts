@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProductsService } from './../../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -53,12 +54,18 @@ export class HomeComponent implements OnInit {
     ]
   };
 
-  constructor(library: FaIconLibrary, config: NgbCarouselConfig, productService: ProductsService, private cartService: CartService) {
-    library.addIcons(faPlus, faMinus);
-    config.interval = 3000;
-    config.keyboard = true;
-    config.pauseOnHover = true;
-    config.showNavigationArrows = true;
+  constructor(
+    library: FaIconLibrary,
+    config: NgbCarouselConfig,
+    private productService: ProductsService,
+    private cartService: CartService,
+    private router: Router
+  ) {
+        library.addIcons(faPlus, faMinus);
+        config.interval = 3000;
+        config.keyboard = true;
+        config.pauseOnHover = true;
+        config.showNavigationArrows = true;
 
     this.products = productService.products;
     this.categories = productService.categories;

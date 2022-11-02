@@ -73,7 +73,7 @@
     <h3 class="popular-ttl">Popular Products</h3>
     <div class="row g-4 row-cols-lg-4 row-cols-2 row-cols-md-3">
       <div class="col-12" *ngFor="let product of products">
-        <div class="card popular-card mb-3 mb-lg-0">
+        <!--<div class="card popular-card mb-3 mb-lg-0">
           <img class="card-img-top item-img" [src]="product.imageUrl" alt="Card image cap">
           <div class="card-body">
             <small class="text-small mb-1 text-muted">{{ product.category }}</small>
@@ -91,7 +91,10 @@
               </span>
             </div>
           </div>
-        </div>
+        </div>-->
+        <app-item-card
+        [cardItem]="product"
+        ></app-item-card>
       </div>
     </div>
   </section>
