@@ -121,7 +121,9 @@ export class CartService {
       this.cartItem[newIndex].amount++;
     }
     else {
-      newItem.amount = 1
+      if (!("amount" in newItem)) {
+        newItem.amount = 1
+      }
       this.cartItem.push(newItem)
     }
     this.cartItem$.next(this.cartItem)
