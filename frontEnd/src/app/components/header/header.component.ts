@@ -7,11 +7,13 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
 
   cartItem!: any;
 
   constructor(private offcanvasService: NgbOffcanvas, private cart: CartService) { }
+
 
   open(content: any) {
     this.offcanvasService.open(content, { ariaLabelledBy: 'cart-details', position: 'end' });
