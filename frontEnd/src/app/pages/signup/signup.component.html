@@ -2,26 +2,26 @@
   <h3>Sign Up Account</h3>
   <div class="form-group">
     <label for="uname">First name</label>
-    <input type="text" name="uname" class="form-control" [(ngModel)]="username">
+    <input type="text" name="uname" class="form-control" [(ngModel)]="signupObj.fname">
   </div>
   <div class="form-group">
     <label for="uname">Last name</label>
-    <input type="text" name="uname" class="form-control" [(ngModel)]="username">
+    <input type="text" name="uname" class="form-control" [(ngModel)]="signupObj.lname">
   </div>
   <div class="form-group">
     <label for="uname">Email</label>
-    <input type="email" name="uname" class="form-control" [(ngModel)]="username">
+    <input type="email" name="uname" class="form-control" [(ngModel)]="signupObj.email">
   </div>
   <div class="form-group">
     <label for="uname">Username</label>
-    <input type="text" name="uname" class="form-control" [(ngModel)]="username">
+    <input type="text" name="uname" class="form-control" [(ngModel)]="signupObj.username">
   </div>
   <div class="form-group">
     <label for="pword">Password</label>
-    <input type="password" name="pword" class="form-control" [(ngModel)]="password">
+    <input type="password" name="pword" class="form-control" [(ngModel)]="signupObj.password">
   </div>
   <div class="btn-container">
-    <button class="btn btn-dark">Sign Up</button>
+    <button class="btn btn-dark" (click)="register()">Sign Up</button>
     <div class="text-center pt-4 text-muted">Alerady have account? <a (click)="login()">Login</a></div>
   </div>
 </div>

@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
     }
   }
   
+  forget() {
+    this.router.navigate(['forget']);
+  }
+
   signup() {
     this.router.navigate(['signup']);
   }

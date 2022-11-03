@@ -15,6 +15,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
+import { ResetComponent } from './pages/reset/reset.component';
+import { HttpClientModule } from '@angular/common/http';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 
@@ -30,6 +33,8 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
     ProductDetailsComponent,
     SignupComponent,
     AdminDashboardComponent,
+    ForgetpasswordComponent,
+    ResetComponent
     AddProductComponent,
     EditProductComponent
   ],
@@ -41,6 +46,7 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
     ReactiveFormsModule,
     FontAwesomeModule,
     SlickCarouselModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
