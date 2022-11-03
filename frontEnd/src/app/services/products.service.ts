@@ -10,7 +10,6 @@ export class ProductsService {
   products: any;
   constructor(private cartService: CartService) {
     this.products = this.cartService.shopItems;
-    //this.getCategoryType();
 
     this.category = this.cartService.getKeyArr(this.cartService.modifyCategory(this.cartService.shopItems));
     console.log(this.categories);
@@ -111,26 +110,6 @@ export class ProductsService {
     },
   ];
 
-  //getCategoryType() {
-  //  this.products.map((value:any) => {
-  //    if (!this.category.includes(value.category))
-  //      this.category.push(value.category);
-  //  })
-  //}
-
-//  modifyCategory(shopItem: any) {
-//    let newArr: any = {};
-//    shopItem.map((item: any) => {
-//      newArr[item.category] = item.category in newArr ? newArr[item.category] : []
-//      newArr[item.category].push(item)
-//    })
-//    return newArr
-//  }
-//
-//  getKeyArr(obj: any) {
-//    return Object.keys(obj)
-//  }
-
   addProduct(product: any) {
     let id = this.products.length;
     let newProduct = { id: ++id, ...product };
@@ -147,10 +126,10 @@ export class ProductsService {
     this.products.splice(index, 1, newProduct);
   }
 
-  deleteData(student: any) {
-    let index = this.products.indexOf(student);
+  deleteData(product: any) {
+    let index = this.products.indexOf(product);
     this.products.splice(index, 1);
-    console.log(student);
+    console.log(product);
   }
 }
 
