@@ -14,7 +14,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'products/detail', component: ProductDetailsComponent },
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   //{ path: 'forget', component: ForgetpasswordComponent },
   //{ path: 'reset', component: ResetComponent},
-  { path: '**', component: LoginComponent }
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
