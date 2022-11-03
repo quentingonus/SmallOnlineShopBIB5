@@ -1,9 +1,26 @@
 .footer a{
   cursor: pointer;
   color: rgb(107, 107, 107);
+  text-decoration: none;
 }
 
 .footer a:hover,
 .contact-icons a:hover{
+  color: #fff;
+}
+
+.subscribe-input{
+  position: relative;
+}
+
+.subscribe-input i{
+  color: rgb(107, 107, 107);
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-50%, 20%);
+}
+.subscribe-input i:hover{
   color: #fff;
 }

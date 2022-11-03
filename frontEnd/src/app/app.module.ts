@@ -20,6 +20,7 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { HttpClientModule } from '@angular/common/http';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
     SignupComponent,
     AdminDashboardComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
