@@ -3,7 +3,7 @@
     class="card-img-top item-img"
     [src]="cardItem.imageUrl"
     alt="Card image cap"
-    (click) = "showDetail()"
+    (click)="showDetail()"
   />
   <div class="card-body">
     <small class="text-small mb-1 text-muted">{{ cardItem.category }}</small>
@@ -18,11 +18,16 @@
     >
       Add to cart
     </button>
-    <div class="btn-click" *ngIf="getAmount(cardItem) > 0">
+    <div
+      class="btn-click d-flex justify-content-center align-items-center"
+      *ngIf="getAmount(cardItem) > 0"
+    >
       <span class="btn btn-outline-success" (click)="removeItem(cardItem)">
         <fa-icon icon="minus"></fa-icon>
       </span>
-      <span class="quantity"> {{ this.getAmount(cardItem) }} </span>
+      <span class="quantity mx-3 px-3 h5">
+        {{ this.getAmount(cardItem) }}
+      </span>
       <span class="btn btn-outline-success" (click)="addItem(cardItem)">
         <fa-icon icon="plus"></fa-icon>
       </span>
