@@ -12,6 +12,8 @@ export class HeaderComponent implements OnInit {
 
   cartItem!: any;
 
+  burgurMenu = false;
+
   constructor(private offcanvasService: NgbOffcanvas, private cart: CartService) { }
 
 
@@ -45,17 +47,29 @@ export class HeaderComponent implements OnInit {
     this.cart.removeFromCart(item)
   }
 
-  changeValue(event: any, item: any) {
-    console.log("Change Value")
-    let amount = event.target.value;
-    if (parseInt(amount) < 0) {
+  openBurgurMenu(content: any) {
+    this.burgurMenu = !this.burgurMenu
+    this.offcanvasService.open(content, { position: 'end' }).result.then(
+      (result) => {
+        this.burgurMenu = !this.burgurMenu
+      },
+      (reason) => {
+        this.burgurMenu = !this.burgurMenu
+      },
+    );
+  }
+
+  addItem(product: any) {
+    return product.amount ? product.amount++ : 1;
+  }
+
+  reduceItem(product: any) {
+    if (product.amount < 0) {
       return
     }
-    if (parseInt(amount) == 0) {
-      this.removeFromCart(item)
-    }
-    else {
-      item.amount = parseInt(amount)
+    product.amount--
+    if (product.amount == 0) {
+      this.cart.removeFromCart(product)
     }
   }
 
