@@ -15,8 +15,8 @@
             sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus
             posuere.
           </p>
-          <p><strong>Name </strong> {{ product.title }}</p>
-          <p><strong>Category</strong> {{ product.category }}</p>
+          <p><strong>Name: </strong> {{ product.title }}</p>
+          <p><strong>Category: </strong> {{ product.category }}</p>
           <p class="price">{{ product.price | currency: "USD" }}</p>
           <form>
             <div class="form-group row mt-2">
@@ -48,7 +48,7 @@
             </div>
           </form>
 
-          <div class="action mt-3">
+          <div class="action mt-4">
             <button class="btn btn-success" type="button" (click)="addItem()">
               add to cart
             </button>
