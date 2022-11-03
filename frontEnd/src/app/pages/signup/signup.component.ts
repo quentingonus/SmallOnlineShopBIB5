@@ -7,12 +7,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  username = "";
-  password = "";
+  signupUsers : any = [];
+  signupObj : any = {
+    fname: '',
+    lname: '',
+    email: '',
+    username: '',
+    pasword: '',
+  }
+ 
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    const localData = localStorage.getItem('signUpUsers');
+    if (localData != null) {
+      this.signupUsers = JSON.parse(localData);
+    }
+  }
+
+  register() {
+    this.signupUsers.push(this.signupObj);
+    localStorage.setItem('signUpUsers', JSON.stringify(this.signupUsers));
+    this.signupObj = {
+      fname: '',
+      lname: '',
+      email: '',
+      username: '',
+      pasword: '',
+    }
   }
 
   login() {
