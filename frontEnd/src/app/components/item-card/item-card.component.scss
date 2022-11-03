@@ -1,15 +1,12 @@
-//.card{
-//  width: 18rem;
-//}
+.card:hover {
+  box-shadow: 1px 1px 10px 1px #198754;
+  border: 1px solid#198754;
+}
 
 .card {
   border: 1px solid rgba(204, 204, 204, .8);
   transition: .3s;
   overflow: hidden;
-}
-
-.card:hover {
-  border: 1px solid#198754;
 }
 
 .card-img-top {

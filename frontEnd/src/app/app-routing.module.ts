@@ -9,21 +9,21 @@ import { AllCategoriesComponent } from './pages/all-categories/all-categories.co
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
-import { ResetComponent } from './pages/reset/reset.component';
+//import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
+//import { ResetComponent } from './pages/reset/reset.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'products/detail', component: ProductDetailsComponent},
-  { path: 'admin/edit-product', component: EditProductComponent},
-  { path: 'admin/add-product', component: AddProductComponent},
-  { path: 'admin', component: AdminDashboardComponent},
+  { path: 'products/detail', component: ProductDetailsComponent },
+  { path: 'admin/edit-product', component: EditProductComponent },
+  { path: 'admin/add-product', component: AddProductComponent },
+  { path: 'admin', component: AdminDashboardComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'forget', component: ForgetpasswordComponent },
-  { path: 'reset', component: ResetComponent},
+  //{ path: 'forget', component: ForgetpasswordComponent },
+  //{ path: 'reset', component: ResetComponent},
   { path: '**', component: LoginComponent }
 ];
 

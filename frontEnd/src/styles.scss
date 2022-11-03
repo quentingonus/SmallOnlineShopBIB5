@@ -9,7 +9,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  margin: 20px;
 }
 
 .slick-track {
@@ -49,8 +48,4 @@ body {
 
 .slick-dots li.slick-active button:before {
   color: #198754;
-}
-
-.card:hover {
-  box-shadow: 1px 1px 10px 1px #198754;
 }
