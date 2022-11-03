@@ -14,6 +14,29 @@ export class HeaderComponent implements OnInit {
 
   burgurMenu = false;
 
+  navItems = [
+    {
+      name: "Home",
+      route: "/"
+    },
+    {
+      name: "Categories",
+      route: "/categories"
+    },
+    {
+      name: "Login",
+      route: "/login"
+    },
+    {
+      name: "Admin",
+      route: "/admin"
+    },
+    {
+      name: "Contact",
+      route: "/contact"
+    }
+  ]
+
   constructor(private offcanvasService: NgbOffcanvas, private cart: CartService) { }
 
 
