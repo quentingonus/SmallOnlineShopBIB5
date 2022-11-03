@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="card">
+  <div class="card border-0 my-5">
     <div class="container-fliud">
       <div class="wrapper row">
-        <div class="col-md-6">
-          <img [src]="product.imageUrl" width="100%" />
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+          <img [src]="product.imageUrl" width="60%" />
         </div>
 
         <div class="details col-md-6 p-3">
@@ -18,13 +18,8 @@
           <p><strong>Name </strong> {{ product.title }}</p>
           <p><strong>Category</strong> {{ product.category }}</p>
           <p class="price">{{ product.price | currency: "USD" }}</p>
-          <p class="vote">
-            <strong>91%</strong> of buyers enjoyed this product!
-            <strong>(87 votes)</strong>
-          </p>
-
           <form>
-            <div class="form-group row mt-5">
+            <div class="form-group row mt-2">
               <div class="col-md-3">
                 <label for="colors">Select Colors</label>
                 <select
@@ -35,18 +30,6 @@
                   <option value="1">White</option>
                   <option value="2">Black</option>
                   <option value="3">Yellow</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                <label for="sizes">Select Sizes</label>
-                <select
-                  id="colors"
-                  class="form-select form-control"
-                  aria-label="Default select example"
-                >
-                  <option value="1">S</option>
-                  <option value="2">M</option>
-                  <option value="3">XL</option>
                 </select>
               </div>
               <div class="col-md-3">
