@@ -1,24 +1,95 @@
-<div class="d-flex justify-content-between px-5 py-2">
-  <h1>
-    <a class="nav-link" routerLink="/">Everything Shop</a>
-  </h1>
-  <ul class="nav justify-content-end">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/home">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" routerLink="/categories">Categories</a>
-    </li>
-    <li class="nav-item">
-      <button class="btn btn-light" type="button" (click)="open(content)">
-        <i class="bi bi-cart-dash"></i>
-        <span *ngIf="cartItem" class="badge text-bg-secondary ms-2">{{
-          totalCartItem()
-        }}</span>
-      </button>
-    </li>
-  </ul>
+<div class="sticky-top bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between px-3 py-3">
+      <p class="h3 text-sm-h5">
+        <a class="nav-link text-success" routerLink="/">Everything Shop</a>
+      </p>
+      <div
+        class="d-sm-none d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
+      >
+        <div class="me-3" (click)="open(content)">
+          <i
+            class="bi h3"
+            [class]="
+              cartItem && cartItem.length ? 'bi-cart-check' : 'bi-cart-dash'
+            "
+          ></i>
+        </div>
+        <div (click)="openBurgurMenu(burgur)">
+          <i class="bi h3" [class]="burgurMenu ? 'bi-x-lg' : 'bi-list'"></i>
+        </div>
+      </div>
+      <ul class="nav justify-content-end d-none d-sm-flex">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/categories">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-light" type="button" (click)="open(content)">
+            <i
+              class="bi h5"
+              [class]="
+                cartItem && cartItem.length ? 'bi-cart-check' : 'bi-cart-dash'
+              "
+            ></i>
+            <span
+              *ngIf="cartItem && cartItem.length"
+              class="badge text-bg-secondary ms-2"
+              >{{ totalCartItem() }}</span
+            >
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+
+<ng-template #burgur let-offcanvas>
+  <div class="container">
+    <div class="offcanvas-header">
+      <h4 class="offcanvas-title" id="offcanvas-basic-title"></h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="offcanvas.dismiss()"
+      ></button>
+    </div>
+    <ul class="nav flex-column fs-2">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home" (click)="offcanvas.dismiss()"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/categories"
+          (click)="offcanvas.dismiss()"
+          >Categories</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" (click)="offcanvas.dismiss()"
+          >Login</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" (click)="offcanvas.dismiss()"
+          >Contact Us</a
+        >
+      </li>
+    </ul>
+  </div>
+</ng-template>
 
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
@@ -30,7 +101,7 @@
       (click)="offcanvas.dismiss()"
     ></button>
   </div>
-  <div class="offcanvas-body" *ngIf="cartItem">
+  <div class="offcanvas-body pt-0" *ngIf="cartItem && cartItem.length">
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngFor="let citem of cartItem">
         <div class="d-flex">
@@ -38,38 +109,50 @@
             <img [src]="citem.imageUrl" [alt]="citem.name" />
           </div>
           <div>
-            <p>{{ citem.title }}</p>
-            <p>Price: {{ citem.price | currency }}</p>
-            <p class="d-flex justify-content-center align-items-center">
-              Amount:
-              <input
-                type="number"
-                class="form-control form-control-sm ms-3 cartItemValue"
-                min="0"
-                max="100"
-                step="1"
-                (input)="changeValue($event, citem)"
-                [value]="citem.amount"
-              />
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              (click)="removeFromCart(citem)"
+            <div class="mb-3">
+              <p class="mb-0">
+                <strong>{{ citem.title }}</strong>
+              </p>
+              <small class="text-muted fw-light font-monospace">
+                {{ citem.price | currency }}
+              </small>
+            </div>
+            <div
+              class="btn-click d-flex justify-content-center align-items-center"
+              *ngIf="totalCartItem() > 0"
             >
-              Remove
-            </button>
+              <span class="h3 btn btn-light btn-sm" (click)="reduceItem(citem)">
+                <i class="bi bi-dash"></i>
+              </span>
+              <small class="quantity mx-2 px-1 h6">
+                {{ citem.amount }}
+              </small>
+              <span class="h3 btn btn-light btn-sm" (click)="addItem(citem)">
+                <i class="bi bi-plus"></i>
+              </span>
+            </div>
           </div>
         </div>
       </li>
     </ul>
   </div>
-  <div class="offcanvas-body" *ngIf="!cartItem">
-    <h2 class="text-center">Opps! No item yet.</h2>
+  <div
+    class="offcanvas-body d-flex flex-column justify-content-center align-items-center"
+    *ngIf="!cartItem || !cartItem.length"
+  >
+    <p class="text-center fs-3">Opps!</p>
+    <p class="text-center fs-5 text-muted">There is no item in your cart</p>
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Bil23yHFVzseITQ14PeXhz6p8nia6OzjUQ&usqp=CAU"
+      alt="No Item In Cart"
+    />
   </div>
-  <div class="offcanvas-footer p-3" *ngIf="cartItem">
+  <div class="offcanvas-footer p-3" *ngIf="cartItem && cartItem.length">
     <div class="my-3 mb-5">
-      <h4>Total: {{ totalAmount() | currency }}</h4>
+      <h4>
+        Total:
+        <span class="font-monospace">{{ totalAmount() | currency }}</span>
+      </h4>
     </div>
     <div class="d-grid checkout-btn">
       <button

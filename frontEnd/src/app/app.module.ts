@@ -18,7 +18,8 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     AdminDashboardComponent,
     ForgetpasswordComponent,
     ResetComponent
+    AddProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,

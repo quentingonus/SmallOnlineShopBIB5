@@ -14,7 +14,7 @@ export class CartService {
     {
       id: 1,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7,
       amount: 0
@@ -23,7 +23,7 @@ export class CartService {
     {
       id: 2,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7,
       amount: 0
@@ -32,7 +32,7 @@ export class CartService {
     {
       id: 3,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7,
       amount: 0
@@ -41,7 +41,7 @@ export class CartService {
     {
       id: 4,
       category: 'shoes',
-      imageUrl: 'https://media.istockphoto.com/photos/sneakers-with-clipping-path-picture-id175537625?b=1&k=20&m=175537625&s=170667a&w=0&h=3ayXmgvGE3zsRn2v4jJffLzyk3iyDsyqbTlrSVJxmu4=',
+      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
       title: 'Shoe',
       price: 7,
       amount: 0
@@ -172,6 +172,19 @@ export class CartService {
       this.shopItems[shopIndex].amount = 0
     }
     this.cartItem$.next(this.cartItem)
+  }
+
+  modifyCategory(shopItem: any) {
+    let newArr: any = {};
+    shopItem.map((item: any) => {
+      newArr[item.category] = item.category in newArr ? newArr[item.category] : []
+      newArr[item.category].push(item)
+    })
+    return newArr
+  }
+
+  getKeyArr(obj: any) {
+    return Object.keys(obj)
   }
 
   constructor() {

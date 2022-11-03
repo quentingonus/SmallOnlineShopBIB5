@@ -1,3 +1,5 @@
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { Component, NgModule } from '@angular/core';
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'products/detail', component: ProductDetailsComponent},
+  { path: 'admin/edit-product', component: EditProductComponent},
+  { path: 'admin/add-product', component: AddProductComponent},
   { path: 'admin', component: AdminDashboardComponent},
   { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgetpasswordComponent },
