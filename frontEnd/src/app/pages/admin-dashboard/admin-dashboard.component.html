@@ -1,3 +1,6 @@
+
+<h3>Products in Shop</h3>
+<a routerLink="/admin/add-product" class="btn btn-primary">Add Product</a>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -5,6 +8,7 @@
 			<th scope="col">Title</th>
 			<th scope="col">Price</th>
 			<th scope="col">Category</th>
+			<th scope="col">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,12 +18,16 @@
 				<img
 					[src]="product.imageUrl"
 					class="me-2"
-					style="width: 40px"
+					style="width: 50px; height: 50px; border-radius: 50%"
 				/>
 				{{ product.title }}
 			</td>
 			<td>{{ product.price | currency:'USD' }}</td>
 			<td>{{ product.category }}</td>
+			<td>
+				<button type="button" class="btn btn-link" (click)="editProduct(product)">Edit</button>
+				<button type="button" class="btn btn-link" (click)="deleteProduct(product)">Delete</button>
+			</td>
 		</tr>
 	</tbody>
 </table>

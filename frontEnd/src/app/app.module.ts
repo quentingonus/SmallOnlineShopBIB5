@@ -15,6 +15,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
     AllCategoriesComponent,
     ProductDetailsComponent,
     SignupComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AddProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,

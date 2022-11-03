@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row col-12" *ngFor="let category of getKeyArr(shopItems)">
+  <div class="row col-12" *ngFor="let category of cart.getKeyArr(shopItems)">
     <h3 class="text-left mt-5">{{ category }}</h3>
     <app-item-card
       class="col-3 mb-3"
