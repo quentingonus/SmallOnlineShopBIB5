@@ -49,12 +49,13 @@ export class AdminDashboardComponent implements OnInit {
   filteredProducts!: Product[];
   constructor(private productService: ProductsService, private router: Router) {
     this.products = productService.products;
-   
+
   }
 
 
   deleteProduct(product: any) {
     this.productService.deleteData(product);
+    this.products = this.productService.products;
   }
 
   editProduct(product: any) {
@@ -63,12 +64,12 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onSort({ column, direction }: SortEvent) {
-		
-		this.headers.forEach((header) => {
-			if (header.sortable !== column) {
-				header.direction = '';
-			}
-		});
+
+    this.headers.forEach((header) => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
 
     if (!this.filteredProducts) {
       if (direction === '' || column === '') {
@@ -78,7 +79,7 @@ export class AdminDashboardComponent implements OnInit {
           const res = compare(a[column], b[column]);
           return direction === 'asc' ? res : -res;
         });
-      }  
+      }
     } else {
       if (direction === '' || column === '') {
         this.filteredProducts = this.filteredProducts;
@@ -89,11 +90,11 @@ export class AdminDashboardComponent implements OnInit {
         });
       }
     }
-		
-	}
+
+  }
 
   filter(query: any) {
-    this.filteredProducts = (query.trim()) ? 
+    this.filteredProducts = (query.trim()) ?
       this.products.filter(product => {
         let price = product.price;
         return (
