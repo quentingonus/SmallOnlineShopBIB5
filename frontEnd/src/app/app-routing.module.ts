@@ -10,8 +10,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
-//import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
-//import { ResetComponent } from './pages/reset/reset.component';
+import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
+import { ResetComponent } from './pages/reset/reset.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
@@ -24,8 +24,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
-  //{ path: 'forget', component: ForgetpasswordComponent },
-  //{ path: 'reset', component: ResetComponent},
+  { path: 'forget', component: ForgetpasswordComponent },
+  { path: 'reset', component: ResetComponent },
   { path: '**', component: HomeComponent }
 ];
 
