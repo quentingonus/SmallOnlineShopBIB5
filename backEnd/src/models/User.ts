@@ -34,6 +34,21 @@ const userSchema = new Schema({
     enum: ['Admin', 'User'],
     default: 'User'
   },
+  created_user_id: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
+  },
+  updated_user_id: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
+  },
+  deleted_user_id: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
+  },
+  deleted_at: {
+    type: Date
+  },
 }, {
   timestamps: true
 }
