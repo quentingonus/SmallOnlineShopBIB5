@@ -1,4 +1,4 @@
-import express ,{ Request } from 'express';
+import express, { Request } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -6,6 +6,7 @@ import multer, { FileFilterCallback } from 'multer';
 import path from "path";
 import { rootDir } from "./utils";
 import { v4 } from 'uuid';
+import cors from 'cors';
 
 import product_route from "./routes/product_route";
 import purchase_route from "./routes/purchase_route";
@@ -39,8 +40,9 @@ const fileFilter = (_req: Request, file: any, cb: FileFilterCallback) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
-app.use(multer({storage: fileStorage , fileFilter}).single('profileImage'));
+app.use(multer({ storage: fileStorage, fileFilter }).single('profileImage'));
 app.use("/apiuploads", express.static(path.join(rootDir, "apiuploads")));
 
 mongoose

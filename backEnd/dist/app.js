@@ -11,6 +11,7 @@ const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const utils_1 = require("./utils");
 const uuid_1 = require("uuid");
+const cors_1 = __importDefault(require("cors"));
 const product_route_1 = __importDefault(require("./routes/product_route"));
 const purchase_route_1 = __importDefault(require("./routes/purchase_route"));
 const user_route_1 = __importDefault(require("./routes/user_route"));
@@ -38,6 +39,7 @@ const fileFilter = (_req, file, cb) => {
 };
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
+app.use((0, cors_1.default)());
 app.use((0, multer_1.default)({ storage: fileStorage, fileFilter }).single('profileImage'));
 app.use("/apiuploads", express_1.default.static(path_1.default.join(utils_1.rootDir, "apiuploads")));
 mongoose_1.default

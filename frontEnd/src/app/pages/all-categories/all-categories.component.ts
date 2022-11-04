@@ -12,8 +12,9 @@ export class AllCategoriesComponent implements OnInit {
 
   constructor(public cart: CartService) { }
 
-  ngOnInit(): void {
-    this.shopItems = this.cart.modifyCategory(this.cart.getShop());
+  async ngOnInit() {
+    let shopItem = await this.cart.getShop();
+    this.shopItems = this.cart.modifyCategory(shopItem);
     this.cart.getKeyArr(this.shopItems);
   }
 
