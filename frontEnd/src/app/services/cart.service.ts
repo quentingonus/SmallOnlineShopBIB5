@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
 
+export interface Product {
+  id: number,
+  category: string,
+  imageUrl: string,
+  title: string,
+  price: number,
+  amount: number
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +19,7 @@ export class CartService {
 
   public cartItem$ = new Subject<any>();
 
-  public shopItems = [
+  public shopItems: Product[] = [
     {
       id: 1,
       category: 'shoes',
