@@ -45,7 +45,7 @@
           <label for="category">Product Category</label>
           <select
             class="form-control mr-sm-2"
-            id="inlineFormCustomSelect"
+            id="category"
             formControlName="category"
             *ngIf="!addNewCategory"
             (change)="watchCategory($event)"
@@ -57,7 +57,7 @@
           <input
             type="text"
             class="form-control"
-            id="name"
+            id="category"
             *ngIf="addNewCategory"
             formControlName="category"
           />
