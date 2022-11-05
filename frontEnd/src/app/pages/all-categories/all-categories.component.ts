@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-all-categories',
@@ -10,11 +11,12 @@ export class AllCategoriesComponent implements OnInit {
 
   shopItems!: any;
 
-  constructor(public cart: CartService) { }
+  constructor(private cart: CartService, public util: UtilsService) { }
 
-  ngOnInit(): void {
-    this.shopItems = this.cart.modifyCategory(this.cart.getShop());
-    this.cart.getKeyArr(this.shopItems);
+  async ngOnInit() {
+    let shopItem = await this.cart.getShop();
+    this.shopItems = this.util.modifyCategory(shopItem);
+    this.util.getKeyArr(this.shopItems);
   }
 
 }
