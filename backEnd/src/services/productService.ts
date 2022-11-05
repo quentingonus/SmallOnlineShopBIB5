@@ -22,7 +22,7 @@ export const createproductServices = async (req :any, res:Response) => {
     const productData = {
       created_user_id: req.body.created_user_id,
       profile: profile,
-      name: req.body.name,
+      title: req.body.title,
       price: req.body.price,
     }
     
@@ -62,7 +62,7 @@ export const updateproductServices = async (req :any, res:Response) => {
     }
   }
     const product:any = await products.findById(req.params.id)
-    product.name = req.body.name;
+    product.title = req.body.title;
     product.price = req.body.price;
     const result = await product.save();
     res.json({ message: "Updated Successfully!", data: result })

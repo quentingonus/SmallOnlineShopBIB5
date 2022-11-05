@@ -9,7 +9,7 @@ const productSchema = new Schema({
     type : String,
     required: true
   },
-  titlee : {
+  title : {
     type: String,
     required: true
   },
