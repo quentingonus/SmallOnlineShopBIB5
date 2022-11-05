@@ -1,25 +1,25 @@
 import { Schema, model } from "mongoose";
 
 const productSchema = new Schema({
-  created_user_id:{
+  created_user_id: {
     type: Schema.Types.ObjectId,
-    ref :"user",
+    ref: "user",
   },
-  profile : {
-    type : String,
-    required: true
-  },
-  titlee : {
+  profile: {
     type: String,
     required: true
   },
-  price : {
-    type : Number,
+  title: {
+    type: String,
     required: true
   },
-  created_category_id : {
+  price: {
+    type: Number,
+    required: true
+  },
+  created_category_id: {
     type: Schema.Types.ObjectId,
-    ref :"category",
+    ref: "category",
   }
 }, {
   timestamps: true

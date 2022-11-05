@@ -10,7 +10,7 @@ const productSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    titlee: {
+    title: {
         type: String,
         required: true
     },

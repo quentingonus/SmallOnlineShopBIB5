@@ -19,11 +19,11 @@ export class CartService {
     return tmp.data.map((item: any) => {
       return {
         id: item._id,
-        title: item.name,
+        title: item.title,
         imageUrl: environment.apiUrl + "/" + item.profile,
         price: item.price,
         amount: 0,
-        category: 'shoes',
+        category: 'shoe',
       }
     })
   }
@@ -79,23 +79,6 @@ export class CartService {
       shopItem[shopIndex].amount = 0
     }
     this.cartItem$.next(this.cartItem)
-  }
-
-  modifyCategory(shopItem: any) {
-    let newArr: any = {};
-    shopItem.map((item: any) => {
-      newArr[item.category] = item.category in newArr ? newArr[item.category] : []
-      newArr[item.category].push(item)
-    })
-    return newArr
-  }
-
-  getKeyArr(obj: any) {
-    try {
-      return Object.keys(obj)
-    } catch (e) {
-      return []
-    }
   }
 
   constructor(private postService: PostService) {
