@@ -7,7 +7,7 @@
       <div
         class="d-sm-none d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
       >
-        <div class="me-3" (click)="open(content)">
+        <div class="me-3" (click)="openCart(content)">
           <i
             class="bi h3"
             [class]="
@@ -26,7 +26,11 @@
           }}</a>
         </li>
         <li class="nav-item">
-          <button class="btn btn-light" type="button" (click)="open(content)">
+          <button
+            class="btn btn-light"
+            type="button"
+            (click)="openCart(content)"
+          >
             <i
               class="bi h5"
               [class]="

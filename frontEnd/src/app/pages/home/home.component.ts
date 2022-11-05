@@ -5,6 +5,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/services/cart.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -59,7 +60,8 @@ export class HomeComponent implements OnInit {
     config: NgbCarouselConfig,
     private productService: ProductsService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private util: UtilsService
   ) {
     library.addIcons(faPlus, faMinus);
     config.interval = 3000;
@@ -73,13 +75,16 @@ export class HomeComponent implements OnInit {
 
   async getData() {
     this.products = await this.cartService.getShop();
-    this.categories = this.cartService.getKeyArr(this.cartService.modifyCategory(this.products))
+    this.categories = this.util.getKeyArr(this.util.modifyCategory(this.products))
+
+    // Temporary adding static data
     this.categories = this.categories.map((item: any) => {
       return {
         title: item,
         imageUrl: "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg",
       }
     })
+
     console.log(this.categories)
   }
 
