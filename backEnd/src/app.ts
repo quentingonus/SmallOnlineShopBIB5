@@ -1,5 +1,5 @@
-import express ,{ Request } from 'express';
-import dotenv from "dotenv";
+import express, { Request } from 'express';
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import multer, { FileFilterCallback } from 'multer';
@@ -46,8 +46,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-
-app.use(multer({storage: fileStorage , fileFilter}).single('profileImage'));
+app.use(multer({ storage: fileStorage, fileFilter }).single('profileImage'));
 app.use("/apiuploads", express.static(path.join(rootDir, "apiuploads")));
 app.use(passport.initialize());
 
