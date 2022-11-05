@@ -35,6 +35,21 @@ const userSchema = new mongoose_1.Schema({
         enum: ['Admin', 'User'],
         default: 'User'
     },
+    created_user_id: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    updated_user_id: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    deleted_user_id: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    deleted_at: {
+        type: Date
+    },
 }, {
     timestamps: true
 });

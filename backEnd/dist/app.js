@@ -9,6 +9,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
+const passport_1 = __importDefault(require("passport"));
 const utils_1 = require("./utils");
 const uuid_1 = require("uuid");
 const cors_1 = __importDefault(require("cors"));
@@ -16,6 +17,8 @@ const product_route_1 = __importDefault(require("./routes/product_route"));
 const purchase_route_1 = __importDefault(require("./routes/purchase_route"));
 const user_route_1 = __importDefault(require("./routes/user_route"));
 const cart_route_1 = __importDefault(require("./routes/cart_route"));
+const auth_route_1 = __importDefault(require("./routes/auth_route"));
+require("./config/passport");
 dotenv_1.default.config();
 const PORT = process.env.PORT;
 const app = (0, express_1.default)();
@@ -42,11 +45,13 @@ app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
 app.use((0, multer_1.default)({ storage: fileStorage, fileFilter }).single('profileImage'));
 app.use("/apiuploads", express_1.default.static(path_1.default.join(utils_1.rootDir, "apiuploads")));
+app.use(passport_1.default.initialize());
 mongoose_1.default
     .connect(process.env.DATABASE || "")
     .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    app.use('/users', user_route_1.default);
+    app.use('/users', passport_1.default.authenticate('jwt', { session: false }), user_route_1.default);
+    app.use('/auth', auth_route_1.default);
     app.use('/carts', cart_route_1.default);
     app.use('/product', product_route_1.default);
     app.use('/purchase', purchase_route_1.default);

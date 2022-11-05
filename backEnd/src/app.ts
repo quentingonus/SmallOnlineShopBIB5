@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import multer, { FileFilterCallback } from 'multer';
 import path from "path";
+import passport from 'passport';
 import { rootDir } from "./utils";
 import { v4 } from 'uuid';
 import cors from 'cors';
@@ -12,6 +13,9 @@ import product_route from "./routes/product_route";
 import purchase_route from "./routes/purchase_route";
 import user_route from "./routes/user_route";
 import cart_route from "./routes/cart_route";
+import auth_route from './routes/auth_route';
+
+require("./config/passport")
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -44,12 +48,14 @@ app.use(cors());
 
 app.use(multer({ storage: fileStorage, fileFilter }).single('profileImage'));
 app.use("/apiuploads", express.static(path.join(rootDir, "apiuploads")));
+app.use(passport.initialize());
 
 mongoose
   .connect(process.env.DATABASE || "")
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    app.use('/users', user_route);
+    app.use('/users',passport.authenticate('jwt', { session: false }), user_route);
+    app.use('/auth', auth_route);
     app.use('/carts', cart_route);
     app.use('/product', product_route);
     app.use('/purchase', purchase_route);

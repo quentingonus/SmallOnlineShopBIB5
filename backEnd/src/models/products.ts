@@ -9,13 +9,17 @@ const productSchema = new Schema({
     type : String,
     required: true
   },
-  name : {
+  titlee : {
     type: String,
     required: true
   },
   price : {
     type : Number,
     required: true
+  },
+  created_category_id : {
+    type: Schema.Types.ObjectId,
+    ref :"category",
   }
 }, {
   timestamps: true
