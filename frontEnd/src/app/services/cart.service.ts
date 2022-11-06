@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { PostService } from 'src/app/services/post.service';
+import { environment } from 'src/environments/environment';
 import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
 
 export interface Product {
@@ -10,6 +12,7 @@ export interface Product {
   price: number,
   amount: number
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,116 +22,20 @@ export class CartService {
 
   public cartItem$ = new Subject<any>();
 
-  public shopItems: Product[] = [
-    {
-      id: 1,
-      category: 'shoes',
-      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-      title: 'Shoe',
-      price: 7,
-      amount: 0
-    },
+  public shopItems: any = []
 
-    {
-      id: 2,
-      category: 'shoes',
-      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-      title: 'Shoe',
-      price: 7,
-      amount: 0
-    },
-
-    {
-      id: 3,
-      category: 'shoes',
-      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-      title: 'Shoe',
-      price: 7,
-      amount: 0
-    },
-
-    {
-      id: 4,
-      category: 'shoes',
-      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-      title: 'Shoe',
-      price: 7,
-      amount: 0
-    },
-    {
-      id: 5,
-      category: 'phones',
-      imageUrl: 'http://cdn.shopify.com/s/files/1/0482/6189/0203/products/dd2fb7e9-c955-47d5-b894-770ffb6c44c0.jpg?v=1666110800',
-      title: 'iPhone 14 Pro Max',
-      price: 1399,
-      amount: 0
-    },
-
-    {
-      id: 6,
-      category: 'phones',
-      imageUrl: 'http://cdn.shopify.com/s/files/1/0482/6189/0203/products/dd2fb7e9-c955-47d5-b894-770ffb6c44c0.jpg?v=1666110800',
-      title: 'Sony Xperia Z',
-      price: 599,
-      amount: 0
-    },
-
-    {
-      id: 7,
-      category: 'phones',
-      imageUrl: 'http://cdn.shopify.com/s/files/1/0482/6189/0203/products/dd2fb7e9-c955-47d5-b894-770ffb6c44c0.jpg?v=1666110800',
-      title: 'Mi Note 10',
-      price: 699,
-      amount: 0
-    },
-
-    {
-      id: 8,
-      category: 'phones',
-      imageUrl: 'http://cdn.shopify.com/s/files/1/0482/6189/0203/products/dd2fb7e9-c955-47d5-b894-770ffb6c44c0.jpg?v=1666110800',
-      title: 'Nokia',
-      price: 799,
-      amount: 0
-    },
-    {
-      id: 9,
-      category: 'washing-machine',
-      imageUrl: 'https://static.vecteezy.com/system/resources/previews/006/600/010/original/washing-machine-isolated-on-white-background-free-vector.jpg',
-      title: 'Washing Machine',
-      price: 1399,
-      amount: 0
-    },
-
-    {
-      id: 10,
-      category: 'washing-machine',
-      imageUrl: 'https://static.vecteezy.com/system/resources/previews/006/600/010/original/washing-machine-isolated-on-white-background-free-vector.jpg',
-      title: 'Washing Machine',
-      price: 599,
-      amount: 0
-    },
-
-    {
-      id: 11,
-      category: 'washing-machine',
-      imageUrl: 'https://static.vecteezy.com/system/resources/previews/006/600/010/original/washing-machine-isolated-on-white-background-free-vector.jpg',
-      title: 'Washing Machine',
-      price: 699,
-      amount: 0
-    },
-
-    {
-      id: 12,
-      category: 'washing-machine',
-      imageUrl: 'https://static.vecteezy.com/system/resources/previews/006/600/010/original/washing-machine-isolated-on-white-background-free-vector.jpg',
-      title: 'Washing Machine',
-      price: 799,
-      amount: 0
-    },
-  ]
-
-  getShop() {
-    return this.shopItems
+  async getShop() {
+    let tmp = await this.postService.getProducts()
+    return tmp.data.map((item: any) => {
+      return {
+        id: item._id,
+        title: item.title,
+        imageUrl: environment.apiUrl + "/" + item.profile,
+        price: item.price,
+        amount: 0,
+        category: 'shoe',
+      }
+    })
   }
 
   getCart(): Observable<any> {
@@ -170,32 +77,21 @@ export class CartService {
     this.cartItem$.next(this.cartItem)
   }
 
-  removeFromCart(item: any) {
+  async removeFromCart(item: any) {
     console.log("Remove Cart: " + item.title + " | id: " + item.id)
     const index = this.findById(item.id, this.cartItem);
+    const shopItem = await this.getShop()
     if (index > -1) {
       this.cartItem.splice(index, 1);
     }
-    const shopIndex = this.findById(item.id, this.shopItems);
+    const shopIndex = this.findById(item.id, shopItem);
     if (shopIndex > -1) {
-      this.shopItems[shopIndex].amount = 0
+      shopItem[shopIndex].amount = 0
     }
     this.cartItem$.next(this.cartItem)
   }
 
-  modifyCategory(shopItem: any) {
-    let newArr: any = {};
-    shopItem.map((item: any) => {
-      newArr[item.category] = item.category in newArr ? newArr[item.category] : []
-      newArr[item.category].push(item)
-    })
-    return newArr
-  }
+  constructor(private postService: PostService) {
 
-  getKeyArr(obj: any) {
-    return Object.keys(obj)
-  }
-
-  constructor() {
   }
 }

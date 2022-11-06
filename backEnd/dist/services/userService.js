@@ -40,14 +40,15 @@ const createUserService = (req, res) => __awaiter(void 0, void 0, void 0, functi
             address: req.body.address,
             phone: req.body.phone,
             dob: req.body.dob,
-            type: req.body.type
+            type: req.body.type,
+            created_user_id: req.body.created_user_id
         };
         const post = new User_1.default(userCreate);
         const result = yield post.save();
         res.status(200).json({ msg: "Created User Successfully!!", data: result, status: 1 });
     }
     catch (err) {
-        res.send("An Error occured");
+        res.send("An Error occured in create user");
         console.log(err);
     }
 });
@@ -81,27 +82,37 @@ const updateUserService = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
         user.name = req.body.name;
         user.email = req.body.email;
-        user.password = req.body.password;
         user.address = req.body.address;
         user.phone = req.body.phone;
         user.dob = req.body.dob;
         user.type = req.body.type;
+        user.created_user_id = req.body.created_user_id;
+        user.updated_user_id = req.body.updated_user_id;
         const result = yield user.save();
         res.json({ msg: "Image Updated Successfully", data: result });
     }
     catch (err) {
-        res.send("an error occured in editImage");
+        res.send("an error occured in Edit User");
         console.log(err);
     }
 });
 exports.updateUserService = updateUserService;
 const deleteUserService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield User_1.default.findById(req.params.id);
-        yield User_1.default.findByIdAndRemove(req.params.id);
-        res.json({ message: "User with id " + req.params.id + " removed." });
+        const user = yield User_1.default.findById(req.params.id);
+        if (!user) {
+            const error = new Error("Not Found !!");
+            error.statusCode = 404;
+            throw error;
+        }
+        user.deleted_at = new Date(); //testing and if error!,must be repair
+        const result = yield user.save(); //testing and if error!,must be repair
+        res.json({ msg: "Deleted User Successfully", data: result }); //testing and if error!,must be repair
+        // await User.findByIdAndRemove(req.params.id); 
+        // res.json({ message: "User with id " + req.params.id + " removed." })
     }
     catch (err) {
+        res.send("An Error Occured During Delete user");
         console.log(err);
     }
 });

@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { ProductsService } from './../../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-add-product',
@@ -14,39 +15,43 @@ export class AddProductComponent implements OnInit {
   id: any;
   category: any;
   isConfirm: boolean = false;
+  uploadFile!: any;
+  uploadFilePreview!: any;
+  addNewCategory: boolean = false;
 
-  constructor(private productService: ProductsService, private fb: FormBuilder, private router: Router) {
+  constructor(private productService: ProductsService, private fb: FormBuilder, private router: Router, private postService: PostService) {
     this.form = fb.group({
       title: ['', Validators.required],
       imageUrl: ['', Validators.required],
       price: ['', Validators.required],
       category: ['', Validators.required]
     });
-
-    this.category = this.productService.category;
   }
-  
+
   changeConfirm() {
     this.isConfirm = !this.isConfirm;
 
-    
+
     if (this.isConfirm) {
       this.form.controls['title'].disable();
       this.form.controls['imageUrl'].disable();
       this.form.controls['price'].disable();
       this.form.controls['category'].disable();
     }
-      
+
     else {
       this.form.controls['title'].enable();
       this.form.controls['imageUrl'].enable();
       this.form.controls['price'].enable();
-      this.form.controls['category'].enable(); 
+      this.form.controls['category'].enable();
     }
-    }
+  }
 
-  confirm() {
-    this.productService.addProduct(this.form.value);
+  async confirm() {
+    let tmpForm = { ...this.form.value }
+    tmpForm.imageUrl = this.uploadFile
+    let res = await this.postService.createProducts(tmpForm)
+    console.log(res)
     this.router.navigate(['/admin']);
   }
 
@@ -54,7 +59,26 @@ export class AddProductComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  ngOnInit(): void {
+  changeFile(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      this.uploadFile = file
+      const reader = new FileReader();
+      reader.onload = e => this.uploadFilePreview = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
+
+  watchCategory(event: any) {
+    if (event.target.value == "add-new-category") {
+      this.addNewCategory = true;
+      this.form.get("category")?.setValue("")
+    }
+  }
+
+  async ngOnInit() {
+    this.category = await this.postService.getCategories();
   }
 
 }

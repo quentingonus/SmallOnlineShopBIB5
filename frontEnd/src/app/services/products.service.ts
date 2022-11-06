@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,80 +7,77 @@ export class ProductsService {
 
   selectProduct: any;
   products: any;
-  constructor(private cartService: CartService) {
-    this.products = this.cartService.shopItems;
-
-    this.category = this.cartService.getKeyArr(this.cartService.modifyCategory(this.cartService.shopItems));
-    console.log(this.categories);
-  }
-
   category: any[] = []
 
-//  products = [
-//    {
-//      id: 1,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 2,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 3,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 4,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 5,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 6,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 7,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    },
-//
-//    {
-//      id: 8,
-//      category: 'shoes',
-//      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
-//      title: 'Shoe',
-//      price: 7
-//    }
-//  ];
+  constructor() {
+  }
+
+
+  //  products = [
+  //    {
+  //      id: 1,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 2,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 3,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 4,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 5,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 6,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 7,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    },
+  //
+  //    {
+  //      id: 8,
+  //      category: 'shoes',
+  //      imageUrl: 'https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg',
+  //      title: 'Shoe',
+  //      price: 7
+  //    }
+  //  ];
 
   categories = [
     {
@@ -113,16 +109,16 @@ export class ProductsService {
   addProduct(product: any) {
     let id = this.products.length;
     let newProduct = { id: ++id, ...product };
-    
+
     this.products.push(newProduct);
 
     console.log('New Product :', newProduct);
     console.log('Products :', this.products);
   }
 
-  editProduct(product:any) {
+  editProduct(product: any) {
     let index = this.products.indexOf(this.selectProduct);
-    let newProduct = {id: this.selectProduct.id , amount: this.selectProduct.amount, ...product}
+    let newProduct = { id: this.selectProduct.id, amount: this.selectProduct.amount, ...product }
     this.products.splice(index, 1, newProduct);
   }
 

@@ -4,6 +4,9 @@ import { ProductsService } from './../../services/products.service';
 import { Component, Directive, EventEmitter, Input, OnInit, Output, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, pipe, startWith } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
+import { PostService } from 'src/app/services/post.service';
 
 export type SortColumn = keyof Product | '';
 export type SortDirection = 'asc' | 'desc' | '';
@@ -56,6 +59,14 @@ export class AdminDashboardComponent implements OnInit {
   deleteProduct(product: any) {
     this.productService.deleteData(product);
     this.products = this.productService.products;
+  products: any;
+  constructor(private productService: ProductsService, private router: Router, private cartService: CartService, private postService: PostService) {
+  }
+
+
+  async deleteProduct(product: any) {
+    await this.postService.deleteProduct(product)
+    this.products.splice(this.products.indexOf(product), 1)
   }
 
   editProduct(product: any) {
@@ -106,7 +117,8 @@ export class AdminDashboardComponent implements OnInit {
       this.products
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.products = await this.cartService.getShop();
   }
 
 }
