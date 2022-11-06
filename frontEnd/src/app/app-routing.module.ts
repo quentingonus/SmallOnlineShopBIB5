@@ -1,3 +1,4 @@
+import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
+  { path: 'check-out', component: CheckOutComponent },
   { path: 'forget', component: ForgetpasswordComponent },
   { path: 'reset', component: ResetComponent },
   { path: '**', component: HomeComponent }
