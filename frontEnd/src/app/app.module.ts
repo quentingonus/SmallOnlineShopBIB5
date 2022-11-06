@@ -14,7 +14,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent, NgbdSortableHeader } from './pages/admin-dashboard/admin-dashboard.component';
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +37,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     AddProductComponent,
     EditProductComponent,
     ContactUsComponent,
+    NgbdSortableHeader
     ForgetpasswordComponent,
     ResetComponent
   ],

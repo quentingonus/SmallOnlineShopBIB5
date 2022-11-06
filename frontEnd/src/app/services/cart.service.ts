@@ -2,6 +2,16 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
 import { environment } from 'src/environments/environment';
+import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
+
+export interface Product {
+  id: number,
+  category: string,
+  imageUrl: string,
+  title: string,
+  price: number,
+  amount: number
+}
 
 @Injectable({
   providedIn: 'root'
