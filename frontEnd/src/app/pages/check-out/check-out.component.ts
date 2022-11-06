@@ -36,7 +36,6 @@ export class CheckOutComponent implements OnInit {
   }
 
   totalCartItem() {
-    console.log('From Method:',this.cartItem)
     if (!this.cartItem) {
       return 0
     }
@@ -48,10 +47,7 @@ export class CheckOutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.cartService.getCart().subscribe((item: any) => {
-       this.cartItem = item;
-       console.log(item);
-     });
+    this.cartItem = this.cartService.getCartNormal()
   }
 
 }

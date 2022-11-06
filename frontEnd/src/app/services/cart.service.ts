@@ -42,6 +42,10 @@ export class CartService {
     return this.cartItem$.asObservable();
   }
 
+  getCartNormal() {
+    return this.cartItem
+  }
+
   findById(id: any, shopItems: any) {
     for (let i = 0; i < shopItems.length; i++) {
       if (shopItems[i].id == id) {
