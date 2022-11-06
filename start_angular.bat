@@ -1,5 +1,5 @@
 @ECHO OFF
 
-cd frontEnd && code . && ng serve
+cd frontEnd && code . && npm i && ng serve
 
 PAUSE
