@@ -4,7 +4,6 @@ import { ProductsService } from './../../services/products.service';
 import { Component, Directive, EventEmitter, Input, OnInit, Output, PipeTransform, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, pipe, startWith } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
 
@@ -44,35 +43,20 @@ export class NgbdSortableHeader {
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
+
 export class AdminDashboardComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
 
-  products: Product[];
+  products!: Product[];
   filteredProducts!: Product[];
-  constructor(private productService: ProductsService, private router: Router) {
-    this.products = productService.products;
 
-  }
-
-
-  deleteProduct(product: any) {
-    this.productService.deleteData(product);
-    this.products = this.productService.products;
-  products: any;
-  constructor(private productService: ProductsService, private router: Router, private cartService: CartService, private postService: PostService) {
-  }
-
-
-  async deleteProduct(product: any) {
-    await this.postService.deleteProduct(product)
-    this.products.splice(this.products.indexOf(product), 1)
-  }
-
-  editProduct(product: any) {
-    this.productService.selectProduct = product;
-    this.router.navigate(['/admin/edit-product'])
-  }
+  constructor(
+    private productService: ProductsService,
+    private router: Router,
+    private cartService: CartService,
+    private postService: PostService
+  ) { }
 
   onSort({ column, direction }: SortEvent) {
 
@@ -115,6 +99,16 @@ export class AdminDashboardComponent implements OnInit {
         )
       }) :
       this.products
+  }
+
+  editProduct(product: any) {
+    this.productService.selectProduct = product;
+    this.router.navigate(['/admin/edit-product'])
+  }
+
+  async deleteProduct(product: any) {
+    await this.postService.deleteProduct(product)
+    this.products.splice(this.products.indexOf(product), 1)
   }
 
   async ngOnInit() {

@@ -1,5 +1,5 @@
 @ECHO OFF
 
-cd backend && code . && npm run dev
+cd backend && code . && npm i && npm run dev
 
 PAUSE

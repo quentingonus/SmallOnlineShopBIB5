@@ -37,7 +37,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     AddProductComponent,
     EditProductComponent,
     ContactUsComponent,
-    NgbdSortableHeader
+    NgbdSortableHeader,
     ForgetpasswordComponent,
     ResetComponent
   ],
