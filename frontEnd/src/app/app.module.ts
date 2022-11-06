@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { CheckOutComponent } from './pages/check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     EditProductComponent,
     ContactUsComponent,
     ForgetpasswordComponent,
-    ResetComponent
+    ResetComponent,
+    CheckOutComponent
   ],
   imports: [
     BrowserModule,
