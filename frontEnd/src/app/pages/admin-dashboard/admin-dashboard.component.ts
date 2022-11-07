@@ -50,6 +50,7 @@ export class AdminDashboardComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
 
   products!: Product[];
+  category!: any;
   filteredProducts!: Product[];
 
   constructor(
@@ -116,6 +117,8 @@ export class AdminDashboardComponent implements OnInit {
 
   async ngOnInit() {
     this.products = await this.cartService.getShop();
+    this.category = await this.postService.getCategory();
+    this.category = this.category.data;
   }
 
 }

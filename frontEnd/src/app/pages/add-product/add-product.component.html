@@ -50,8 +50,9 @@
             *ngIf="!addNewCategory"
             (change)="watchCategory($event)"
           >
-            <option></option>
-            <option *ngFor="let ca of category" [value]="ca">{{ ca }}</option>
+            <option *ngFor="let ca of category" [value]="ca._id">
+              {{ ca.name }}
+            </option>
             <option value="add-new-category">Add New Category</option>
           </select>
           <input
@@ -107,7 +108,7 @@
         />
         <div class="card-body">
           <small class="text-small mb-1 text-muted">{{
-            form.value.category
+            util.searchCategory(form.value.category, category)
           }}</small>
           <h2 class="card-title fs-6">{{ form.value.title }}</h2>
           <p class="card-text">{{ form.value.price | currency }}</p>

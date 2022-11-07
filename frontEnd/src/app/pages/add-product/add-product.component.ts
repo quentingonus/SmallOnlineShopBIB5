@@ -58,6 +58,10 @@ export class AddProductComponent implements OnInit {
     button.classList.add('loading');
     let tmpForm = { ...this.form.value }
     tmpForm.imageUrl = this.uploadFile
+    if (this.addNewCategory) {
+      let res = await this.postService.createCategory(tmpForm.category, tmpForm.imageUrl)
+      tmpForm.category = (res as any).data._id
+    }
     let res = await this.postService.createProducts(tmpForm)
     console.log(res)
     this.router.navigate(['/admin']);
@@ -86,7 +90,8 @@ export class AddProductComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.category = await this.postService.getCategories();
+    this.category = await this.postService.getCategory();
+    this.category = this.category.data;
   }
 
 }

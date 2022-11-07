@@ -26,6 +26,7 @@ export class CartService {
 
   async getShop() {
     let tmp = await this.postService.getProducts()
+
     return tmp.data.map((item: any) => {
       return {
         id: item._id,
@@ -33,7 +34,19 @@ export class CartService {
         imageUrl: environment.apiUrl + "/" + item.profile,
         price: item.price,
         amount: 0,
-        category: 'shoe',
+        category: item.created_category_id,
+      }
+    })
+  }
+
+  async getCategory() {
+    let category = await this.postService.getCategory()
+
+    return category.data.map((item: any) => {
+      return {
+        id: item._id,
+        title: item.name,
+        imageUrl: environment.apiUrl + "/" + item.profile,
       }
     })
   }
