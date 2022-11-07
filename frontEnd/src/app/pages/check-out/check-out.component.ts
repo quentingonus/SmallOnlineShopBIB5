@@ -14,6 +14,7 @@ export class CheckOutComponent implements OnInit {
   hasPromo: boolean = false;
   discount!: number;
   discountPrice!: number;
+  confirmOrder = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class CheckOutComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form);
+    this.confirmOrder = true;
   }
 
   totalCartItem() {

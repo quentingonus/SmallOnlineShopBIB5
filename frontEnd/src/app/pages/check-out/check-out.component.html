@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="row">
+<div class="container my-5">
+  <div *ngIf="!confirmOrder" class="row">
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="mb-3">
         <span class="text-muted mr-3">Your cart</span>
@@ -178,5 +178,10 @@
       </form>
       <p>{{ form.value | json }}</p>
     </div>
+  </div>
+
+  <div *ngIf="confirmOrder" class="second-container">
+    <h1>Thanks You!</h1>
+    <p>We received your order and will process it within the next 24hours!</p>
   </div>
 </div>
