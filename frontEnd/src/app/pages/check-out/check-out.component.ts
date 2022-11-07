@@ -1,3 +1,4 @@
+import { OrderService } from './../../services/order.service';
 import { Router } from '@angular/router';
 import { CartService } from './../../services/cart.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -19,7 +20,8 @@ export class CheckOutComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private orderService: OrderService
   ) {
     this.form = fb.group({
       fname: ['', Validators.required],
@@ -41,7 +43,10 @@ export class CheckOutComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form);
+    let newOrder = { date: new Date(), ...this.form.value };
+    this.orderService.orderList.push(newOrder);
     this.confirmOrder = true;
+    console.log(newOrder);
   }
 
   totalCartItem() {
@@ -62,7 +67,6 @@ export class CheckOutComponent implements OnInit {
     let totalPrice = 0;
     this.cartItem.map((item: any) => {
       totalPrice += item.price * item.amount;
-
     });
     if (this.hasPromo) {
       this.discountPrice = (this.discount / 100) * totalPrice;
@@ -77,12 +81,9 @@ export class CheckOutComponent implements OnInit {
       let promo = promocode.split('%');
       this.discount = parseInt(promo[0]);
       this.hasPromo = true;
-    }
-
-    else {
+    } else {
       this.hasPromo = false;
     }
-    
   }
 
   ngOnInit(): void {
