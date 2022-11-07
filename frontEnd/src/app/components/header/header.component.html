@@ -25,6 +25,15 @@
             navItem.name
           }}</a>
         </li>
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="admin" ngbDropdownToggle>
+            Admin
+          </button>
+          <div ngbDropdownMenu aria-labelledby="admin">
+            <a ngbDropdownItem routerLink="/admin">Admin Dashboard</a>
+            <a ngbDropdownItem routerLink="/admin/order">View Orders</a>
+          </div>
+        </div>
         <li class="nav-item">
           <button
             class="btn btn-light"

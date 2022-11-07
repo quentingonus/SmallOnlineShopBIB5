@@ -22,6 +22,7 @@ import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CheckOutComponent } from './pages/check-out/check-out.component';
     NgbdSortableHeader,
     ForgetpasswordComponent,
     ResetComponent,
-    CheckOutComponent
+    CheckOutComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
