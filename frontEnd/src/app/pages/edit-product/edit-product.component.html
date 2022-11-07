@@ -59,11 +59,21 @@
         <div class="button-group">
           <button class="btn btn-danger" (click)="cancel()">Cancel</button>
           <button
+            #updateBtn
             class="btn btn-success"
             [disabled]="form.invalid || !isChanged"
-            (click)="updateProduct()"
+            (click)="updateProduct(updateBtn)"
           >
-            Update
+            <span *ngIf="!util.isLoading(updateBtn)">Update</span>
+            <span *ngIf="util.isLoading(updateBtn)"
+              >Updating
+              <div
+                class="spinner-border spinner-border-sm text-light"
+                role="status"
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+            </span>
           </button>
         </div>
       </form>

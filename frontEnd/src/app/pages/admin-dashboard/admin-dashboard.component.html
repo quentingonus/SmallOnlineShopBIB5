@@ -1,46 +1,98 @@
-
 <div class="m-3">
-	<h3>Products in Shop</h3>
+  <h3>Products in Shop</h3>
 
-	<p>
-		<a routerLink="/admin/add-product" class="btn btn-success">Add Product</a>
-		<input
-			#query
-			(keyup)="filter(query.value)" 
-			type="text" class="form-control" placeholder="search...">
-	</p>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="col" sortable="id" (sort)="onSort($event)">Id</th>
-				<th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
-				<th scope="col" sortable="price" (sort)="onSort($event)">Price</th>
-				<th scope="col" sortable="category" (sort)="onSort($event)">Category</th>
-				<th scope="col">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let product of filteredProducts || products; index as i">
-				<th scope="row">{{ product.id }}</th>
-				<td>
-					<img
-						[src]="product.imageUrl"
-						class="me-2"
-						style="width: 50px; height: 50px; border-radius: 50%"
-					/>
-					{{ product.title }}
-				</td>
-				<td>{{ product.price | currency:'USD' }}</td>
-				<td>{{ product.category }}</td>
-				<td>
-					<button type="button" class="btn btn-link" (click)="editProduct(product)">Edit</button>
-					<button type="button" class="btn btn-link" (click)="deleteProduct(product)">Delete</button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+  <p>
+    <a routerLink="/admin/add-product" class="btn btn-success">Add Product</a>
+    <input
+      #query
+      (keyup)="filter(query.value)"
+      type="text"
+      class="form-control"
+      placeholder="search..."
+    />
+  </p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th
+          style="width: 10%"
+          scope="col"
+          sortable="id"
+          (sort)="onSort($event)"
+        >
+          Id
+        </th>
+        <th
+          style="width: 60%"
+          scope="col"
+          sortable="title"
+          (sort)="onSort($event)"
+        >
+          Title
+        </th>
+        <th
+          style="width: 5%"
+          scope="col"
+          sortable="price"
+          (sort)="onSort($event)"
+        >
+          Price
+        </th>
+        <th
+          style="width: 5%"
+          scope="col"
+          sortable="category"
+          (sort)="onSort($event)"
+        >
+          Category
+        </th>
+        <th style="width: 20%" scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="clickable-row"
+        *ngFor="let product of filteredProducts || products; index as i"
+        (click)="editProduct(product)"
+      >
+        <th scope="row">{{ product.id }}</th>
+        <td>
+          <img
+            [src]="product.imageUrl"
+            class="me-2"
+            style="width: 50px; height: 50px; border-radius: 50%"
+          />
+          {{ product.title }}
+        </td>
+        <td>{{ product.price | currency: "USD" }}</td>
+        <td>{{ product.category }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-link"
+            (click)="editProduct(product)"
+          >
+            Edit
+          </button>
+          <button
+            #deleteBtn
+            type="button"
+            class="btn btn-link"
+            (click)="deleteProduct(product, deleteBtn)"
+          >
+            <span *ngIf="!util.isLoading(deleteBtn)">Delete</span>
+            <span *ngIf="util.isLoading(deleteBtn)">
+              <div class="spinner-border spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-	<!--<div class="d-flex justify-content-between p-2">
+  <!--<div class="d-flex justify-content-between p-2">
 		<ngb-pagination
 			[collectionSize]="collectionSize"
 			[(page)]="page"

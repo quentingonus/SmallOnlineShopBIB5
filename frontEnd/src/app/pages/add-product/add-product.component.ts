@@ -3,6 +3,7 @@ import { ProductsService } from './../../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-add-product',
@@ -19,7 +20,13 @@ export class AddProductComponent implements OnInit {
   uploadFilePreview!: any;
   addNewCategory: boolean = false;
 
-  constructor(private productService: ProductsService, private fb: FormBuilder, private router: Router, private postService: PostService) {
+  constructor(
+    private productService: ProductsService,
+    private fb: FormBuilder,
+    private router: Router,
+    private postService: PostService,
+    public util: UtilsService
+  ) {
     this.form = fb.group({
       title: ['', Validators.required],
       imageUrl: ['', Validators.required],
@@ -47,7 +54,8 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  async confirm() {
+  async confirm(button: any) {
+    button.classList.add('loading');
     let tmpForm = { ...this.form.value }
     tmpForm.imageUrl = this.uploadFile
     let res = await this.postService.createProducts(tmpForm)

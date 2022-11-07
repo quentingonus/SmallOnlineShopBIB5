@@ -95,6 +95,11 @@ export class CartService {
     this.cartItem$.next(this.cartItem)
   }
 
+  deleteCart() {
+    this.cartItem = []
+    this.cartItem$.next(this.cartItem)
+  }
+
   constructor(private postService: PostService) {
 
   }

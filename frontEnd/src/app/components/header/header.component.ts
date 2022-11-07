@@ -28,10 +28,6 @@ export class HeaderComponent implements OnInit {
       route: "/login"
     },
     {
-      name: "Admin",
-      route: "/admin"
-    },
-    {
       name: "Contact",
       route: "/contact"
     }
