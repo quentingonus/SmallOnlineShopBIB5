@@ -1,3 +1,4 @@
+import { OrdersComponent } from './pages/orders/orders.component';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'products/detail', component: ProductDetailsComponent },
+  { path: 'admin/order', component: OrdersComponent },
   { path: 'admin/edit-product', component: EditProductComponent },
   { path: 'admin/add-product', component: AddProductComponent },
   { path: 'admin', component: AdminDashboardComponent },
