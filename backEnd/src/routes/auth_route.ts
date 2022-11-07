@@ -1,7 +1,7 @@
 import express from 'express';
 import { createUser } from "../controllers/UserController";
 import { body } from "express-validator";
-import { login, logout, forgotPassword, resetPassword } from "../controllers/AuthController";
+import { login, logout, forgotPassword, resetPassword, passwordChange } from "../controllers/AuthController";
 
 const router = express.Router();
 
@@ -34,5 +34,9 @@ router
 router
       .route('/password-reset-update/:userId/:token')
       .post(resetPassword);
+
+router
+      .route('/password-change/:userId/:token')
+      .post(passwordChange);
 
 export default router;
