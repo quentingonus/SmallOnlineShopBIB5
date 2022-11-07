@@ -7,11 +7,11 @@ var purchaseschema = new mongoose_1.Schema({
         ref: "user",
     },
     productId: {
-        type: Object,
+        type: [Object],
         required: true
     },
     quantity: {
-        type: String,
+        type: [String],
         required: true
     },
     date: {

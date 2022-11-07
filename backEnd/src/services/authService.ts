@@ -18,7 +18,7 @@ export const loginService = async (req:Request, res:Response) => {
     }
 
     if (!compareSync(req.body.password, user.password)) {
-      return res.status(401).send({
+      return res.status(404).send({
         success: false,
         messages: 'Incorrect password'
       });
@@ -93,4 +93,42 @@ export const resetPasswordService = async (req: Request, res: Response) => {
   } catch (err) {
     return res.send ("Password Reset Failed")
   }
-}
+};
+
+export const passwordChangeService = async (req: Request, res: Response) => {
+  try {
+    await User.findById(req.body.userId).then(async (user: any) => {
+      if (!user) {
+        return res.status(404).send({
+          success: false,
+          message: 'Could not find user'
+        })
+      }
+
+      const token= req.params.token;
+      if (!token) return res.status(401).send("Unauthorized");
+
+  
+      if (!compareSync(req.body.oldPassword, user.password)) {
+        return res.send({
+          success: false,
+          message: 'Incorrect password'
+        });
+      }
+
+      if(compareSync(req.body.newPassword, user.password)) {
+        return res.send({
+          success: false,
+          message: 'Current Password and New Password are same.'
+        });
+      }
+
+      user.password = await bcrypt.hash(req.body.newPassword, 12);
+      await user.save();
+      return res.json({ message: "Password Change Successfully!" });
+    })
+  } catch (error) {
+    res.send("An error occured");
+  }
+};
+

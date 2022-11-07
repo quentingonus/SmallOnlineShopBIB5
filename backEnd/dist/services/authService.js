@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPasswordService = exports.forgetPasswordService = exports.logoutService = exports.loginService = void 0;
+exports.passwordChangeService = exports.resetPasswordService = exports.forgetPasswordService = exports.logoutService = exports.loginService = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = __importDefault(require("../models/User"));
@@ -29,7 +29,7 @@ const loginService = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
         if (!(0, bcrypt_2.compareSync)(req.body.password, user.password)) {
-            return res.status(401).send({
+            return res.status(404).send({
                 success: false,
                 messages: 'Incorrect password'
             });
@@ -102,3 +102,37 @@ const resetPasswordService = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.resetPasswordService = resetPasswordService;
+const passwordChangeService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield User_1.default.findById(req.body.userId).then((user) => __awaiter(void 0, void 0, void 0, function* () {
+            if (!user) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Could not find user'
+                });
+            }
+            const token = req.params.token;
+            if (!token)
+                return res.status(401).send("Unauthorized");
+            if (!(0, bcrypt_2.compareSync)(req.body.oldPassword, user.password)) {
+                return res.send({
+                    success: false,
+                    message: 'Incorrect password'
+                });
+            }
+            if ((0, bcrypt_2.compareSync)(req.body.newPassword, user.password)) {
+                return res.send({
+                    success: false,
+                    message: 'Current Password and New Password are same.'
+                });
+            }
+            user.password = yield bcrypt_1.default.hash(req.body.newPassword, 12);
+            yield user.save();
+            return res.json({ message: "Password Change Successfully!" });
+        }));
+    }
+    catch (error) {
+        res.send("An error occured");
+    }
+});
+exports.passwordChangeService = passwordChangeService;

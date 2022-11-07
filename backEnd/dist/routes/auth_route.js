@@ -30,4 +30,7 @@ router
 router
     .route('/password-reset-update/:userId/:token')
     .post(AuthController_1.resetPassword);
+router
+    .route('/password-change/:userId/:token')
+    .post(AuthController_1.passwordChange);
 exports.default = router;
