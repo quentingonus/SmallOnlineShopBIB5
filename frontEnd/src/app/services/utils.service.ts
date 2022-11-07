@@ -23,4 +23,8 @@ export class UtilsService {
       return []
     }
   }
+
+  isLoading(button: any) {
+    return button.classList.contains('loading')
+  }
 }

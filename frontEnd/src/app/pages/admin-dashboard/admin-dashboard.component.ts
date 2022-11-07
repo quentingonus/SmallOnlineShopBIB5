@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { map, Observable, pipe, startWith } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 export type SortColumn = keyof Product | '';
 export type SortDirection = 'asc' | 'desc' | '';
@@ -55,7 +56,8 @@ export class AdminDashboardComponent implements OnInit {
     private productService: ProductsService,
     private router: Router,
     private cartService: CartService,
-    private postService: PostService
+    private postService: PostService,
+    public util: UtilsService
   ) { }
 
   onSort({ column, direction }: SortEvent) {
@@ -106,7 +108,8 @@ export class AdminDashboardComponent implements OnInit {
     this.router.navigate(['/admin/edit-product'])
   }
 
-  async deleteProduct(product: any) {
+  async deleteProduct(product: any, button: any) {
+    button.classList.add("loading")
     await this.postService.deleteProduct(product)
     this.products.splice(this.products.indexOf(product), 1)
   }

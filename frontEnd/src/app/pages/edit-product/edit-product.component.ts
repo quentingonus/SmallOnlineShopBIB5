@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -18,7 +19,13 @@ export class EditProductComponent implements OnInit {
   selectProduct: any;
   isChanged: boolean = false;
 
-  constructor(private productService: ProductsService, private fb: FormBuilder, private router: Router, private postService: PostService) {
+  constructor(
+    private productService: ProductsService,
+    private fb: FormBuilder,
+    private router: Router,
+    private postService: PostService,
+    public util: UtilsService
+  ) {
     this.selectProduct = this.productService.selectProduct;
 
     if (!this.selectProduct) {
@@ -54,7 +61,8 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  async updateProduct() {
+  async updateProduct(button: any) {
+    button.classList.add("loading")
     let res = await this.postService.updateProducts({ id: this.selectProduct.id, ...this.form.value });
     this.router.navigate(['/admin']);
   }
