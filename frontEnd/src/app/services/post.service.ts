@@ -17,14 +17,8 @@ export class PostService {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/product`))
   }
 
-  async getCategories() {
+  async getCategories(): Promise<any> {
     let products = await this.getProducts()
-
-    // Temporary adding all to shoe category
-    products.data.map((item: any) => {
-      return item.category = "shoe"
-    })
-
     return products.length ? [] : this.util.getKeyArr(this.util.modifyCategory(products.data))
   }
 
@@ -37,6 +31,7 @@ export class PostService {
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
+    formData.append("created_category_id", product.category)
 
     return lastValueFrom(this.http.post(`${environment.apiUrl}/product`, formData))
   }
@@ -50,12 +45,26 @@ export class PostService {
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
+    formData.append("created_category_id", product.category)
 
     return lastValueFrom(this.http.put(`${environment.apiUrl}/product/${product.id}`, formData))
   }
 
   deleteProduct(product: any): Promise<any> {
     return lastValueFrom(this.http.delete(`${environment.apiUrl}/product/${product.id}`))
+  }
+
+  // Category Service
+
+  getCategory(): Promise<any> {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/category`))
+  }
+
+  createCategory(name: any, image: any): Promise<any> {
+    let formData = new FormData();
+    formData.append("name", name)
+    formData.append("profileImage", image)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/category`, formData))
   }
 
 

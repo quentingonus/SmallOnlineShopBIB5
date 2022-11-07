@@ -24,6 +24,18 @@ export class UtilsService {
     }
   }
 
+  searchCategory(id: any, list: any) {
+    if (!list) {
+      return ""
+    }
+    for (let i of list) {
+      if (i._id == id) {
+        return i.name
+      }
+    }
+    return ""
+  }
+
   isLoading(button: any) {
     return button.classList.contains('loading')
   }

@@ -17,7 +17,7 @@ const categorys_1 = __importDefault(require("../models/categorys"));
 const utils_1 = require("../utils");
 const getcategoryServices = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield categorys_1.default.find().populate("created_user_id");
+        const result = yield categorys_1.default.find();
         res.json({ data: result });
     }
     catch (err) {

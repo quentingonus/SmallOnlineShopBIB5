@@ -72,7 +72,7 @@ export class EditProductComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.category = await this.postService.getCategories();
-    this.form.get('category')?.setValue(this.selectProduct.category)
+    this.category = await this.postService.getCategory();
+    this.category = this.category.data;
   }
 }

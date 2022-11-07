@@ -78,6 +78,21 @@
           >{{ navItem.name }}</a
         >
       </li>
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn fs-2" ngbDropdownToggle>Admin</button>
+        <div ngbDropdownMenu aria-labelledby="admin">
+          <a ngbDropdownItem routerLink="/admin" (click)="offcanvas.dismiss()">
+            Admin Dashboard
+          </a>
+          <a
+            ngbDropdownItem
+            routerLink="/admin/order"
+            (click)="offcanvas.dismiss()"
+          >
+            View Orders
+          </a>
+        </div>
+      </div>
     </ul>
   </div>
 </ng-template>

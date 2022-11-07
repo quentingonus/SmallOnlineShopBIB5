@@ -52,7 +52,9 @@
             (change)="isChanged = true"
           >
             <option></option>
-            <option *ngFor="let ca of category" [value]="ca">{{ ca }}</option>
+            <option *ngFor="let ca of category" [value]="ca._id">
+              {{ ca.name }}
+            </option>
           </select>
         </div>
 
