@@ -1,24 +1,34 @@
 <div class="container">
   <h2>Orders</h2>
-  
-  <table class="table table-striped">
-    <thead class="thead-light">
-      <tr>
-        <th>Customers</th>
-        <th>Date</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of orderLists">
-        <td> {{ order.fname }}&nbsp; {{ order.lname }} </td>
-        <td> {{ order.date | date:'fullDate'}} </td>
-        <td>
-          <button class="btn btn-link">
-            <td>view</td>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div *ngIf="orderLists.length > 0; then orderList else noOrder"></div>
+
+  <ng-template #orderList>
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th>Customers</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orderLists">
+          <td> {{ order.fname }}&nbsp; {{ order.lname }} </td>
+          <td> {{ order.date | date:'fullDate'}} </td>
+          <td>
+            <button class="btn btn-link">
+              <td>view</td>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+
+  <div class="second-container">
+    <ng-template #noOrder>
+      <p>No Order from Customers...</p>
+    </ng-template>
+  </div>
 </div>
