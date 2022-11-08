@@ -31,6 +31,8 @@ const createPurchaseServices = (req, res) => __awaiter(void 0, void 0, void 0, f
             created_user_id: req.body.created_user_id,
             productId: req.body.productId,
             quantity: req.body.quantity,
+            address: req.body.address,
+            credit: req.body.credit,
             date: req.body.date,
             order_status: req.body.order_status
         };
@@ -59,6 +61,8 @@ const updatePurchaseServices = (req, res) => __awaiter(void 0, void 0, void 0, f
         const purchase = yield purchase_1.default.findById(req.params.id);
         purchase.productId = req.body.productId;
         purchase.quantity = req.body.quantity;
+        purchase.address = req.body.address;
+        purchase.credit = req.body.credit;
         const result = yield purchase.save();
         res.json({ message: "Updated Successfully!", data: result });
     }

@@ -14,6 +14,14 @@ var purchaseschema = new mongoose_1.Schema({
         type: [String],
         required: true
     },
+    address: {
+        type: String,
+        require: true
+    },
+    credit: {
+        type: String,
+        require: true
+    },
     date: {
         type: String,
         required: true

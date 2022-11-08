@@ -6,14 +6,14 @@ export const contactusService = async (req: any, res: Response) => {
   try {
     const email = req.body.email;
     const detail = req.body.detail;
-    await contactEmail(email, "Feedback" ,detail);
-    
+    await contactEmail(email, "Feedback", `Sender mail: ${email}\nDetails: ${detail}`);
+
     return res.status(200).json({
-      msg : "Thank for your feedback!!"
+      msg: "Thank for your feedback!!"
     })
   } catch (err) {
     const error = new Error();
     console.log(error);
-    return res.send("An Error occured in feedback");  
+    return res.send("An Error occured in feedback");
   }
 }

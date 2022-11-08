@@ -5,7 +5,7 @@ import { contactUs } from "../controllers/contactusController";
 const router = express.Router();
 
 router
-  .route("/contactus")
+  .route("/")
   .post(
     [
       body("email").notEmpty().withMessage("Email must not be empty"),

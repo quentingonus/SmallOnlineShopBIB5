@@ -22,12 +22,7 @@
       <table class="table table-hover table-responsive">
         <thead>
           <tr>
-            <th
-              style="width: 10%"
-              scope="col"
-            >
-              #
-            </th>
+            <th style="width: 3%" scope="col">#</th>
             <th
               style="width: 10%"
               scope="col"
@@ -37,7 +32,7 @@
               Id
             </th>
             <th
-              style="width: 60%"
+              style="width: 67%"
               scope="col"
               sortable="title"
               (sort)="onSort($event)"
@@ -68,7 +63,7 @@
             class="clickable-row"
             *ngFor="let product of filteredProducts || products; index as i"
           >
-            <th> {{ i+1 }} </th>
+            <th>{{ i + 1 }}</th>
             <td scope="row">{{ product.id }}</td>
             <td (click)="editProduct(product)">
               <img
