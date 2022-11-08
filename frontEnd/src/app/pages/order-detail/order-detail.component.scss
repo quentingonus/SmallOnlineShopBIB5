@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+}
+
+table td:first-of-type {
+  width: 30%;
+}
+table td:nth-of-type(2) {
+  width:70%;
+}
+

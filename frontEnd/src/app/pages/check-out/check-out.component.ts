@@ -16,6 +16,7 @@ export class CheckOutComponent implements OnInit {
   discount!: number;
   discountPrice!: number;
   confirmOrder = false;
+  newOrder: any;
 
   constructor(
     private fb: FormBuilder,
@@ -43,10 +44,25 @@ export class CheckOutComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form);
-    let newOrder = { date: new Date(), ...this.form.value };
-    this.orderService.orderList.push(newOrder);
+    let newCustomer = { date: new Date(), ...this.form.value };
+
+    this.newOrder = [{
+      totalPrice: this.totalPrice(),
+      discount: this.discountPrice,
+      ...this.cartService.getCartNormal()[0],
+    }];
+    
+    //this.orderService.order.customer.push(newCustomer);
+    //this.orderService.order.orderProduct.push(this.cartService.getCartNormal());
+    this.orderService.order.push({
+      customer: newCustomer,
+      orderProduct: this.newOrder,
+    });
+
     this.confirmOrder = true;
-    console.log(newOrder);
+    console.log(newCustomer);
+    console.log('Order :', this.orderService.order);
+    this.cartService.deleteCart();
   }
 
   totalCartItem() {

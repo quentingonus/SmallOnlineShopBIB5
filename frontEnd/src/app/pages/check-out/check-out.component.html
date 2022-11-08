@@ -10,13 +10,13 @@
       <ul class="list-group mb-3">
         <li *ngFor="let item of cartItem" class="list-group-item d-flex justify-content-between align-items-center lh-condensed">
           
-            <span class="text-muted col-3">{{ item.amount }}x</span>
-            <div>
-              <h6 class="my-0 col-9">{{ item.title }}</h6>
+            <span class="text-muted col-1">{{ item.amount }}x</span>
+            <div class="col-9">
+              <h6 class="my-0">{{ item.title }}</h6>
               <small class="text-muted">{{ item.category }}</small>
             </div>
           
-          <span class="text-muted">{{ item.price | currency: "USD" }}</span>
+          <span class="text-muted col-2">{{ item.price | currency: "USD" }}</span>
         </li>
 
         <li *ngIf="hasPromo" class="list-group-item d-flex justify-content-between bg-light">

@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Orders</h2>
 
-  <div *ngIf="orderLists.length > 0; then orderList else noOrder"></div>
+  <div *ngIf="orderService.order.length > 0; then orderList else noOrder"></div>
 
   <ng-template #orderList>
     <table class="table table-striped">
@@ -14,10 +14,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of orderLists">
-          <td> {{ order.fname }}&nbsp; {{ order.lname }} </td>
-          <td> {{ order.date | date:'fullDate'}} </td>
+          <td> {{ order.customer.fname }}&nbsp; {{ order.customer.lname }} </td>
+          <td> {{ order.customer.date | date:'fullDate'}} </td>
           <td>
-            <button class="btn btn-link">
+            <button class="btn btn-link" (click)="viewOrder(order)">
               <td>view</td>
             </button>
           </td>

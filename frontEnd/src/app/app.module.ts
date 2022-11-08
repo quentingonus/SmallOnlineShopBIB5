@@ -23,6 +23,7 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { OrdersComponent } from './pages/orders/orders.component';
     ForgetpasswordComponent,
     ResetComponent,
     CheckOutComponent,
-    OrdersComponent
+    OrdersComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,
