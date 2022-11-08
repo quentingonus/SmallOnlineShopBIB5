@@ -9,11 +9,17 @@ import { rootDir } from "./utils";
 import { v4 } from 'uuid';
 import cors from 'cors';
 
+// const swaggerUI = require('swagger-ui-express');
+// const YAML = require('yamljs'); 
+// const swaggerDocument = YAML.load('../../api.yaml');
+
 import product_route from "./routes/product_route";
 import purchase_route from "./routes/purchase_route";
 import user_route from "./routes/user_route";
 import cart_route from "./routes/cart_route";
 import auth_route from './routes/auth_route';
+import contact_route from "./routes/contact_route";
+import category_route from "./routes/category_route";
 
 require("./config/passport")
 
@@ -34,6 +40,7 @@ const fileFilter = (_req: Request, file: any, cb: FileFilterCallback) => {
   if (
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpg" ||
+    file.mimetype === "image/webp" ||
     file.mimetype === "image/jpeg"
   ) {
     cb(null, true);
@@ -54,10 +61,14 @@ mongoose
   .connect(process.env.DATABASE || "")
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
     app.use('/users',passport.authenticate('jwt', { session: false }), user_route);
     app.use('/auth', auth_route);
     app.use('/carts', cart_route);
     app.use('/product', product_route);
     app.use('/purchase', purchase_route);
+    app.use('/category', category_route);
+    app.use('/contactus' , contact_route);
+
   })
 
