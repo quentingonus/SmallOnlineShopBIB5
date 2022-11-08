@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   isAddToCart = false;
   cart: any[] = [];
   products: any;
+  popularProduct: any;
 
   categories: any;
 
@@ -83,8 +84,11 @@ export class HomeComponent implements OnInit {
       item.category = this.util.searchCategory(item.category, category.data)
       return item
     })
+    this.popularProduct = this.util.getRandomFromArray(this.products, 4)
+  }
 
-    console.log(this.categories)
+  goToCategory(category: any) {
+    this.router.navigate([`categories/${category.id}`])
   }
 
   onClick(product: any) {

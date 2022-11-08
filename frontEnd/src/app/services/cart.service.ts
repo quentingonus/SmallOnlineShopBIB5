@@ -69,7 +69,6 @@ export class CartService {
   }
 
   addToCart(newItem: any) {
-    console.log("Add to Cart: " + newItem.title + " | id: " + newItem.id + " | amount: " + newItem.amount)
     let newIndex = this.findById(newItem.id, this.cartItem)
     if (newIndex > -1) {
       if ("amount" in this.cartItem[newIndex]) {
@@ -91,11 +90,12 @@ export class CartService {
       }
       this.cartItem.push(newItem)
     }
+    console.log("Add to Cart: " + newItem.title + " | amount: " + newItem.amount)
     this.cartItem$.next(this.cartItem)
   }
 
   async removeFromCart(item: any) {
-    console.log("Remove Cart: " + item.title + " | id: " + item.id)
+    console.log("Remove Cart: " + item.title + " | amount: " + item.id)
     const index = this.findById(item.id, this.cartItem);
     const shopItem = await this.getShop()
     if (index > -1) {
@@ -108,9 +108,22 @@ export class CartService {
     this.cartItem$.next(this.cartItem)
   }
 
+  updateCart(item: any) {
+    console.log("Update Cart: " + item.title + " | amount: " + item.amount)
+    let newIndex = this.findById(item.id, this.cartItem)
+    if (newIndex > -1) {
+      this.cartItem[newIndex].amount = item.amount
+    }
+    else {
+      this.cartItem[newIndex].amount = 0
+    }
+    this.cartItem$.next(this.cartItem)
+  }
+
   deleteCart() {
     this.cartItem = []
     this.cartItem$.next(this.cartItem)
+
   }
 
   constructor(private postService: PostService) {

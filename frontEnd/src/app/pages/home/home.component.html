@@ -22,17 +22,22 @@
         (init)="slickInit($event)"
         (breakpoint)="breakpoint($event)"
       >
-        <div ngxSlickItem *ngFor="let category of categories" class="slide">
-          <div class="card" style="height: 300px">
+        <div
+          ngxSlickItem
+          *ngFor="let category of categories"
+          class="slide"
+          (click)="goToCategory(category)"
+        >
+          <div class="card category-card" style="height: 300px">
             <div class="card-body m-auto text-center">
               <img
-                class="card-img-top"
+                class="card-img-top mb-3"
                 [src]="category.imageUrl"
                 [alt]="category.title"
                 width="80%"
                 height="70%"
               />
-              <div class="text-truncate">{{ category.title }}</div>
+              <div class="fs-3">{{ category.title }}</div>
             </div>
           </div>
         </div>
@@ -89,10 +94,13 @@
     </div>
   </section>
 
-  <section class="popular-ttl mb-5" *ngIf="products && products.length">
+  <section
+    class="popular-ttl mb-5"
+    *ngIf="popularProduct && popularProduct.length"
+  >
     <h3 class="popular-ttl">Popular Products</h3>
     <div class="row g-4 row-cols-lg-4 row-cols-2 row-cols-md-3">
-      <div class="col-12" *ngFor="let product of products">
+      <div class="col-12" *ngFor="let product of popularProduct">
         <app-item-card [cardItem]="product"></app-item-card>
       </div>
     </div>
