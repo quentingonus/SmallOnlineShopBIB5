@@ -48,7 +48,7 @@ const createcategoryServices = (req, res) => __awaiter(void 0, void 0, void 0, f
 exports.createcategoryServices = createcategoryServices;
 const findcategoryServices = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const findData = yield categorys_1.default.findById(req.params.id).populate("created_user_id");
+        const findData = yield categorys_1.default.findById(req.params.id);
         res.send({ data: findData });
     }
     catch (err) {

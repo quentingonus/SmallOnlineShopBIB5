@@ -35,7 +35,7 @@ export const createcategoryServices = async (req: any, res: Response) => {
 
 export const findcategoryServices = async (req: any, res: Response) => {
   try {
-    const findData = await categorys.findById(req.params.id).populate("created_user_id")
+    const findData = await categorys.findById(req.params.id)
     res.send({ data: findData })
   } catch (err) {
     console.log(err)

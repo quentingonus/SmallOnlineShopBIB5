@@ -19,6 +19,18 @@ export class PostService {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/product`))
   }
 
+  async getProductsByCategory(categoryId: any): Promise<any> {
+    let product = await this.getProducts()
+    product = product.data.map((item: any) => {
+      return {
+        category: item.created_category_id,
+        ...item
+      }
+    })
+    product = this.util.modifyCategory(product)
+    return product[categoryId]
+  }
+
   createProducts(product: any): Promise<any> {
     let formData = new FormData();
 
@@ -64,6 +76,10 @@ export class PostService {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/category`, formData))
   }
 
+  searchCategory(id: any) {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/category/${id}`))
+  }
+
   // Cart Service
 
   getCart(id: any): Promise<any> {
@@ -101,7 +117,7 @@ export class PostService {
 
     //Temporary Adding Default Value
     formData.append("created_user_id", "6365850d18aa12bc2b615e33")
-    
+
     formData.append("productId", JSON.stringify(product))
     formData.append("quantity", JSON.stringify(quantity))
     formData.append("date", new Date().toLocaleString())
