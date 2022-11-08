@@ -92,7 +92,7 @@
         />
         <div class="card-body">
           <small class="text-small mb-1 text-muted">{{
-            form.value.category
+            util.searchCategory(form.value.category, category)
           }}</small>
           <h2 class="card-title fs-6">{{ form.value.title }}</h2>
           <p class="card-text">{{ form.value.price | currency }}</p>
