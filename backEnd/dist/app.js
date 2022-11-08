@@ -21,10 +21,7 @@ const purchase_route_1 = __importDefault(require("./routes/purchase_route"));
 const user_route_1 = __importDefault(require("./routes/user_route"));
 const cart_route_1 = __importDefault(require("./routes/cart_route"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
-<<<<<<< HEAD
-=======
 const contact_route_1 = __importDefault(require("./routes/contact_route"));
->>>>>>> origin/feature/contactus
 const category_route_1 = __importDefault(require("./routes/category_route"));
 require("./config/passport");
 dotenv_1.default.config();
@@ -58,16 +55,13 @@ app.use(passport_1.default.initialize());
 mongoose_1.default
     .connect(process.env.DATABASE || "")
     .then(() => {
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-        // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-        app.use('/users', passport_1.default.authenticate('jwt', { session: false }), user_route_1.default);
-        app.use('/auth', auth_route_1.default);
-        app.use('/carts', cart_route_1.default);
-        app.use('/product', product_route_1.default);
-        app.use('/purchase', purchase_route_1.default);
-        app.use('/category', category_route_1.default);
-<<<<<<< HEAD
-=======
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+    app.use('/users', passport_1.default.authenticate('jwt', { session: false }), user_route_1.default);
+    app.use('/auth', auth_route_1.default);
+    app.use('/carts', cart_route_1.default);
+    app.use('/product', product_route_1.default);
+    app.use('/purchase', purchase_route_1.default);
+    app.use('/category', category_route_1.default);
     app.use('/contactus', contact_route_1.default);
->>>>>>> origin/feature/contactus
-    });
+});

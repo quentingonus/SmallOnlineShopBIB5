@@ -37,10 +37,10 @@ export class ResetComponent implements OnInit {
       this.errorMsg = "Password and Password confirmation are not matched";
     } else {
       const payload = {
-        password: this.forgetPasswordUpdateForm.controls['password'].value;
+        password: this.forgetPasswordUpdateForm.controls['password'].value
       }
       this.authService.resetPasswordUpdate(this.userId, this.token, payload)
-      this.router.navigate(['/login', {resetEmail: 'success'}]);
+      this.router.navigate(['/login', { resetEmail: 'success' }]);
     }
   }
 }
