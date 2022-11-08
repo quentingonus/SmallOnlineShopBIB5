@@ -17,6 +17,8 @@ export const createPurchaseServices = async (req :any, res:Response) => {
         created_user_id: req.body.created_user_id,
         productId: req.body.productId,
         quantity: req.body.quantity,
+        address: req.body.address,
+        credit: req.body.credit,
         date: req.body.date,
         order_status: req.body.order_status
     }
@@ -41,8 +43,10 @@ export const findPurchaseServices = async (req :any, res:Response) => {
 export const updatePurchaseServices = async (req :any, res:Response) => {
   try {
     const purchase:any = await Purchase.findById(req.params.id)
-    purchase.productId= req.body.productId;
-    purchase.quantity= req.body.quantity;
+    purchase.productId = req.body.productId;
+    purchase.quantity = req.body.quantity;
+    purchase.address = req.body.address;
+    purchase.credit = req.body.credit;
     const result = await purchase.save();
     res.json({ message: "Updated Successfully!", data: result })
   } catch (err) {

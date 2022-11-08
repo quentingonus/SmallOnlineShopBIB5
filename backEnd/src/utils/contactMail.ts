@@ -8,7 +8,7 @@ const contactEmail = async (email: any, subject: any, text: any) => {
           port: 587,
           secure: true,
           auth: {
-              user: process.env.USER,
+              user: process.env.ADMIN,
               pass: process.env.PASS,
           },
       });
