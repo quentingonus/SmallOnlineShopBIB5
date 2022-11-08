@@ -25,6 +25,12 @@
             <th
               style="width: 10%"
               scope="col"
+            >
+              #
+            </th>
+            <th
+              style="width: 10%"
+              scope="col"
               sortable="id"
               (sort)="onSort($event)"
             >
@@ -62,7 +68,8 @@
             class="clickable-row"
             *ngFor="let product of filteredProducts || products; index as i"
           >
-            <th scope="row">{{ product.id }}</th>
+            <th> {{ i+1 }} </th>
+            <td scope="row">{{ product.id }}</td>
             <td (click)="editProduct(product)">
               <img
                 [src]="product.imageUrl"
