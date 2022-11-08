@@ -1,12 +1,12 @@
-<div class="login-form">
+<form class="login-form" [formGroup]="loginForm" >
   <h2>Small Online Shop</h2>
   <div class="form-group">
     <label for="uname">Username</label>
-    <input type="text" name="uname" class="form-control" [(ngModel)]="username">
+    <input type="text" formControlName="uname" class="form-control" [(ngModel)]="username">
   </div>
   <div class="form-group">
     <label for="pword">Password</label>
-    <input type="password" name="pword" class="form-control" [(ngModel)]="password">
+    <input type="password" formControlName="password" class="form-control" [(ngModel)]="password">
   </div>
   <div class="error">{{ errorMsg }}</div>
   <div class="form-inline fr mt-4">
@@ -16,4 +16,4 @@
     <button class="btn btn-dark" (click)="login()">Login</button>
     <div class="text-center pt-4 text-muted">Don't have account? <a id="forget" (click)="signup()">Sign Up</a></div>
   </div>
-</div>
+</form>
