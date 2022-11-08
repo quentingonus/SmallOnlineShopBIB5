@@ -5,6 +5,8 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/services/cart.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -59,17 +61,30 @@ export class HomeComponent implements OnInit {
     config: NgbCarouselConfig,
     private productService: ProductsService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private util: UtilsService,
+    private postService: PostService
   ) {
-        library.addIcons(faPlus, faMinus);
-        config.interval = 3000;
-        config.keyboard = true;
-        config.pauseOnHover = true;
-        config.showNavigationArrows = true;
+    library.addIcons(faPlus, faMinus);
+    config.interval = 3000;
+    config.keyboard = true;
+    config.pauseOnHover = true;
+    config.showNavigationArrows = true;
 
-    this.products = productService.products;
-    this.categories = productService.categories;
+    this.getData()
     this.cartService.getCart().subscribe(data => this.cart = data);
+  }
+
+  async getData() {
+    let category = await this.postService.getCategory()
+    this.products = await this.cartService.getShop();
+    this.categories = await this.cartService.getCategory();
+    this.products.map((item: any) => {
+      item.category = this.util.searchCategory(item.category, category.data)
+      return item
+    })
+
+    console.log(this.categories)
   }
 
   onClick(product: any) {

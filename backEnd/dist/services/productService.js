@@ -35,8 +35,9 @@ const createproductServices = (req, res) => __awaiter(void 0, void 0, void 0, fu
         const productData = {
             created_user_id: req.body.created_user_id,
             profile: profile,
-            name: req.body.name,
+            title: req.body.title,
             price: req.body.price,
+            created_category_id: req.body.created_category_id
         };
         console.log(productData);
         const product = new products_1.default(productData);
@@ -50,7 +51,7 @@ const createproductServices = (req, res) => __awaiter(void 0, void 0, void 0, fu
 exports.createproductServices = createproductServices;
 const findproductServices = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const findData = yield products_1.default.findById(req.params.id).populate("created_user_id");
+        const findData = yield products_1.default.findById(req.params.id).populate("created_user_id", "created_category_id");
         res.send({ data: findData });
     }
     catch (err) {
@@ -76,7 +77,7 @@ const updateproductServices = (req, res) => __awaiter(void 0, void 0, void 0, fu
             }
         }
         const product = yield products_1.default.findById(req.params.id);
-        product.name = req.body.name;
+        product.title = req.body.title;
         product.price = req.body.price;
         const result = yield product.save();
         res.json({ message: "Updated Successfully!", data: result });

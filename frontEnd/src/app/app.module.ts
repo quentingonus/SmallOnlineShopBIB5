@@ -14,13 +14,17 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent, NgbdSortableHeader } from './pages/admin-dashboard/admin-dashboard.component';
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
+import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +41,13 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     AddProductComponent,
     EditProductComponent,
     ContactUsComponent,
+    NgbdSortableHeader,
     ForgetpasswordComponent,
-    ResetComponent
+    ResetComponent,
+    CheckOutComponent,
+    OrdersComponent,
+    OrderDetailComponent,
+    CategoryDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,91 @@
+<div class="container my-5">
+  <h2>Order Detail</h2>
+  <div class="row">
+    <div class="card col-6">
+      <div class="card-body">
+        <h3 class="card-title">Customer's Details</h3>
+
+        <table>
+          <tbody>
+            <tr>
+              <td><strong>Name:</strong></td>
+              <td>{{ fullname }}</td>
+            </tr>
+            <tr>
+              <td><strong>Username:</strong></td>
+              <td>{{ customer.username }}</td>
+            </tr>
+            <tr *ngIf="customer.email">
+              <strong><td>Email:</td></strong>
+              <td>{{ customer.email }}</td>
+            </tr>
+            <tr>
+              <td><strong>Adderss 1:</strong></td>
+              <td>{{ customer.address1 }}</td>
+            </tr>
+            <tr *ngIf="customer.address2">
+              <td><strong>Adderss 2:</strong></td>
+              <td>{{ customer.address2 }}</td>
+            </tr>
+            <tr>
+              <td><strong>Country:</strong></td>
+              <td>{{ customer.country }}</td>
+            </tr>
+            <tr>
+              <td><strong>State:</strong></td>
+              <td>{{ customer.state }}</td>
+            </tr>
+            <tr>
+              <td><strong>Zip:</strong></td>
+              <td>{{ customer.zip }}</td>
+            </tr>
+            <tr>
+              <td><strong>Payment Method:</strong></td>
+              <td>{{ customer.payment }}</td>
+            </tr>
+            <tr>
+              <td><strong>Card Name:</strong></td>
+              <td>{{ customer.card_name }}</td>
+            </tr>
+            <tr>
+              <td><strong>Card Number:</strong></td>
+              <td>{{ customer.card_number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Orders List</h5>
+          <ul class="list-group">
+            <li *ngFor="let item of orderProduct" class="list-group-item d-flex justify-content-between align-items-center lh-condensed">
+          
+              <span class="text-muted col-1">{{ item.amount }}x</span>
+              <div class="col-9">
+                <h6 class="my-0">{{ item.title }}</h6>
+                <small class="text-muted">{{ item.category }}</small>
+              </div>
+            
+            <span class="text-muted col-2">{{ item.price | currency: "USD" }}</span>
+          </li>
+          <li *ngIf="orderProduct[0].discount" class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+              <h6 class="my-0">Promo code</h6>
+              <!--<small> {{ orderProduct[0].discount }}%&nbsp;PROMOCODE</small>-->
+            </div>
+            <span class="text-success">-{{ orderProduct[0].discount | currency }}</span>
+          </li>
+  
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (USD)</span>
+            <strong> {{ orderProduct[0].totalPrice | currency:'USD' }} </strong>
+          </li>
+        </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

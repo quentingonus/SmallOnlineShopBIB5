@@ -10,13 +10,17 @@ const productSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    name: {
+    title: {
         type: String,
         required: true
     },
     price: {
         type: Number,
         required: true
+    },
+    created_category_id: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "category",
     }
 }, {
     timestamps: true

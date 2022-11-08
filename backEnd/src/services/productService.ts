@@ -1,8 +1,8 @@
 import products from "../models/products";
 import { Response } from "express";
-import {deleteFile} from "../utils";
+import { deleteFile } from "../utils";
 
-export const getproductServices = async (_req :any, res:Response) => {
+export const getproductServices = async (_req: any, res: Response) => {
   try {
     const result = await products.find().populate("created_user_id");
     res.json({ data: result });
@@ -11,21 +11,22 @@ export const getproductServices = async (_req :any, res:Response) => {
   }
 };
 
-export const createproductServices = async (req :any, res:Response) => {
+export const createproductServices = async (req: any, res: Response) => {
   try {
     let profile = req.body.profileImage;
-    if ( req.file ) {
-      profile = req.file.path.replace('\\','/');
+    if (req.file) {
+      profile = req.file.path.replace('\\', '/');
     }
 
-   console.log(req.body)
+    console.log(req.body)
     const productData = {
       created_user_id: req.body.created_user_id,
       profile: profile,
-      name: req.body.name,
+      title: req.body.title,
       price: req.body.price,
+      created_category_id: req.body.created_category_id
     }
-    
+
     console.log(productData)
     const product = new products(productData);
     const result = await product.save();
@@ -35,34 +36,34 @@ export const createproductServices = async (req :any, res:Response) => {
   }
 };
 
-export const findproductServices = async (req :any, res:Response) => {
+export const findproductServices = async (req: any, res: Response) => {
   try {
-    const findData = await products.findById(req.params.id).populate("created_user_id")
+    const findData = await products.findById(req.params.id).populate("created_user_id", "created_category_id")
     res.send({ data: findData })
   } catch (err) {
     console.log(err)
   }
 };
 
-export const updateproductServices = async (req :any, res:Response) => {
+export const updateproductServices = async (req: any, res: Response) => {
   try {
     const Product = await products.findById(req.params.id);
     if (!Product) {
-      const error = new Error ("Not Found");
+      const error = new Error("Not Found");
       throw error;
     }
     let profile = req.body.profileImage;
     if (req.file) {
-     profile = req.file.path.replace('\\','/');
-    if (Product.profile && Product.profile != profile) {
-     deleteFile(Product.profile);
+      profile = req.file.path.replace('\\', '/');
+      if (Product.profile && Product.profile != profile) {
+        deleteFile(Product.profile);
+      }
+      if (profile) {
+        Product.profile = profile;
+      }
     }
-    if (profile) {
-      Product.profile = profile ;
-    }
-  }
-    const product:any = await products.findById(req.params.id)
-    product.name = req.body.name;
+    const product: any = await products.findById(req.params.id)
+    product.title = req.body.title;
     product.price = req.body.price;
     const result = await product.save();
     res.json({ message: "Updated Successfully!", data: result })
@@ -71,7 +72,7 @@ export const updateproductServices = async (req :any, res:Response) => {
   }
 };
 
-export const deleteproductServices = async (req :any, res:Response) => {
+export const deleteproductServices = async (req: any, res: Response) => {
   try {
     await products.findById(req.params.id);
     await products.findByIdAndRemove(req.params.id);

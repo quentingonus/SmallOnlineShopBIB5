@@ -28,10 +28,6 @@ export class HeaderComponent implements OnInit {
       route: "/login"
     },
     {
-      name: "Admin",
-      route: "/admin"
-    },
-    {
       name: "Contact",
       route: "/contact"
     }
@@ -40,7 +36,7 @@ export class HeaderComponent implements OnInit {
   constructor(private offcanvasService: NgbOffcanvas, private cart: CartService) { }
 
 
-  open(content: any) {
+  openCart(content: any) {
     this.offcanvasService.open(content, { ariaLabelledBy: 'cart-details', position: 'end' });
   }
 

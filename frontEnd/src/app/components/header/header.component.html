@@ -7,7 +7,7 @@
       <div
         class="d-sm-none d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
       >
-        <div class="me-3" (click)="open(content)">
+        <div class="me-3" (click)="openCart(content)">
           <i
             class="bi h3"
             [class]="
@@ -25,8 +25,21 @@
             navItem.name
           }}</a>
         </li>
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn" id="admin" ngbDropdownToggle>
+            Admin
+          </button>
+          <div ngbDropdownMenu aria-labelledby="admin">
+            <a ngbDropdownItem routerLink="/admin">Admin Dashboard</a>
+            <a ngbDropdownItem routerLink="/admin/order">View Orders</a>
+          </div>
+        </div>
         <li class="nav-item">
-          <button class="btn btn-light" type="button" (click)="open(content)">
+          <button
+            class="btn btn-light"
+            type="button"
+            (click)="openCart(content)"
+          >
             <i
               class="bi h5"
               [class]="
@@ -65,6 +78,21 @@
           >{{ navItem.name }}</a
         >
       </li>
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn fs-2" ngbDropdownToggle>Admin</button>
+        <div ngbDropdownMenu aria-labelledby="admin">
+          <a ngbDropdownItem routerLink="/admin" (click)="offcanvas.dismiss()">
+            Admin Dashboard
+          </a>
+          <a
+            ngbDropdownItem
+            routerLink="/admin/order"
+            (click)="offcanvas.dismiss()"
+          >
+            View Orders
+          </a>
+        </div>
+      </div>
     </ul>
   </div>
 </ng-template>
@@ -136,7 +164,7 @@
       <button
         class="btn btn-info"
         type="button"
-        routerLink="/"
+        routerLink="/check-out"
         (click)="offcanvas.dismiss()"
       >
         Checkout
