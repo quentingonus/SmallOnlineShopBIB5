@@ -5,7 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class OrderService {
 
-  orderList: any[] = [];
+  //order: any = {
+  //  customer: [],
+  //  orderProduct: []
+  //};
 
+  order: any[] = [];
+  viewOrder: any;
+  
   constructor() {}
 }
