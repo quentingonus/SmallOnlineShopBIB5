@@ -61,10 +61,9 @@
           <tr
             class="clickable-row"
             *ngFor="let product of filteredProducts || products; index as i"
-            (click)="editProduct(product)"
           >
             <th scope="row">{{ product.id }}</th>
-            <td>
+            <td (click)="editProduct(product)">
               <img
                 [src]="product.imageUrl"
                 class="me-2"

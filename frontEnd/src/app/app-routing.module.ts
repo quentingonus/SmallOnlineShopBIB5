@@ -15,9 +15,11 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ResetComponent } from './pages/reset/reset.component';
+import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
+  { path: 'categories/:id', component: CategoryDetailComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
