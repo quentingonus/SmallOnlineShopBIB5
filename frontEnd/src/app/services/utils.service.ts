@@ -36,6 +36,20 @@ export class UtilsService {
     return ""
   }
 
+  getRandomFromArray(array: any, amount: any) {
+    if (amount > array.length) {
+      return array
+    }
+    let rndArr = []
+    for (let i = 0; i < amount; i++) {
+      let rndItem = array[Math.floor(Math.random() * array.length)];
+      let rndItemIndex = array.indexOf(rndItem)
+      array.splice(rndItemIndex, 1)
+      rndArr.push(rndItem)
+    }
+    return rndArr;
+  }
+
   isLoading(button: any) {
     return button.classList.contains('loading')
   }

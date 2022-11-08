@@ -19,7 +19,8 @@ export class ItemCardComponent implements OnInit {
   }
 
   addItem(product: any) {
-    return product.amount ? product.amount++ : 1;
+    product.amount ? product.amount++ : 1;
+    return this.cartService.updateCart(product)
   }
 
   removeItem(product: any) {
@@ -30,6 +31,7 @@ export class ItemCardComponent implements OnInit {
     if (product.amount == 0) {
       this.cartService.removeFromCart(product)
     }
+    this.cartService.updateCart(product)
   }
 
   getAmount(product: any) {
@@ -43,11 +45,18 @@ export class ItemCardComponent implements OnInit {
 
   constructor(library: FaIconLibrary, private cartService: CartService, private productService: ProductsService, private router: Router) {
     library.addIcons(faPlus, faMinus);
-
-    productService.selectProduct = this.cardItem;
   }
 
   ngOnInit(): void {
+    let cartNormal = this.cartService.getCartNormal()
+    for (let i = 0; i < cartNormal.length; i++) {
+      if (cartNormal[i].id == this.cardItem.id) {
+        this.cardItem.amount = cartNormal[i].amount
+        break
+      } else {
+        this.cardItem.amount = 0
+      }
+    }
   }
 
 }
