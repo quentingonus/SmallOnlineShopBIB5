@@ -140,5 +140,14 @@ export class PostService {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/purchase/`, formData))
   }
 
+  // Send Feedback
+
+  sendFeedback(mail: any, details: any) {
+    let formData = new FormData();
+    formData.append("email", mail)
+    formData.append("detail", details)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/contactus`, formData))
+  }
+
 
 }
