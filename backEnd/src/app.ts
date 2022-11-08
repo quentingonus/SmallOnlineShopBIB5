@@ -19,7 +19,12 @@ import user_route from "./routes/user_route";
 import cart_route from "./routes/cart_route";
 import auth_route from './routes/auth_route';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import category_route from './routes/category_route';
+=======
+import contact_route from "./routes/contact_route";
+import category_route from "./routes/category_route";
+>>>>>>> origin/feature/contactus
 =======
 import contact_route from "./routes/contact_route";
 import category_route from "./routes/category_route";
@@ -66,8 +71,11 @@ mongoose
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 <<<<<<< HEAD
+<<<<<<< HEAD
     app.use('/users', passport.authenticate('jwt', { session: false }), user_route);
 =======
+=======
+>>>>>>> origin/feature/contactus
     // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
     app.use('/users',passport.authenticate('jwt', { session: false }), user_route);
 >>>>>>> origin/feature/contactus
@@ -77,6 +85,11 @@ mongoose
     app.use('/purchase', purchase_route);
     app.use('/category', category_route);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    app.use('/contactus' , contact_route);
+
+>>>>>>> origin/feature/contactus
 =======
     app.use('/contactus' , contact_route);
 

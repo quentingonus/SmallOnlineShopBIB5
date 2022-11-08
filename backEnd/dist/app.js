@@ -58,16 +58,16 @@ app.use(passport_1.default.initialize());
 mongoose_1.default
     .connect(process.env.DATABASE || "")
     .then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-    app.use('/users', passport_1.default.authenticate('jwt', { session: false }), user_route_1.default);
-    app.use('/auth', auth_route_1.default);
-    app.use('/carts', cart_route_1.default);
-    app.use('/product', product_route_1.default);
-    app.use('/purchase', purchase_route_1.default);
-    app.use('/category', category_route_1.default);
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+        // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+        app.use('/users', passport_1.default.authenticate('jwt', { session: false }), user_route_1.default);
+        app.use('/auth', auth_route_1.default);
+        app.use('/carts', cart_route_1.default);
+        app.use('/product', product_route_1.default);
+        app.use('/purchase', purchase_route_1.default);
+        app.use('/category', category_route_1.default);
 <<<<<<< HEAD
 =======
     app.use('/contactus', contact_route_1.default);
 >>>>>>> origin/feature/contactus
-});
+    });
