@@ -58,7 +58,7 @@ export class NgbdSortableHeader {
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
 })
-  
+
 export class AdminDashboardComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
@@ -67,9 +67,10 @@ export class AdminDashboardComponent implements OnInit {
   category!: any;
   filteredProducts!: Product[];
 
-  page: any;
-  pageSize: any;
+  page = 1;
+  pageSize = 4;
   collectionSize: any;
+  searchQuery = "";
 
   constructor(
     private productService: ProductsService,
@@ -108,18 +109,24 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   filter(query: any) {
-    this.filteredProducts = query.trim()
-      ? this.products.filter((product) => {
+    try {
+      return this.products.filter((product: any) => {
         let price = product.price;
         return (
-          product.title.toLowerCase().includes(query.trim().toLowerCase()) ||
-          product.category
+          product.title
             .toLowerCase()
-            .includes(query.trim().toLowerCase()) ||
-          String(price).includes(query)
+            .includes(query.trim().toLowerCase())
+          || this.util
+            .searchCategory(product.category, this.category)
+            .toLowerCase()
+            .includes(query.trim().toLowerCase())
+          || String(price)
+            .includes(query.trim().toLowerCase())
         );
       })
-      : this.products;
+    } catch (error) {
+      return []
+    }
   }
 
   editProduct(product: any) {
@@ -133,23 +140,32 @@ export class AdminDashboardComponent implements OnInit {
     this.products.splice(this.products.indexOf(product), 1);
   }
 
-  refreshProducts() {
-    this.filteredProducts = this.products
-      //.map((product:any, i:any) => ({ index: i + 1, ...product }))
-      .slice(
-        (this.page - 1) * this.pageSize,
-        (this.page - 1) * this.pageSize + this.pageSize
-    );
-    console.log(this.filteredProducts);
+  sliceIntoChunks(arr: any, chunkSize: any) {
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      const chunk = arr.slice(i, i + chunkSize);
+      res.push(chunk);
+    }
+    return res;
+  }
+
+  filteredProduct() {
+    let query = this.searchQuery ? this.searchQuery : ""
+    let tmpProduct = this.filter(query)
+    if (tmpProduct && tmpProduct.length) {
+      let filtered = this.sliceIntoChunks(tmpProduct, this.pageSize)
+      filtered = filtered[this.page - 1]
+      return filtered
+    } else {
+      return []
+    }
+
   }
 
   async ngOnInit() {
     this.products = await this.cartService.getShop();
-    this.products = this.products.map((product, i) => ({index: i + 1, ...product}));
-    console.log(this.products);
-    this.page = 1;
-    this.pageSize = 4;
-    this.collectionSize = this.products.length;
+    this.products = this.products.map((product, i) => ({ index: i + 1, ...product }));
+    this.pageSize = this.products.length
 
     this.category = await this.postService.getCategory();
     this.category = this.category.data;
