@@ -20,12 +20,12 @@
         </div>
       </div>
       <ul class="nav justify-content-end d-none d-sm-flex">
-        <li class="nav-item" *ngFor="let navItem of navItems">
+        <li class="nav-item" *ngFor="let navItem of getNav()">
           <a class="nav-link" [routerLink]="navItem.route">{{
             navItem.name
           }}</a>
         </li>
-        <div ngbDropdown class="d-inline-block">
+        <div ngbDropdown class="d-inline-block" *ngIf="checkAdmin()">
           <button type="button" class="btn" id="admin" ngbDropdownToggle>
             Admin
           </button>
@@ -70,7 +70,7 @@
       ></button>
     </div>
     <ul class="nav flex-column fs-2">
-      <li class="nav-item" *ngFor="let navItem of navItems">
+      <li class="nav-item" *ngFor="let navItem of getNav()">
         <a
           class="nav-link"
           [routerLink]="navItem.route"
@@ -78,7 +78,7 @@
           >{{ navItem.name }}</a
         >
       </li>
-      <div ngbDropdown class="d-inline-block">
+      <div ngbDropdown class="d-inline-block" *ngIf="checkAdmin()">
         <button type="button" class="btn fs-2" ngbDropdownToggle>Admin</button>
         <div ngbDropdownMenu aria-labelledby="admin">
           <a ngbDropdownItem routerLink="/admin" (click)="offcanvas.dismiss()">
