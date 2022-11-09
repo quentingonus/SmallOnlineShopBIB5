@@ -11,6 +11,7 @@ export class OrderDetailComponent implements OnInit {
 
   customer: any;
   orderProduct: any;
+  fulltime: any;
   constructor(private orderService: OrderService, private router: Router) {
     this.customer = orderService.viewOrder.customer;
     this.orderProduct = orderService.viewOrder.orderProduct;
@@ -21,7 +22,10 @@ export class OrderDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.orderService.order.length == 0) this.router.navigate(['/admin/order'])
+    if (this.orderService.order.length == 0) this.router.navigate(['/admin/order']);
+    this.orderService.Timer();
+    this.fulltime = this.orderService.fullTimer;
+    
   }
 
 }

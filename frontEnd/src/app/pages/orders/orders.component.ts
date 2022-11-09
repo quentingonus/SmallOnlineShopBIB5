@@ -17,6 +17,7 @@ export class OrdersComponent implements OnInit {
     this.orderService.viewOrder = order;
     let index = this.orderService.order.indexOf(order);
     this.router.navigate(['/admin/order/detail/' + index]);
+    this.orderService.today = new Date();
   }
   ngOnInit(): void {}
 }
