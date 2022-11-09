@@ -15,8 +15,8 @@ export const createPurchaseServices = async (req :any, res:Response) => {
    console.log(req.body)
     const CategoryData = {
         created_user_id: req.body.created_user_id,
-        productId: req.body.productId,
-        quantity: req.body.quantity,
+        productId: JSON.parse(req.body.productId),
+        quantity:  JSON.parse(req.body.quantity),
         address: req.body.address,
         credit: req.body.credit,
         date: req.body.date,
