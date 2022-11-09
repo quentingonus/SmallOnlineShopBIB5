@@ -9,9 +9,9 @@ import { rootDir } from "./utils";
 import { v4 } from 'uuid';
 import cors from 'cors';
 
-// const swaggerUI = require('swagger-ui-express');
-// const YAML = require('yamljs'); 
-// const swaggerDocument = YAML.load('../../api.yaml');
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs'); 
+const swaggerDocument = YAML.load('./api.yaml');
 
 import product_route from "./routes/product_route";
 import purchase_route from "./routes/purchase_route";
@@ -63,7 +63,7 @@ mongoose
   .connect(process.env.DATABASE || "")
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    // app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+    app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
     app.use('/users', passport.authenticate('jwt', { session: false }), user_route);
     app.use('/auth', auth_route);
     app.use('/carts', cart_route);
