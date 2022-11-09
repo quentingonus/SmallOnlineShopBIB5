@@ -1,6 +1,4 @@
-# .env
 node_modules
-# package.json
 dist
 apiuploads
 /.env
