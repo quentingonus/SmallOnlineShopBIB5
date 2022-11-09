@@ -5,7 +5,8 @@
     <div class="col-12 col-md-3 mb-3">
       <input
         #query
-        (keyup)="filter(query.value)"
+        (input)="filter(query.value)"
+        [(ngModel)]="searchQuery"
         type="text"
         class="form-control"
         placeholder="search..."
@@ -13,7 +14,7 @@
     </div>
     <a
       routerLink="/admin/add-product"
-      class="btn btn-success col-12 col-md-1 mb-3"
+      class="btn btn-success col-12 col-md-2 col-lg-1 mb-3"
       >Add Product</a
     >
   </div>
@@ -59,10 +60,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            class="clickable-row"
-            *ngFor="let product of filteredProducts || products;"
-          >
+          <tr class="clickable-row" *ngFor="let product of filteredProduct()">
             <th>{{ product.index }}</th>
             <td scope="row">{{ product.id }}</td>
             <td (click)="editProduct(product)">
@@ -103,16 +101,19 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-between p-2">
+  <div
+    class="d-flex justify-content-between p-2"
+    *ngIf="products && products.length"
+  >
     <ngb-pagination
-      [collectionSize]="collectionSize"
+      [collectionSize]="products.length"
       [(page)]="page"
       [pageSize]="pageSize"
-      (pageChange)="refreshProducts()"
     >
     </ngb-pagination>
-  
-    <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshProducts()">
+
+    <select class="form-select" style="width: auto" [(ngModel)]="pageSize">
+      <option [ngValue]="products.length">All items</option>
       <option [ngValue]="2">2 items per page</option>
       <option [ngValue]="4">4 items per page</option>
       <option [ngValue]="6">6 items per page</option>
