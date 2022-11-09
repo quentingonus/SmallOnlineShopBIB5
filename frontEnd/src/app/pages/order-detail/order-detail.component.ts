@@ -21,11 +21,16 @@ export class OrderDetailComponent implements OnInit {
     return this.customer.fname + ' ' + this.customer.lname;
   }
 
-  ngOnInit(): void {
-    if (this.orderService.order.length == 0) this.router.navigate(['/admin/order']);
-    this.orderService.Timer();
-    this.fulltime = this.orderService.fullTimer;
-    
+  get order() {
+    return this.orderService;
   }
+
+  shipping() {
+    this.orderService.Timer(new Date());
+    this.orderService.timer$.subscribe(time => this.fulltime = time);
+    //console.log(this.fulltime);
+  }
+
+  ngOnInit(): void { }
 
 }
