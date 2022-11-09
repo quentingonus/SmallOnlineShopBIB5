@@ -7,7 +7,7 @@
       <div
         class="d-sm-none d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
       >
-        <div class="me-3" (click)="openCart(content)">
+        <div class="me-3" (click)="openCart(cartCanvas)">
           <i
             class="bi h3"
             [class]="
@@ -38,7 +38,7 @@
           <button
             class="btn btn-light"
             type="button"
-            (click)="openCart(content)"
+            (click)="openCart(cartCanvas)"
           >
             <i
               class="bi h5"
@@ -97,7 +97,7 @@
   </div>
 </ng-template>
 
-<ng-template #content let-offcanvas>
+<ng-template #cartCanvas let-offcanvas>
   <div class="offcanvas-header">
     <h4 class="offcanvas-title" id="offcanvas-basic-title">Cart Detail</h4>
     <button
