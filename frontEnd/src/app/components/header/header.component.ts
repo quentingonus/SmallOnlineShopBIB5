@@ -49,6 +49,9 @@ export class HeaderComponent implements OnInit {
       route: "/contact"
     },
     {
+      name: "About",
+      route: "/about"
+    }
       name: "Logout",
       route: "/logout",
     },

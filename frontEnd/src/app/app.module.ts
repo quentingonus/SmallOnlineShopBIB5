@@ -25,6 +25,7 @@ import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
+import { AboutComponent } from './pages/about/about.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { LogoutComponent } from './pages/logout/logout.component';
 
@@ -50,6 +51,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
     OrdersComponent,
     OrderDetailComponent,
     CategoryDetailComponent,
+    AboutComponent
     LogoutComponent
   ],
   imports: [

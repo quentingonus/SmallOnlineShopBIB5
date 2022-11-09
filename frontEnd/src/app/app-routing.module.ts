@@ -16,6 +16,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
+import { AboutComponent } from './pages/about/about.component';
 import AuthGuard from "./guards/auth.guard";
 import { LogoutComponent } from './pages/logout/logout.component';
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'check-out', component: CheckOutComponent },
   { path: 'forget', component: ForgetpasswordComponent },
   { path: 'reset', component: ResetComponent },
