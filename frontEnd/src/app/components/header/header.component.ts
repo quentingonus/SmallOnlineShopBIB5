@@ -51,7 +51,8 @@ export class HeaderComponent implements OnInit {
     {
       name: "About",
       route: "/about"
-    }
+    },
+    {
       name: "Logout",
       route: "/logout",
     },
@@ -134,7 +135,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cart.getCart().subscribe(item => {
+    this.cart.getCart().subscribe((item: any) => {
       this.cartItem = item
     })
   }

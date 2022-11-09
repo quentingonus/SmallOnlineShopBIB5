@@ -51,7 +51,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
     OrdersComponent,
     OrderDetailComponent,
     CategoryDetailComponent,
-    AboutComponent
+    AboutComponent,
     LogoutComponent
   ],
   imports: [
