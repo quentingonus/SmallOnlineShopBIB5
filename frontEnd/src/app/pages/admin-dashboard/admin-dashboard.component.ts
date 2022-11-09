@@ -1,7 +1,17 @@
 import { Product } from './../../services/cart.service';
 import { Router } from '@angular/router';
 import { ProductsService } from './../../services/products.service';
-import { Component, Directive, EventEmitter, Input, OnInit, Output, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  Directive,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  PipeTransform,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, pipe, startWith } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
@@ -10,9 +20,14 @@ import { UtilsService } from 'src/app/services/utils.service';
 
 export type SortColumn = keyof Product | '';
 export type SortDirection = 'asc' | 'desc' | '';
-const rotate: { [key: string]: SortDirection } = { asc: 'desc', desc: '', '': 'asc' };
+const rotate: { [key: string]: SortDirection } = {
+  asc: 'desc',
+  desc: '',
+  '': 'asc',
+};
 
-const compare = (v1: string | number, v2: string | number) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
+const compare = (v1: string | number, v2: string | number) =>
+  v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 export interface SortEvent {
   column: SortColumn;
@@ -27,7 +42,6 @@ export interface SortEvent {
     '(click)': 'rotate()',
   },
 })
-
 export class NgbdSortableHeader {
   @Input() sortable: SortColumn = '';
   @Input() direction: SortDirection = '';
@@ -42,9 +56,9 @@ export class NgbdSortableHeader {
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  styleUrls: ['./admin-dashboard.component.scss'],
 })
-
+  
 export class AdminDashboardComponent implements OnInit {
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
@@ -52,6 +66,10 @@ export class AdminDashboardComponent implements OnInit {
   products!: Product[];
   category!: any;
   filteredProducts!: Product[];
+
+  page: any;
+  pageSize: any;
+  collectionSize: any;
 
   constructor(
     private productService: ProductsService,
@@ -62,7 +80,6 @@ export class AdminDashboardComponent implements OnInit {
   ) { }
 
   onSort({ column, direction }: SortEvent) {
-
     this.headers.forEach((header) => {
       if (header.sortable !== column) {
         header.direction = '';
@@ -88,38 +105,53 @@ export class AdminDashboardComponent implements OnInit {
         });
       }
     }
-
   }
 
   filter(query: any) {
-    this.filteredProducts = (query.trim()) ?
-      this.products.filter(product => {
+    this.filteredProducts = query.trim()
+      ? this.products.filter((product) => {
         let price = product.price;
         return (
           product.title.toLowerCase().includes(query.trim().toLowerCase()) ||
-          product.category.toLowerCase().includes(query.trim().toLowerCase()) ||
+          product.category
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()) ||
           String(price).includes(query)
-        )
-      }) :
-      this.products
+        );
+      })
+      : this.products;
   }
 
   editProduct(product: any) {
     this.productService.selectProduct = product;
-    this.router.navigate(['/admin/edit-product'])
+    this.router.navigate(['/admin/edit-product']);
   }
 
   async deleteProduct(product: any, button: any) {
-    button.classList.add("loading")
-    await this.postService.deleteProduct(product)
-    this.products.splice(this.products.indexOf(product), 1)
+    button.classList.add('loading');
+    await this.postService.deleteProduct(product);
+    this.products.splice(this.products.indexOf(product), 1);
+  }
+
+  refreshProducts() {
+    this.filteredProducts = this.products
+      //.map((product:any, i:any) => ({ index: i + 1, ...product }))
+      .slice(
+        (this.page - 1) * this.pageSize,
+        (this.page - 1) * this.pageSize + this.pageSize
+    );
+    console.log(this.filteredProducts);
   }
 
   async ngOnInit() {
     this.products = await this.cartService.getShop();
+    this.products = this.products.map((product, i) => ({index: i + 1, ...product}));
+    console.log(this.products);
+    this.page = 1;
+    this.pageSize = 4;
+    this.collectionSize = this.products.length;
+
     this.category = await this.postService.getCategory();
     this.category = this.category.data;
   }
-
 }
-

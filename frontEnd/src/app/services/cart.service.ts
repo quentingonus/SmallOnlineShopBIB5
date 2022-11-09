@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
 
 export interface Product {
+  index?: any;
   id: number,
   category: string,
   imageUrl: string,
