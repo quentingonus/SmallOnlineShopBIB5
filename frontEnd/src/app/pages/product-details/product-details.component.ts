@@ -6,6 +6,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { parse } from '@fortawesome/fontawesome-svg-core';
 import { FormControl } from '@angular/forms';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-product-details',
@@ -18,7 +19,13 @@ export class ProductDetailsComponent implements OnInit {
   product: any;
   productAmount: any;
 
-  constructor(library: FaIconLibrary, private productService: ProductsService, private cartService: CartService, private router: Router) {
+  constructor(
+    library: FaIconLibrary,
+    private productService: ProductsService,
+    private cartService: CartService,
+    private router: Router,
+    private headerService: HeaderService
+  ) {
     library.addIcons(faHeart, faHeartBroken);
     if (!this.productService.selectProduct) {
       this.router.navigate(['/home']);

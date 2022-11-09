@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbOffcanvas, OffcanvasDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/services/cart.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-header',
@@ -33,11 +34,11 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  constructor(private offcanvasService: NgbOffcanvas, private cart: CartService) { }
+  constructor(private offcanvasService: NgbOffcanvas, private cart: CartService, private headerService: HeaderService) { }
 
 
   openCart(content: any) {
-    this.offcanvasService.open(content, { ariaLabelledBy: 'cart-details', position: 'end' });
+    return this.headerService.openCanvas(content, "end")
   }
 
   totalCartItem() {
@@ -68,7 +69,7 @@ export class HeaderComponent implements OnInit {
 
   openBurgurMenu(content: any) {
     this.burgurMenu = !this.burgurMenu
-    this.offcanvasService.open(content, { position: 'end' }).result.then(
+    this.headerService.openCanvas(content, "end").result.then(
       (result) => {
         this.burgurMenu = !this.burgurMenu
       },
