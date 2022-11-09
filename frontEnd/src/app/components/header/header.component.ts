@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbOffcanvas, OffcanvasDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { HeaderService } from 'src/app/services/header.service';
 
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   burgurMenu = false;
 
-  navItems = [
+  navItems1 = [
     {
       name: "Home",
       route: "/"
@@ -25,16 +26,40 @@ export class HeaderComponent implements OnInit {
       route: "/categories"
     },
     {
+      name: "Contact",
+      route: "/contact"
+    },
+    {
       name: "Login",
       route: "/login"
+    },
+  ]
+
+  navItems2 = [
+    {
+      name: "Home",
+      route: "/"
+    },
+    {
+      name: "Categories",
+      route: "/categories"
     },
     {
       name: "Contact",
       route: "/contact"
-    }
+    },
+    {
+      name: "Logout",
+      route: "/logout",
+    },
   ]
 
-  constructor(private offcanvasService: NgbOffcanvas, private cart: CartService, private headerService: HeaderService) { }
+  constructor(
+    private offcanvasService: NgbOffcanvas,
+    private cart: CartService,
+    private headerService: HeaderService,
+    private authService: AuthService
+  ) { }
 
 
   openCart(content: any) {
@@ -90,6 +115,18 @@ export class HeaderComponent implements OnInit {
     product.amount--
     if (product.amount == 0) {
       this.cart.removeFromCart(product)
+    }
+  }
+
+  checkAdmin() {
+    return this.authService.isAdmin()
+  }
+
+  getNav() {
+    if (this.authService.isAuthenticated()) {
+      return this.navItems2
+    } else {
+      return this.navItems1
     }
   }
 
