@@ -8,70 +8,41 @@ export class OrderService {
 
   order: any[] = [
     {
-      "customer": {
-        "date": "2022-11-10T05:16:17.586Z",
-        "fname": "Quentin",
-        "lname": "1",
-        "username": "kjhk",
-        "email": "jhk",
-        "address1": "hk",
-        "address2": "jh",
-        "country": "kjh",
-        "state": "kh",
-        "zip": "kh",
-        "sameaddress": null,
-        "remember": null,
-        "payment": "credit",
-        "card_name": "kjh",
-        "card_number": "jkhjk"
-      },
-      "orderProduct": [
-        {
-          "totalPrice": 51.96,
-          "id": "636b5cccf7f237c39bbcf3c2",
-          "title": "ကြက်ဥကြော် (ရှယ်)",
-          "imageUrl": "http://localhost:3000/apiuploads/876f92ce-96b6-4ddb-a457-f7ede62367c2_food_poisoning_egg_gastroenteritis_1296x728_header-1024x575.jpg",
-          "price": 12.99,
-          "amount": 4,
-          "category": "food"
-        }
-      ]
-    },
-    {
-      "customer": {
-        "date": "2022-11-10T05:59:38.586Z",
-        "fname": "Quentin",
-        "lname": "2",
-        "username": "kjhk",
-        "email": "jhk",
-        "address1": "hk",
-        "address2": "jh",
-        "country": "kjh",
-        "state": "kh",
-        "zip": "kh",
-        "sameaddress": null,
-        "remember": null,
-        "payment": "credit",
-        "card_name": "kjh",
-        "card_number": "jkhjk"
-      },
-      "orderProduct": [
-        {
-          "totalPrice": 51.96,
-          "id": "636b5cccf7f237c39bbcf3c2",
-          "title": "ကြက်ဥကြော် (ရှယ်)",
-          "imageUrl": "http://localhost:3000/apiuploads/876f92ce-96b6-4ddb-a457-f7ede62367c2_food_poisoning_egg_gastroenteritis_1296x728_header-1024x575.jpg",
-          "price": 12.99,
-          "amount": 4,
-          "category": "food"
-        }
-      ]
+        "customer": {
+            "date": "2022-11-10T07:17:36.789Z",
+            "fname": "sdfs",
+            "lname": "dfdf",
+            "username": "sdfdf",
+            "email": "sdfs",
+            "address1": "sdfsdf",
+            "address2": "sdf",
+            "country": "sdfsf",
+            "state": "dfsdfs",
+            "zip": "df",
+            "sameaddress": true,
+            "remember": null,
+            "payment": "credit",
+            "card_name": "sdfs",
+            "card_number": "dsff"
+        },
+        "orderProduct": [
+            {
+                "totalPrice": 12.99,
+                "id": "636b5cccf7f237c39bbcf3c2",
+                "title": "ကြက်ဥကြော် (ရှယ်)",
+                "imageUrl": "http://localhost:3000/apiuploads/876f92ce-96b6-4ddb-a457-f7ede62367c2_food_poisoning_egg_gastroenteritis_1296x728_header-1024x575.jpg",
+                "price": 12.99,
+                "amount": 1,
+                "category": "food"
+            }
+        ]
     }
-  ];
+];
   viewOrder: any;
 
-  private shippingList: any[] = [];
-  private arriveList: any[] = [];
+  shippingList: any[] = [];
+  arriveList: any[] = [];
+  
   timer: any;
 
   //  today: any;

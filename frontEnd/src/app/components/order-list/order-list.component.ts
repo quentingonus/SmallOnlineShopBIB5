@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OrderService } from 'src/app/services/order.service';
@@ -11,19 +11,9 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrderListComponent implements OnInit {
 
   @Input('order') order: any;
-  shippingList!: any[];
+  @Output() change = new EventEmitter();
+  shippingList: any;
   timer: String = "Calculating...";
-
-  today: any;
-  tomorrow = new Date();
-  endTime: any;
-  remainingTime: any;
-  hours: any;
-  minutes: any;
-  seconds: any;
-  timeleft = 6;
-  timer$ = new Subject();
-  shippingCounter: any;
 
   constructor(private orderService: OrderService, private router: Router) { }
 
@@ -35,45 +25,47 @@ export class OrderListComponent implements OnInit {
   }
   addShippingList(order: any) {
     this.shippingList = this.orderService.addShippingList(order);
+    console.log(this.shippingList);
+    this.change.emit(this.shippingList);
   }
 
-  Timer(orderday: any) {
-    this.today = new Date(orderday);
-    //console.log('Today:', this.today);
+//  Timer(orderday: any) {
+//    this.today = new Date(orderday);
+//    //console.log('Today:', this.today);
+//
+//    this.tomorrow.setDate(this.today.getDate() + 1);
+//    //console.log('Tomorrow:', this.tomorrow)
+//    this.endTime = this.tomorrow.getTime();
+//
+//    let x = setInterval(() => {
+//      let overtime = new Date().getTime();
+//      this.remainingTime = (this.endTime) - overtime;
+//
+//      if (this.remainingTime > 0) {
+//        this.hours = Math.floor((this.remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//        this.minutes = Math.floor((this.remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+//        this.seconds = Math.floor((this.remainingTime % (1000 * 60)) / 1000);
+//
+//        this.timer$.next(`${this.hours}:${this.minutes}:${this.seconds}`);
+//        return this.timer$;
+//      }
+//
+//      clearInterval(x);
+//      this.remainingTime = 0;
+//
+//      this.timer$.next('Timeout');
+//      return this.timer$;
+//
+//    }, 1000);
+//
+//    return this.timer$;
+//  }
 
-    this.tomorrow.setDate(this.today.getDate() + 1);
-    //console.log('Tomorrow:', this.tomorrow)
-    this.endTime = this.tomorrow.getTime();
-
-    let x = setInterval(() => {
-      let overtime = new Date().getTime();
-      this.remainingTime = (this.endTime) - overtime;
-
-      if (this.remainingTime > 0) {
-        this.hours = Math.floor((this.remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        this.minutes = Math.floor((this.remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-        this.seconds = Math.floor((this.remainingTime % (1000 * 60)) / 1000);
-
-        this.timer$.next(`${this.hours}:${this.minutes}:${this.seconds}`);
-        return this.timer$;
-      }
-
-      clearInterval(x);
-      this.remainingTime = 0;
-
-      this.timer$.next('Timeout');
-      return this.timer$;
-
-    }, 1000);
-
-    return this.timer$;
-  }
-
-  get fullTimer() {
-    let timer = `${this.hours} hours ${this.minutes} minutes ${this.seconds}`
-
-    return timer;
-  }
+//  get fullTimer() {
+//    let timer = `${this.hours} hours ${this.minutes} minutes ${this.seconds}`
+//
+//    return timer;
+//  }
 
   formatDate(time: number) {
     if (time < 0) {
