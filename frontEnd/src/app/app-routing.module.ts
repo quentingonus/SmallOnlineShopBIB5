@@ -19,6 +19,7 @@ import { CategoryDetailComponent } from './pages/category-detail/category-detail
 import { AboutComponent } from './pages/about/about.component';
 import AuthGuard from "./guards/auth.guard";
 import { LogoutComponent } from './pages/logout/logout.component';
+import { FaqComponent } from './pages/faq/faq.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'check-out', component: CheckOutComponent },
   { path: 'forget', component: ForgetpasswordComponent },
   { path: 'reset', component: ResetComponent },
+  { path: 'faq', component: FaqComponent },
   { path: '**', component: HomeComponent }
 ];
 

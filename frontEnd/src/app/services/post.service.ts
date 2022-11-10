@@ -31,7 +31,21 @@ export class PostService {
     return product[categoryId]
   }
 
-  createProducts(product: any): Promise<any> {
+  createProducts(product: any) {
+    //const token = localStorage.getItem("TOKEN") || "";
+    //const user = JSON.parse(localStorage.getItem("USER") || "[]")
+    //if (!user.length) {
+    //  return null
+    //}
+    //const options = {
+    //  headers: new HttpHeaders()
+    //    .set('Content-Type', 'application/json;charset=utf-8;')
+    //    .set('Cache-Control', 'no-cache')
+    //    .set('Pragma', 'no-cache')
+    //    .set('userType', user.type)
+    //    .set('userId', user._id)
+    //    .set('Authorization', `Bearer ${token}`)
+    //};
     let formData = new FormData();
 
     //Temporary Adding Default Value
