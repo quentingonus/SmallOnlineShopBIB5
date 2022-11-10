@@ -1,1 +1,50 @@
-<p>orderandshipping works!</p>
+<div class="container">
+  <div class="row">
+    <p class="fs-3 my-5">ORDERS & SHIPPING</p>
+    <ngb-accordion
+      #acc="ngbAccordion"
+      activeIds="ngb-panel-0"
+      class="mb-5"
+      [closeOthers]="true"
+    >
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>How do I place an order?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ol>
+            <li>Go to category page.</li>
+            <li>Add to cart one item.</li>
+            <li>Click checkout.</li>
+            <li>Fill shipping address & payment.</li>
+            <li>Click Place an order.</li>
+          </ol>
+          <p class="text-muted">
+            It's that easy. <i class="bi bi-check2 text-success"></i>
+          </p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Do I need an account to place an order?</span>
+        </ng-template>
+        <ng-template ngbPanelContent> Sure, why not. </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>I can't find an item that I am looking for?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Maybe we do not have that item, but keep looking for it. We will stock
+          it one day.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>I've forgotten my password - what should I do?</span>
+        </ng-template>
+        <ng-template ngbPanelContent> Go to forget password page </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

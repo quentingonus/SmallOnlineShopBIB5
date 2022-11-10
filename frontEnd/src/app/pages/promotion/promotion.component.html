@@ -1,1 +1,7 @@
-<p>promotion works!</p>
+<p class="fs-2 mt-3 ms-5 mb-1 text-uppercase">
+  <span class="border-bottom border-dark">Promotions</span>
+</p>
+<app-promotion-card
+  *ngFor="let promo of promotion"
+  [promo]="promo"
+></app-promotion-card>

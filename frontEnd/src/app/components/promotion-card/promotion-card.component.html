@@ -1,0 +1,67 @@
+<div
+  class="promo-card left p-5 d-flex border-bottom"
+  *ngIf="promo.position == 'left'"
+>
+  <div class="image">
+    <img [src]="promo.imageUrl" [alt]="promo.name" />
+  </div>
+  <div class="detail">
+    <p class="fs-3 font-weight-bold">{{ promo.name }}</p>
+    <p class="fs-5">{{ promo.amount }}% Off</p>
+    <p class="fs-5">Promo Code</p>
+    <div class="d-flex">
+      <div class="col-6">
+        <input
+          type="text"
+          class="form-control text-uppercase"
+          [value]="promo.code"
+          disabled
+        />
+      </div>
+      <div class="col-6">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          ngbTooltip="Copied"
+          triggers="click:blur"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="promo-card d-flex p-5 border-bottom right"
+  *ngIf="promo.position == 'right'"
+>
+  <div class="detail">
+    <p class="fs-3 font-weight-bold">{{ promo.name }}</p>
+    <p class="fs-3">{{ promo.amount }}% Off</p>
+    <p class="fs-5">Promo Code</p>
+    <div class="d-flex">
+      <div class="col-6">
+        <input
+          type="text"
+          class="form-control text-uppercase"
+          [value]="promo.code"
+          disabled
+        />
+      </div>
+      <div class="col-6">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          ngbTooltip="Copied"
+          triggers="click:blur"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="image">
+    <img [src]="promo.imageUrl" [alt]="promo.name" />
+  </div>
+</div>
