@@ -2,8 +2,8 @@ openapi: 3.0.2
 servers:
   - url: http://127.0.0.1:3000
 info:
-  description: This is API Doc for Angular+ NodeJS Bulletinboard
-  title: Swagger API Doc for Angular+NodeJS Bulletinboard
+  description: This is API Doc for Angular+ NodeJS Small Online Shop
+  title: Swagger API Doc for Angular+NodeJS Small Online Shop
   version: 1.0.0
 
 tags:
@@ -11,14 +11,22 @@ tags:
     description: Operations about Authentication
   - name: Password
     description: Operations about Password
-  - name: Posts
-    description: Operations about Posts
+  - name: Category
+    description: Operations about Category
+  - name: Product
+    description: Operations about Product
+  - name: Purchase
+    description: Operations about Purchase
+  - name: Cart
+    description: Operations about Cart
+  - name: Popular
+    description: Operations about Popular
   - name: Users
     description: Operations about Users
 
 paths:
   # Auth Routes
-  /api/login:
+  /auth/login:
     post:
       tags:
         - Authentication
@@ -63,7 +71,7 @@ paths:
         "200":
           description: Login Successfully.
 
-  /api/logout:
+  /auth/logout:
     post:
       tags:
         - Authentication
@@ -75,7 +83,7 @@ paths:
         default:
           description: Logout Successfully.
 
-  /api/signup:
+  /auth/signup:
     post:
       tags:
         - Authentication
@@ -102,7 +110,7 @@ paths:
           description: Signup user Successfully.
 
   # Password Routes
-  /api/forgot-password:
+  /auth/forgot_password:
     post:
       tags:
         - Password
@@ -121,7 +129,7 @@ paths:
         "200":
           description: Password reset link sent to your email account
 
-  /api/password-reset-update/{userId}/{token}:
+  /auth/password-reset-update/{userId}/{token}:
     post:
       tags:
         - Password
@@ -153,7 +161,7 @@ paths:
         "200":
           description: Password reset sucessfully.
 
-  /api/password-change/{userId}/{token}:
+  /auth/password-change/{userId}/{token}:
     post:
       tags:
         - Password
@@ -193,315 +201,20 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "404":
           description: Could not find user
-  # Post Routes
-  /api/posts:
-    get:
-      tags:
-        - Posts
-      summary: Get all posts
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: page
-          in: query
-          description: PageNumber 
-          schema:
-            type: number
-        - name: ppp
-          in: query
-          description: Number of posts that want to show per Page
-          schema:
-            type: number
-      responses:
-        "200":
-          description: Returns all Posts
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-    post:
-      tags:
-        - Posts
-      summary: Create a new post
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      requestBody:
-        description: Create a new post
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
-                created_user_id:
-                  type: string
-                  example: "62fde243b554f4955fdf7914"
-          application/xml:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
-                created_user_id:
-                  type: string
-                  example: "62fde243b554f4955fdf7914"
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
-                created_user_id:
-                  type: string
-                  example: "62fde243b554f4955fdf7914"
+  # Category Routes
 
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  title:
-                    type: string
-                    example: "Post01"
-                  description:
-                    type: string
-                    example: "Description01"
-                  status:
-                    type: boolean
-                    example: true
-                  created_user_id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  title:
-                    type: string
-                    example: "Post01"
-                  description:
-                    type: string
-                    example: "Description01"
-                  status:
-                    type: boolean
-                    example: true
-                  created_user_id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-        "405":
-          description: Invalid input
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
+  # Product Routes
 
-  /api/posts/{postId}:
-    get:
-      tags:
-        - Posts
-      summary: Find post by ID
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      operationId: getPostById
-      parameters:
-        - name: postId
-          in: path
-          description: ID of post to return
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  _id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-                  title:
-                    type: string
-                    example: "Title01"
-                  description:
-                    type: string
-                    example: "Description01"
-                  status:
-                    type: boolean
-                    example: true
-                  created_user_id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-                  _v:
-                    type: number
-                    example: 0
-                  createdAt:
-                    type: string
-                    format: date
-                  updatedAt:
-                    type: string
-                    format: date
-        "404":
-          description: Post not found
-    put:
-      tags:
-        - Posts
-      summary: Update a post
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      operationId: updatePostId
-      parameters:
-        - name: postId
-          in: path
-          description: ID of post to return
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: Update an existing post
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
-                created_user_id:
-                  type: string
-                  example: "62fde243b554f4955fdf7914"
-                updated_user_id:
-                  type: string
-                  example: "62fde243b554f4955fdf7914"
-      responses:
-        "200":
-          description: Updated Successfully!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  _id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-                  title:
-                    type: string
-                    example: "Title Updated"
-                  description:
-                    type: string
-                    example: "Description Updated"
-                  status:
-                    type: boolean
-                    example: true
-                  created_user_id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-                  updated_user_id:
-                    type: string
-                    example: "62fde243b554f4955fdf7914"
-                  createdAt:
-                    type: string
-                    format: date
-                  updatedAt:
-                    type: string
-                    format: date
-        "405":
-          description: Invalid input
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-    delete:
-      tags:
-        - Posts
-      summary: Delete a post
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      operationId: deletePost
-      parameters:
-        - name: postId
-          in: path
-          description: Post id to delete
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Deleted Successfully!
-        "400":
-          description: Invalid post value
+  # Purchase Routes
 
-  /api/posts/search:
-    post:
-      tags:
-        - Posts
-      summary: Get search posts
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: page
-          in: query
-          description: PageNumber 
-          schema:
-            type: number
-        - name: ppp
-          in: query
-          description: Number of posts that want to show per Page
-          schema:
-            type: number
-      requestBody:
-        description: Title of the post that you want to search
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Post"
-      responses:
-        "200":
-          description: Returns search Posts
-        "400":
-          description: An error occured
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
+  # ContactUs Routes
+
+  # Popular Routes
+
+  # Cart Routes
 
   # User Routes
-  /api/users:
+  /users:
     get:
       tags:
         - Users
@@ -512,7 +225,7 @@ paths:
       parameters:
         - name: page
           in: query
-          description: PageNumber 
+          description: PageNumber
           schema:
             type: number
         - name: upp
@@ -540,101 +253,101 @@ paths:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "Post01"
+                  example: "Hla Hla"
                 email:
                   type: string
-                  example: "Description01"
+                  example: "email@gmail.com"
                 password:
                   type: string
                   format: password
                   example: "password123"
+                address:
+                  type: string
+                  example: "Address"
+                phone:
+                  type: string
+                  example: "09123456789"
+                dob:
+                  type: string
+                  format: Date,
+                  example: 1999-01-22
                 type:
                   type: string
                   description: User Roles
                   enum:
                     - Admin
                     - User
-                phone:
-                  type: string
-                  example: "0912345678"
-                dob:
-                  type: string
-                  format: date
-                  example: 2022-06-30
-                address:
-                  type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
           application/xml:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "Post01"
+                  example: "Hla Hla"
                 email:
                   type: string
-                  example: "Description01"
+                  example: "email@gmail.com"
                 password:
                   type: string
                   format: password
                   example: "password123"
+                address:
+                  type: string
+                  example: "Address"
+                phone:
+                  type: string
+                  example: "09123456789"
+                dob:
+                  type: string
+                  format: Date,
+                  example: 1999-01-22
                 type:
                   type: string
                   description: User Roles
                   enum:
                     - Admin
                     - User
-                phone:
-                  type: string
-                  example: "0912345678"
-                dob:
-                  type: string
-                  format: date
-                  example: 2022-06-30
-                address:
-                  type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
           application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "Post01"
+                  example: "Hla Hla"
                 email:
                   type: string
-                  example: "Description01"
+                  example: "email@gmail.com"
                 password:
                   type: string
                   format: password
                   example: "password123"
+                address:
+                  type: string
+                  example: "Address"
+                phone:
+                  type: string
+                  example: "09123456789"
+                dob:
+                  type: string
+                  format: Date,
+                  example: 1999-01-22
                 type:
                   type: string
                   description: User Roles
                   enum:
                     - Admin
                     - User
-                phone:
-                  type: string
-                  example: "0912345678"
-                dob:
-                  type: string
-                  format: date
-                  example: 2022-06-30
-                address:
-                  type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
       responses:
         "200":
           description: Created User Successfully
@@ -643,6 +356,8 @@ paths:
               schema:
                 type: object
                 properties:
+                  profile:
+                    type: string
                   name:
                     type: string
                   email:
@@ -650,16 +365,14 @@ paths:
                   password:
                     type: string
                     format: password
-                  type:
+                  address:
                     type: string
                   phone:
                     type: string
                   dob:
                     type: string
-                    format: date
-                  address:
-                    type: string
-                  profile:
+                    format: date,
+                  type:
                     type: string
                   _id:
                     type: string
@@ -672,7 +385,7 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
-  /api/users/{userId}:
+  /users/{userId}:
     post:
       tags:
         - Users
@@ -699,9 +412,12 @@ paths:
                   _id:
                     type: string
                     example: "62c6a49a087a13d74076e514"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                   name:
                     type: string
-                    example: "User One"
+                    example: "User one"
                   email:
                     type: string
                     example: "userone@gmail.com"
@@ -709,24 +425,21 @@ paths:
                     type: string
                     format: password
                     example: "password123"
-                  type:
+                  address:
                     type: string
-                    description: User Roles
-                    enum:
-                      - Admin
-                      - User
+                    example: "Address"
                   phone:
                     type: string
                     example: "0912345678"
                   dob:
                     type: string
                     format: date
-                  address:
+                  type:
                     type: string
-                    example: "Address"
-                  profile:
-                    type: string
-                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                    description: User Roles
+                    enum:
+                      - Admin
+                      - User
                   createdAt:
                     type: string
                     format: date
@@ -757,30 +470,34 @@ paths:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "User One"
+                  example: "User one"
                 email:
                   type: string
-                  example: "Description01"
-                type:
+                  example: "userone@gmail.com"
+                password:
                   type: string
-                  description: User Roles
-                  enum:
-                    - Admin
-                    - User
+                  format: password
+                  example: "password123"
+                address:
+                  type: string
+                  example: "Address"
                 phone:
                   type: string
                   example: "0912345678"
                 dob:
                   type: string
                   format: date
-                address:
+                type:
                   type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  description: User Roles
+                  enum:
+                    - Admin
+                    - User
                 created_user_id:
                   type: string
                   example: "62fde243b554f4955fdf7914"
@@ -798,34 +515,34 @@ paths:
                   _id:
                     type: string
                     example: "62fde243b554f4955fdf7914"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                   name:
                     type: string
-                    example: "User One"
+                    example: "User one"
                   email:
                     type: string
-                    example: "Description01"
+                    example: "userone@gmail.com"
                   password:
                     type: string
                     format: password
                     example: "password123"
-                  type:
+                  address:
                     type: string
-                    description: User Roles
-                    enum:
-                      - Admin
-                      - User
+                    example: "Address"
                   phone:
                     type: string
                     example: "0912345678"
                   dob:
                     type: string
                     format: date
-                  address:
+                  type:
                     type: string
-                    example: "Address"
-                  profile:
-                    type: string
-                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                    description: User Roles
+                    enum:
+                      - Admin
+                      - User
                   created_user_id:
                     type: string
                     example: "62fde243b554f4955fdf7914"
@@ -863,54 +580,53 @@ paths:
         "400":
           description: Invalid post value
 
-  /api/users/search:
-    post:
-      tags:
-        - Users
-      summary: Get search users
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: page
-          in: query
-          description: PageNumber 
-          schema:
-            type: number
-        - name: upp
-          in: query
-          description: Number of users that want to show per Page
-          schema:
-            type: number
-      requestBody:
-        description: Search with Username, Email, Fromdate & Todate
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  example: "Example User"
-                email:
-                  type: string
-                  example: "example@gmail.com"
-                fromDate:
-                  type: string
-                  format: date
-                toDate:
-                  type: string
-                  format: date
-      responses:
-        "200":
-          description: Returns search Users
-        "400":
-          description: An error occured
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
+  # /api/users/search:
+  #   post:
+  #     tags:
+  #       - Users
+  #     summary: Get search users
+  #     description: This can only be done by the logged in user.
+  #     security:
+  #       - bearerAuth: []
+  #     parameters:
+  #       - name: page
+  #         in: query
+  #         description: PageNumber
+  #         schema:
+  #           type: number
+  #       - name: upp
+  #         in: query
+  #         description: Number of users that want to show per Page
+  #         schema:
+  #           type: number
+  #     requestBody:
+  #       description: Search with Username, Email, Fromdate & Todate
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               username:
+  #                 type: string
+  #                 example: "Example User"
+  #               email:
+  #                 type: string
+  #                 example: "example@gmail.com"
+  #               fromDate:
+  #                 type: string
+  #                 format: date
+  #               toDate:
+  #                 type: string
+  #                 format: date
+  #     responses:
+  #       "200":
+  #         description: Returns search Users
+  #       "400":
+  #         description: An error occured
+  #       "401":
+  #         $ref: "#/components/responses/UnauthorizedError"
 
 components:
-
   securitySchemes:
     bearerAuth: # arbitrary name for the security scheme
       type: http
