@@ -12,19 +12,7 @@ export class OrderListComponent implements OnInit {
 
   @Input('order') order: any;
   shippingList!: any[];
-  timer: any;
-  
-  constructor(private orderService: OrderService, private router: Router) { }
-
-  viewOrder(order: any) {
-    this.orderService.viewOrder = order;
-    let index = this.orderService.order.indexOf(order);
-    this.router.navigate(['/admin/order/detail/' + index]);
-   
-  }
-  addShippingList(order: any) {
-    this.shippingList = this.orderService.addShippingList(order);
-  }
+  timer: String = "Calculating...";
 
   today: any;
   tomorrow = new Date();
@@ -35,8 +23,19 @@ export class OrderListComponent implements OnInit {
   seconds: any;
   timeleft = 6;
   timer$ = new Subject();
-
   shippingCounter: any;
+
+  constructor(private orderService: OrderService, private router: Router) { }
+
+  viewOrder(order: any) {
+    this.orderService.viewOrder = order;
+    let index = this.orderService.order.indexOf(order);
+    this.router.navigate(['/admin/order/detail/' + index]);
+
+  }
+  addShippingList(order: any) {
+    this.shippingList = this.orderService.addShippingList(order);
+  }
 
   Timer(orderday: any) {
     this.today = new Date(orderday);
@@ -76,14 +75,23 @@ export class OrderListComponent implements OnInit {
     return timer;
   }
 
+  formatDate(time: number) {
+    if (time < 0) {
+      return null
+    }
+    let hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((time % (1000 * 60)) / 1000);
+    return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} second${seconds > 1 ? 's' : ''}`
+  }
+
 
   ngOnInit(): void {
-    //console.log(this.order);
-    console.log(typeof(this.order.customer.date));
-    this.Timer(this.order.customer.date).subscribe(timer => { 
-      this.timer = timer;
-     });
-     
+    setInterval(() => {
+      let customerBuyDate = new Date(this.order.customer.date)
+      let dateDiff = this.formatDate(new Date(customerBuyDate.setDate(customerBuyDate.getDate() + 1)).getTime() - new Date().getTime());
+      this.timer = dateDiff ? dateDiff : "Timeout"
+    }, 1000)
   }
 
 }

@@ -22,7 +22,7 @@ export class OrdersComponent implements OnInit {
     this.orderService.viewOrder = order;
     let index = this.orderService.order.indexOf(order);
     this.router.navigate(['/admin/order/detail/' + index]);
-   
+
   }
 
   addShippingList(order: any) {
@@ -42,7 +42,7 @@ export class OrdersComponent implements OnInit {
   //  return fulltime$.asObservable();
   //}
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
   }
-  
+
 }
