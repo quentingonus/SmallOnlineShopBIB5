@@ -11,6 +11,7 @@ export class OrderDetailComponent implements OnInit {
 
   customer: any;
   orderProduct: any;
+  fulltime: any;
   constructor(private orderService: OrderService, private router: Router) {
     this.customer = orderService.viewOrder.customer;
     this.orderProduct = orderService.viewOrder.orderProduct;
@@ -20,8 +21,10 @@ export class OrderDetailComponent implements OnInit {
     return this.customer.fname + ' ' + this.customer.lname;
   }
 
-  ngOnInit(): void {
-    if (this.orderService.order.length == 0) this.router.navigate(['/admin/order'])
+  get order() {
+    return this.orderService;
   }
+
+  ngOnInit(): void { }
 
 }
