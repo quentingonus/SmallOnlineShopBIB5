@@ -6,7 +6,26 @@
   </ul>
 
   <div [ngSwitch]="pageName" class="col-9">
-    <div *ngSwitchCase="'profile'"> Profile Section</div>
+    <div *ngSwitchCase="'profile'">
+      <form class="card">
+        <div class="card-body">
+         
+          <div class="card-img">
+            <img class="card-img-top" src="https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="">
+          </div>
+            <div class="form-group m-3">
+              <label for="username">Username</label>
+              <input class="form-control" type="text" name="" id="username" placeholder="Recipient's text" aria-label="Recipient's " aria-describedby="my-addon">
+            </div>
+
+            <div class="form-group m-3">
+              <label for="email">Email</label>
+              <input class="form-control" type="text" name="" id="email" placeholder="Recipient's text" aria-label="Recipient's " aria-describedby="my-addon">
+            </div>
+          </div>
+        
+      </form>
+    </div>
     <div *ngSwitchCase="'address'"> Address Section</div>
     <div *ngSwitchCase="'socials'"> Socials Section</div>
   </div>
