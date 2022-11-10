@@ -34,6 +34,7 @@ import { OrderandshippingComponent } from './pages/orderandshipping/orderandship
 import { DeliveryComponent } from './pages/delivery/delivery.component';
 import { RefundsComponent } from './pages/refunds/refunds.component';
 import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
+import { PromotionCardComponent } from './components/promotion-card/promotion-card.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-an
     OrderandshippingComponent,
     DeliveryComponent,
     RefundsComponent,
-    PrivacyAndPolicyComponent
+    PrivacyAndPolicyComponent,
+    PromotionCardComponent
   ],
   imports: [
     BrowserModule,
