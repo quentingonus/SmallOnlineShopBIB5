@@ -1,3 +1,4 @@
+import { ProfileComponent } from './pages/profile/profile.component';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'admin/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
   { path: 'admin/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'user-id/profile', component: ProfileComponent},
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: 'about', component: AboutComponent },

@@ -35,6 +35,7 @@ import { OrderandshippingComponent } from './pages/orderandshipping/orderandship
 import { DeliveryComponent } from './pages/delivery/delivery.component';
 import { RefundsComponent } from './pages/refunds/refunds.component';
 import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-an
     OrderandshippingComponent,
     DeliveryComponent,
     RefundsComponent,
-    PrivacyAndPolicyComponent
+    PrivacyAndPolicyComponent,
+    ProfileComponent
 
   ],
   imports: [

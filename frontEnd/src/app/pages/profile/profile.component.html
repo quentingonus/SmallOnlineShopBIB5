@@ -1,0 +1,18 @@
+<div class="container row m-5">
+  <ul class="list-group col-3">
+    <li class="list-group-item" [class.active]="pageName == 'profile'" (click)="pageName = 'profile'">Profile About</li>
+    <li class="list-group-item"  [class.active]="pageName == 'address'" (click)="pageName = 'address'">Address</li>
+    <li class="list-group-item"  [class.active]="pageName == 'socials'" (click)="pageName = 'socials'">Socials</li>
+  </ul>
+
+  <div [ngSwitch]="pageName" class="col-9">
+    <div *ngSwitchCase="'profile'"> Profile Section</div>
+    <div *ngSwitchCase="'address'"> Address Section</div>
+    <div *ngSwitchCase="'socials'"> Socials Section</div>
+  </div>
+
+</div>
+
+<div [ngSwitch]="pageName">
+  <div *> </div>
+</div>
