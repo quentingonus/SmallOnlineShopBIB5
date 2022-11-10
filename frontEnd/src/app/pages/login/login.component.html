@@ -1,19 +1,49 @@
-<form class="login-form" [formGroup]="loginForm" >
+<form class="login-form">
   <h2>Small Online Shop</h2>
   <div class="form-group">
-    <label for="uname">Username</label>
-    <input type="text" formControlName="uname" class="form-control" [(ngModel)]="username">
+    <label for="uname">Email</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="username"
+      (input)="errorMsg = ''"
+      name="username"
+    />
   </div>
   <div class="form-group">
     <label for="pword">Password</label>
-    <input type="password" formControlName="password" class="form-control" [(ngModel)]="password">
+    <input
+      type="password"
+      class="form-control"
+      [(ngModel)]="password"
+      (input)="errorMsg = ''"
+      name="password"
+    />
   </div>
   <div class="error">{{ errorMsg }}</div>
   <div class="form-inline fr mt-4">
-    <a id="forget" class="font-weight-bold" (click)="forget()">Forget Password?</a>
+    <a id="forget" class="font-weight-bold" (click)="forget()"
+      >Forget Password?</a
+    >
   </div>
   <div class="btn-container">
-    <button class="btn btn-dark" (click)="login()">Login</button>
-    <div class="text-center pt-4 text-muted">Don't have account? <a id="forget" (click)="signup()">Sign Up</a></div>
+    <button
+      #signinBtn
+      class="btn btn-dark"
+      (click)="login(signinBtn)"
+      [disabled]="util.isLoading(signinBtn)"
+    >
+      Login
+      <div
+        class="spinner-border spinner-border-sm"
+        role="status"
+        *ngIf="util.isLoading(signinBtn)"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
+    <div class="text-center pt-4 text-muted">
+      Don't have account? <a id="forget" (click)="signup()">Sign Up</a>
+    </div>
   </div>
 </form>

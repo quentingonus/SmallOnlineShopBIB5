@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { HomeComponent } from '../home/home.component';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -13,51 +12,57 @@ export class LoginComponent implements OnInit {
   username = "";
   password = "";
   errorMsg = "";
-  loginForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    public util: UtilsService
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  login() {
-    //if (this.username.trim().length === 0) {
-    //  this.errorMsg = "Username is required";
-    //} else if (this.password.trim().length === 0) {
-    //  this.errorMsg = "Password is required";
-    //} else {
-    //  this.errorMsg = "";
-    //  let res = this.authService.login(this.username, this.password);
-    //  if (res === 200) {
-    //    this.router.navigate(['home']);
-    //  }
-    //  if (res === 403) {
-    //    this.errorMsg = "Invalid Credentials";
-    //  }
-    //}
-
-    const payload = {
-      username: this.loginForm.controls['username'].value,
-      password: this.loginForm.controls['password'].value
+  login(signinBtn: any) {
+    signinBtn.classList.add("loading")
+    if (this.username.trim().length === 0) {
+      this.errorMsg = "Email is required";
     }
-    this.authService.login(payload).then((dist: any) => {
-      localStorage.setItem('token', dist.token);
-      localStorage.setItem('userLoginData', JSON.stringify(dist.user));
+    if (this.password.trim().length === 0) {
+      this.errorMsg = "Password is required";
+
+    }
+    let mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!this.username.trim().match(mailRegex)) {
+      this.errorMsg = "Invalid email format";
+    }
+    if (this.errorMsg != "") {
+      signinBtn.classList.remove("loading")
+      return
+    }
+
+    this.authService.login({
+      mail: this.username,
+      password: this.password
+    }).then((dist: any) => {
+      localStorage.setItem('TOKEN', dist.token);
+      localStorage.setItem('USER', JSON.stringify(dist.user));
+      localStorage.setItem('ROLE', dist.user.type.toUpperCase());
       this.router.navigate(['home']);
+    }).catch((err: any) => {
+      this.errorMsg = "Creditionals doesn't match."
+      signinBtn.classList.remove("loading")
     })
   }
-  
+
   forget() {
     this.router.navigate(['forget']);
   }
 
   signup() {
     this.router.navigate(['signup']);
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['home']);
+    }
   }
 
 }

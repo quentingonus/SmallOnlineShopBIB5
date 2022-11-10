@@ -16,6 +16,10 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
+import { AboutComponent } from './pages/about/about.component';
+import AuthGuard from "./guards/auth.guard";
+import { LogoutComponent } from './pages/logout/logout.component';
+import { FaqComponent } from './pages/faq/faq.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
@@ -23,17 +27,20 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'products/detail', component: ProductDetailsComponent },
-  { path: 'admin/order/detail/:id', component: OrderDetailComponent },
-  { path: 'admin/order', component: OrdersComponent },
-  { path: 'admin/edit-product', component: EditProductComponent },
-  { path: 'admin/add-product', component: AddProductComponent },
-  { path: 'admin', component: AdminDashboardComponent },
+  { path: 'admin/order/detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
+  { path: 'admin/order', component: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'admin/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
+  { path: 'admin/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'check-out', component: CheckOutComponent },
   { path: 'forget', component: ForgetpasswordComponent },
   { path: 'reset', component: ResetComponent },
+  { path: 'faq', component: FaqComponent },
   { path: '**', component: HomeComponent }
 ];
 

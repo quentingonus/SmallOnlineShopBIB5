@@ -26,6 +26,15 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { AboutComponent } from './pages/about/about.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { LogoutComponent } from './pages/logout/logout.component';
+import { FaqComponent } from './pages/faq/faq.component';
+import { PromotionComponent } from './pages/promotion/promotion.component';
+import { OrderandshippingComponent } from './pages/orderandshipping/orderandshipping.component';
+import { DeliveryComponent } from './pages/delivery/delivery.component';
+import { RefundsComponent } from './pages/refunds/refunds.component';
+import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +58,16 @@ import { OrderListComponent } from './components/order-list/order-list.component
     OrdersComponent,
     OrderDetailComponent,
     CategoryDetailComponent,
-    OrderListComponent
+    OrderListComponent,
+    AboutComponent,
+    LogoutComponent,
+    FaqComponent,
+    PromotionComponent,
+    OrderandshippingComponent,
+    DeliveryComponent,
+    RefundsComponent,
+    PrivacyAndPolicyComponent
+
   ],
   imports: [
     BrowserModule,
@@ -61,7 +79,10 @@ import { OrderListComponent } from './components/order-list/order-list.component
     SlickCarouselModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
