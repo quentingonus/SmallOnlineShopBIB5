@@ -25,12 +25,6 @@ export class OrderDetailComponent implements OnInit {
     return this.orderService;
   }
 
-  shipping() {
-    this.orderService.Timer(new Date());
-    this.orderService.timer$.subscribe(time => this.fulltime = time);
-    //console.log(this.fulltime);
-  }
-
   ngOnInit(): void { }
 
 }

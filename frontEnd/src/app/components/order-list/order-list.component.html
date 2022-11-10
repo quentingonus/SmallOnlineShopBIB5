@@ -1,0 +1,14 @@
+
+  <td> {{ order.customer.fname }}&nbsp; {{ order.customer.lname }} </td>
+  <td> {{ order.customer.date | date:'fullDate'}} </td>
+  <td> {{ timer }}</td>
+  <td>
+    <button class="btn btn-link" (click)="viewOrder(order)">
+      <td>view</td>
+    </button>
+  </td>
+  <td>
+    <button class="btn btn-link" (click)="addShippingList(order)">
+      <td>ship</td>
+    </button>
+  </td>
