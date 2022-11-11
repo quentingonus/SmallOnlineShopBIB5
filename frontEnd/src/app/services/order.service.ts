@@ -12,7 +12,37 @@ export class OrderService {
             "date": "2022-11-10T07:17:36.789Z",
             "fname": "sdfs",
             "lname": "dfdf",
-            "username": "sdfdf",
+            "username": "PhyoThiHA",
+            "email": "sdfs",
+            "address1": "sdfsdf",
+            "address2": "sdf",
+            "country": "sdfsf",
+            "state": "dfsdfs",
+            "zip": "df",
+            "sameaddress": true,
+            "remember": null,
+            "payment": "credit",
+            "card_name": "sdfs",
+            "card_number": "dsff"
+        },
+        "orderProduct": [
+            {
+                "totalPrice": 12.99,
+                "id": "636b5cccf7f237c39bbcf3c2",
+                "title": "ကြက်ဥကြော် (ရှယ်)",
+                "imageUrl": "http://localhost:3000/apiuploads/876f92ce-96b6-4ddb-a457-f7ede62367c2_food_poisoning_egg_gastroenteritis_1296x728_header-1024x575.jpg",
+                "price": 12.99,
+                "amount": 1,
+                "category": "food"
+            }
+        ]
+    },
+    {
+        "customer": {
+            "date": "2022-11-10T07:17:36.789Z",
+            "fname": "sdfs",
+            "lname": "dfdf",
+            "username": "PhyoThiHA0805",
             "email": "sdfs",
             "address1": "sdfsdf",
             "address2": "sdf",
@@ -110,6 +140,11 @@ export class OrderService {
     this.arriveList.push(order);
 
     return this.arriveList;
+  }
+
+  orderFindbyCustomer(customer: any) {
+    let order = this.order.filter(order => order.customer.username == customer)
+    return order;
   }
 
   constructor() {

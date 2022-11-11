@@ -1,3 +1,4 @@
+import { OrderService } from 'src/app/services/order.service';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,8 +13,9 @@ export class ProfileComponent implements OnInit {
   isconfirm = false;
   isUpdate = false;
   form;
+  myOrder: any[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private orderService: OrderService) {
     this.form = fb.group({
       username: ['PhyoThiHA0805'],
       email: ['bib.ptkyaw505@gmail.com']
@@ -30,6 +32,8 @@ export class ProfileComponent implements OnInit {
     this.isconfirm = false;
     this.isUpdate = false;
     this.form.disable();
+    this.form.get('username')?.setValue('PhyoThiHA0805')
+    this.form.get('email')?.setValue('bib.ptkyaw505@gmail.com');
   }
 
   confirm() {
@@ -38,7 +42,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form.disable()
+    this.form.disable();
+    this.myOrder = this.orderService.orderFindbyCustomer('PhyoThiHA');
   }
 
 }
