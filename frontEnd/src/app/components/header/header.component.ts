@@ -30,6 +30,10 @@ export class HeaderComponent implements OnInit {
       route: "/contact"
     },
     {
+      name: "About",
+      route: "/about"
+    },
+    {
       name: "Login",
       route: "/login"
     },
