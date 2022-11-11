@@ -2,6 +2,7 @@ import { Response } from "express";
 import User from "../models/User";
 import { deleteFile } from "../utils";
 import bcrypt from "bcrypt";
+const logger = require('../loggers/logger');
 
 export const getUserService = async (_req: any, res: Response) => {
   try {
@@ -9,6 +10,8 @@ export const getUserService = async (_req: any, res: Response) => {
     res.json({ data: result });
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in get user");
+    logger.userErrorLogger.log('info', 'Error User Lists')
   }
 };
 
@@ -35,6 +38,7 @@ export const createUserService = async (req: any, res: Response) => {
   } catch (err) {
     res.send("An Error occured in create user");
     console.log(err)
+    logger.userInfoLogger.log('info', 'Error Create User')
   }
 };
 
@@ -44,6 +48,8 @@ export const findUserService = async (req: any, res: Response) => {
     res.send({ data: findData })
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in find user");
+    logger.userErrorLogger.log('info', 'Error User Not Found')
   }
 };
 
@@ -77,6 +83,7 @@ export const updateUserService = async (req: any, res: Response) => {
   } catch (err) {
     res.send("an error occured in Edit User");
     console.log(err)
+    logger.userErrorLogger.log('info', 'Error Update User')
   }
 };
 
@@ -96,5 +103,6 @@ export const deleteUserService = async (req: any, res: Response) => {
   } catch (err) {
     res.send("An Error Occured During Delete user")
     console.log(err)
+    logger.userErrorLogger.log('info', 'Error Delete User')
   }
 };

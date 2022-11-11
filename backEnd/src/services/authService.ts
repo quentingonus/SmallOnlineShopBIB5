@@ -66,7 +66,6 @@ export const forgetPasswordService = async (req: any, res: Response) => {
   } catch (err) {
     console.log(err);
     return res.send("An Error occured in passwordReset");
-
   }
 }
 
