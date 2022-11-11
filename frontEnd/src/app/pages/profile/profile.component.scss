@@ -1,3 +1,7 @@
+
+.container {
+  min-height: 80vh;
+}
 .card {
   overflow: hidden;
 }
@@ -52,7 +56,6 @@ table {
 
 .socials {
   height: 80vh;
-
   li {
     cursor: pointer;
     transition: 0.6s;
