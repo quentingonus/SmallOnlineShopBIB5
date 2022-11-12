@@ -79,10 +79,13 @@ export class OrderListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    setInterval(() => {
+   let x = setInterval(() => {
       let customerBuyDate = new Date(this.order.customer.date)
       let dateDiff = this.formatDate(new Date(customerBuyDate.setDate(customerBuyDate.getDate() + 1)).getTime() - new Date().getTime());
-      this.timer = dateDiff ? dateDiff : "Timeout"
+     this.timer = dateDiff ? dateDiff : "Timeout"
+     console.log(this.timer);
+
+     if (!dateDiff) clearInterval(x);
     }, 1000)
   }
 
