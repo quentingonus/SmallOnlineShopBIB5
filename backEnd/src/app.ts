@@ -10,7 +10,7 @@ import { v4 } from 'uuid';
 import cors from 'cors';
 
 const swaggerUI = require('swagger-ui-express');
-const YAML = require('yamljs'); 
+const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./api.yaml');
 
 import product_route from "./routes/product_route";

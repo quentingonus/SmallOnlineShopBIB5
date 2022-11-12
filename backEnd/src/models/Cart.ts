@@ -5,9 +5,13 @@ const cartSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user"
   },
-  created_product_id: {
-    type: [Schema.Types.ObjectId],
-    ref: "product"
+  productId: {
+    type: [Object],
+    required: true
+  },
+  quantity: {
+    type: [String],
+    required: true
   },
 }, {
   timestamps: true

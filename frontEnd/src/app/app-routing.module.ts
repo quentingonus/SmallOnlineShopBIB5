@@ -21,6 +21,11 @@ import { AboutComponent } from './pages/about/about.component';
 import AuthGuard from "./guards/auth.guard";
 import { LogoutComponent } from './pages/logout/logout.component';
 import { FaqComponent } from './pages/faq/faq.component';
+import { OrderandshippingComponent } from './pages/orderandshipping/orderandshipping.component';
+import { DeliveryComponent } from './pages/delivery/delivery.component';
+import { RefundsComponent } from './pages/refunds/refunds.component';
+import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
+import { PromotionComponent } from './pages/promotion/promotion.component';
 
 const routes: Routes = [
   { path: 'categories', component: AllCategoriesComponent },
@@ -43,6 +48,11 @@ const routes: Routes = [
   { path: 'forget', component: ForgetpasswordComponent },
   { path: 'reset', component: ResetComponent },
   { path: 'faq', component: FaqComponent },
+  { path: 'order-and-shipping', component: OrderandshippingComponent },
+  { path: 'delivery', component: DeliveryComponent },
+  { path: 'refund', component: RefundsComponent },
+  { path: 'privacy-and-policy', component: PrivacyAndPolicyComponent },
+  { path: 'promotion', component: PromotionComponent },
   { path: '**', component: HomeComponent }
 ];
 
