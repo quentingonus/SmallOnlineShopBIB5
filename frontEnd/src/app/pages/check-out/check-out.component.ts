@@ -30,7 +30,7 @@ export class CheckOutComponent implements OnInit {
       username: ['', Validators.required],
       email: [],
       address1: ['', Validators.required],
-      address2: [],
+      address2: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
@@ -51,11 +51,6 @@ export class CheckOutComponent implements OnInit {
       discount: this.discountPrice,
       ...this.cartService.getCartNormal()[0],
     }];
-
-    //this.orderService.order.push({
-    //  customer: newCustomer,
-    //  orderProduct: this.newOrder,
-    //});
 
     await this.orderService.postCreateOrder(newCustomer, this.newOrder)
 

@@ -50,7 +50,7 @@ export class OrderService {
     formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
     formData.append("productId", JSON.stringify(productArr))
     formData.append("quantity", JSON.stringify(quantityArr))
-    formData.append("address", `${customer.address1} ${customer.address2} ${customer.state} ${customer.zip} ${customer.country}`)
+    formData.append("address", `${customer.address1}, ${customer.address2}, ${customer.state}, ${customer.zip}, ${customer.country}`)
     formData.append("credit", customer.payment)
     formData.append("date", new Date().toLocaleString())
     formData.append("order_status", "pending")
@@ -59,6 +59,10 @@ export class OrderService {
 
   postGetOrder() {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase`))
+  }
+
+  postSearchOrder(id: String) {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`))
   }
 
   constructor(private http: HttpClient) {

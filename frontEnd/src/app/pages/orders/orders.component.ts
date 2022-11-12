@@ -39,8 +39,8 @@ export class OrdersComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let orders = await this.orderService.postGetOrder()
-    console.log(orders)
+    let orders: any = await this.orderService.postGetOrder()
+    this.orderLists = orders.data
   }
 
 }
