@@ -6,14 +6,14 @@
   ></div>
 
   <ng-template #orderList>
-    <table class="table table-hover">
+    <table class="table table-hover shadow-sm">
       <thead class="thead-light">
         <tr>
           <th style="width: 15%">Customer Name</th>
           <th style="width: 20%">Order Date</th>
           <th style="width: 30%">Estimated Shipment Time</th>
           <th colspan="2">Actions</th>
-          <th></th>
+         
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,7 @@
   <div *ngIf="shippingList && shippingList.length > 0" class="my-5">
     <h2>Shipping Orders</h2>
 
-    <table class="table table-striped">
+    <table class="table table-striped shadow-sm">
       <thead class="thead-light">
         <tr>
           <th>Customers</th>

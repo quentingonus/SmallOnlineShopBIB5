@@ -71,7 +71,7 @@ import { PromotionCardComponent } from './components/promotion-card/promotion-ca
     RefundsComponent,
     PrivacyAndPolicyComponent,
     ProfileComponent,
-    CustomerOrderComponent
+    CustomerOrderComponent,
     PromotionCardComponent
   ],
   imports: [
