@@ -35,6 +35,8 @@ import { OrderandshippingComponent } from './pages/orderandshipping/orderandship
 import { DeliveryComponent } from './pages/delivery/delivery.component';
 import { RefundsComponent } from './pages/refunds/refunds.component';
 import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { PromotionCardComponent } from './components/promotion-card/promotion-card.component';
 
 @NgModule({
@@ -68,6 +70,8 @@ import { PromotionCardComponent } from './components/promotion-card/promotion-ca
     DeliveryComponent,
     RefundsComponent,
     PrivacyAndPolicyComponent,
+    ProfileComponent,
+    CustomerOrderComponent
     PromotionCardComponent
   ],
   imports: [

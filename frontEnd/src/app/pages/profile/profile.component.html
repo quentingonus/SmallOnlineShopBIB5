@@ -1,0 +1,178 @@
+<div class="container my-3">
+
+  <div class="row">
+    <div class="col-3 nav">
+      <ul class="list-group w-100">
+        <li class="list-group-item" [class.active]="pageName == 'profile'" (click)="pageName = 'profile'">
+          Profile About
+        </li>
+        <li class="list-group-item" [class.active]="pageName == 'order'" (click)="pageName = 'order'">
+          Ordered Lists
+        </li>
+        <li class="list-group-item" [class.active]="pageName == 'address'" (click)="pageName = 'address'">
+          Address
+        </li>
+        <li class="list-group-item" [class.active]="pageName == 'socials'" (click)="pageName = 'socials'">
+          Socials
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="col">
+      <div [ngSwitch]="pageName">
+        <div *ngSwitchCase="'profile'">
+          <form class="card profile shadow-sm" [formGroup]="form">
+            <div class="card-body">
+              <div class="card-img">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="" />
+              </div>
+              <div class="form-group m-3">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" name="" id="username" formControlName="username" />
+              </div>
+
+              <div class="form-group m-3">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" name="" id="email" formControlName="email" />
+              </div>
+
+              <button *ngIf="!isconfirm" class="btn btn-success m-3" type="button" (click)="update()">
+                Update Profile
+              </button>
+              <button *ngIf="isconfirm" class="btn btn-success m-3" type="button" (click)="confirm()">
+                Confirm
+              </button>
+              <button *ngIf="isUpdate" class="btn btn-danger m-3" type="button" (click)="cancel(form)">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div *ngSwitchCase="'order'" class="order">
+          <h3>Yours Order</h3>
+
+          <div class=" shadow-sm">
+            <table class="table table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th style="width: 20%">Username</th>
+                  <th style="width: 35%">Order Date</th>
+                  <th style="width: 40%">Estimated Shipment Time</th>
+                  <th >Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  app-customer-order
+                  *ngFor="let order of myOrder"
+                  [order]="order"
+                ></tr>
+              </tbody>
+            </table>
+          </div>
+
+          
+        </div>
+        <div *ngSwitchCase="'socials'" class="socials">
+          <ul class="row">
+            <li class="card d-flex flex-row col-md-5 m-2 shadow">
+
+              <div class="card-logo card-facebook"></div>
+              <div class="card-text">
+                <p>Contact on facebook</p>
+              </div>
+            </li>
+            <li class="card d-flex flex-row col-md-5 m-2 shadow">
+
+              <div class="card-logo card-instagram"></div>
+              <div class="card-text">
+                <p>Follow me on Instagram</p>
+              </div>
+            </li>
+            <li class="card d-flex flex-row col-md-5 m-2 shadow">
+
+              <div class="card-logo card-twitter"></div>
+              <div class="card-text">
+                <p>contact on twitter</p>
+              </div>
+            </li>
+            <li class="card d-flex flex-row col-md-5 m-2 shadow">
+
+              <div class="card-logo card-youtube"></div>
+              <div class="card-text">
+                <p>Subscribe on youtube</p>
+              </div>
+            </li>
+
+
+          </ul>
+        </div>
+
+        <div *ngSwitchCase="'address'" class="address">
+          <form [formGroup]="addressForm" class="shadow-sm rounded p-3">
+            <div class="form-group my-4">
+              <div class="row">
+                <div class="col">
+                  <label for="fname">First Name</label>
+                  <input formControlName="fname" type="text" id="fname" class="form-control">
+                </div>
+                <div class="col">
+                  <label for="lname">Last Name</label>
+                  <input formControlName="lname" type="text" id="lname" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group my-4">
+                <label for="phone">Phone</label>
+                <input formControlName="phone" id="phone" class="form-control" type="text" name="">
+              </div>
+              
+              <div class="form-group my-4">
+                <label for="address1">Address 1</label>
+                <input formControlName="address1" id="address1" class="form-control" type="text" name="">
+              </div>
+
+              <div class="form-group my-4">
+                <label for="address2">Address 2</label>
+                <input formControlName="address2" id="address2" class="form-control" type="text" name="">
+              </div>
+
+              <div class="form-group my-4">
+                <div class="row">
+                  <div class="col">
+                    <label for="city">City</label>
+                    <input formControlName="city" type="text" id="city" class="form-control">
+                  </div>
+                  <div class="col">
+                    <label for="State">State</label>
+                    <input formControlName="state" type="text" id="State" class="form-control">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <button *ngIf="!isconfirm" class="btn btn-success m-3" type="button" (click)="update()">
+              Update Data
+            </button>
+            <button *ngIf="isconfirm" class="btn btn-success m-3" type="button" (click)="confirm()">
+              Confirm
+            </button>
+            <button *ngIf="isUpdate" class="btn btn-danger m-3" type="button" (click)="cancel(form)">
+              Cancel
+            </button>
+          </form>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div [ngSwitch]="pageName">
+  <div *></div>
+</div>
