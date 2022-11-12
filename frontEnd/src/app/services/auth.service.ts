@@ -28,13 +28,6 @@ export class AuthService {
     }
   }
 
-  //login(uname : string, pword : string) {
-  //  if ( uname === 'Admin' && pword === 'admin123') {
-  //    return 200;
-  //  } else {
-  //    return 403;
-  //  }
-  //}
   public login(payload: any) {
     let formData = new FormData()
     formData.append("email", payload.mail)
@@ -69,8 +62,11 @@ export class AuthService {
   }
 
   public isAdmin() {
-    console.log(`${localStorage.getItem('ROLE')} - ADMIN`)
     return localStorage.getItem('ROLE') == "ADMIN";
+  }
+
+  public getCurrentUser() {
+    return JSON.parse(localStorage.getItem("USER") || "{}")
   }
 
 }

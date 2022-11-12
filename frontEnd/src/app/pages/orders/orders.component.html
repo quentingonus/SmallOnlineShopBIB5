@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>New Orders</h2>
+  <h2 class="mt-3">New Orders</h2>
 
   <div
     *ngIf="orderService.order.length > 0; then orderList; else noOrder"
@@ -22,7 +22,7 @@
           app-order-list
           *ngFor="let order of orderLists"
           [order]="order"
-          (change) = "getShippingList($event)"
+          (change)="getShippingList($event)"
         ></tr>
       </tbody>
     </table>
@@ -92,6 +92,4 @@
       </tbody>
     </table>
   </div>
-
-  
 </div>

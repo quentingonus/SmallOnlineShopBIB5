@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
 import { environment } from 'src/environments/environment';
+import { Observable, Subject, throwError, lastValueFrom, Observer } from 'rxjs';
 import { SubscriptionLoggable } from 'rxjs/internal/testing/SubscriptionLoggable';
+import { AuthService } from './auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface Product {
   index?: any;
@@ -69,30 +71,106 @@ export class CartService {
     return -2
   }
 
-  addToCart(newItem: any) {
-    let newIndex = this.findById(newItem.id, this.cartItem)
-    if (newIndex > -1) {
-      if ("amount" in this.cartItem[newIndex]) {
-        if (newItem.amount == 0) {
-          this.cartItem[newIndex].amount++;
-        } else {
-          this.cartItem[newIndex].amount = newItem.amount;
+  //API Request Session
+
+  async postGetCart() {
+    const cartCached: any = JSON.parse(localStorage.getItem("cart") ? localStorage.getItem("cart")! : "{}")
+    if ("_id" in cartCached) {
+      let products = await this.getShop()
+      for (let i = 0; i < products.length; i++) {
+        let index = cartCached.productId.indexOf(products[i].id)
+        if (index > -1) {
+          let cartIndex = this.findById(products[i].id, this.cartItem)
+          if (cartIndex < 0) {
+            products[i].amount = parseInt(cartCached.quantity[i])
+            this.cartItem.push(products[i])
+          }
         }
-      } else {
-        this.cartItem[newIndex].amount++;
       }
+      this.cartItem$.next(this.cartItem)
     }
-    else {
-      if (!("amount" in newItem)) {
-        newItem.amount = 1
+  }
+
+  async postCreateEmptyCart() {
+    const currentUser = this.authService.getCurrentUser()
+    let formData = new FormData()
+    formData.append("productId", JSON.stringify([]))
+    formData.append("quantity", JSON.stringify([]))
+    formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
+    return await lastValueFrom(this.http.post(`${environment.apiUrl}/carts`, formData))
+      .then((res: any) => {
+        res = res.data
+        localStorage.setItem("cart", JSON.stringify(res))
+        return res
+      })
+      .catch((err: any) => {
+        console.log(err)
+        throw "An error occurs at creating empty cart."
+      })
+  }
+
+  async postUpdateCart() {
+    const currentUser = this.authService.getCurrentUser()
+    const cartCached: any = JSON.parse(localStorage.getItem("cart") ? localStorage.getItem("cart")! : "{}")
+    let productArr: any = []
+    let quantityArr: any = []
+    let formData = new FormData()
+    this.cartItem.forEach((item: any) => {
+      productArr.push(item.id)
+      quantityArr.push(item.amount)
+    });
+    formData.append("productId", JSON.stringify(productArr))
+    formData.append("quantity", JSON.stringify(quantityArr))
+    formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
+    return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${cartCached._id}`, formData))
+      .then((res: any) => {
+        res = res.data
+        localStorage.setItem("cart", JSON.stringify(res))
+        return res
+      })
+      .catch((err: any) => {
+        console.log(err)
+        throw "An error occurs at updating cart."
+      })
+  }
+
+  async postDeleteCart() {
+    const cartCached: any = JSON.parse(localStorage.getItem("cart")!)
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/carts/${cartCached._id}`))
+  }
+
+  async addToCart(newItem: any) {
+    try {
+      if (!(localStorage.getItem("cart"))) {
+        await this.postCreateEmptyCart()
       }
-      if (newItem.amount == 0) {
-        newItem.amount++
+      let newIndex = this.findById(newItem.id, this.cartItem)
+      if (newIndex > -1) {
+        if ("amount" in this.cartItem[newIndex]) {
+          if (newItem.amount == 0) {
+            this.cartItem[newIndex].amount++;
+          } else {
+            this.cartItem[newIndex].amount = newItem.amount;
+          }
+        } else {
+          this.cartItem[newIndex].amount++;
+        }
       }
-      this.cartItem.push(newItem)
+      else {
+        if (!("amount" in newItem)) {
+          newItem.amount = 1
+        }
+        if (newItem.amount == 0) {
+          newItem.amount++
+        }
+        this.cartItem.push(newItem)
+      }
+      await this.postUpdateCart()
+      console.log("Add to Cart: " + newItem.title + " | amount: " + newItem.amount)
+      this.cartItem$.next(this.cartItem)
+    } catch (e) {
+      console.log(e)
     }
-    console.log("Add to Cart: " + newItem.title + " | amount: " + newItem.amount)
-    this.cartItem$.next(this.cartItem)
   }
 
   async removeFromCart(item: any) {
@@ -106,6 +184,7 @@ export class CartService {
     if (shopIndex > -1) {
       shopItem[shopIndex].amount = 0
     }
+    this.postUpdateCart()
     this.cartItem$.next(this.cartItem)
   }
 
@@ -118,16 +197,22 @@ export class CartService {
     else {
       this.cartItem[newIndex].amount = 0
     }
+    this.postUpdateCart()
     this.cartItem$.next(this.cartItem)
   }
 
-  deleteCart() {
+  async deleteCart() {
     this.cartItem = []
+    this.postUpdateCart()
+    await this.postDeleteCart()
     this.cartItem$.next(this.cartItem)
 
   }
 
-  constructor(private postService: PostService) {
-
+  constructor(
+    private postService: PostService,
+    private authService: AuthService,
+    private http: HttpClient,
+  ) {
   }
 }

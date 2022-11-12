@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'admin/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
   { path: 'admin/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'user-id/profile', component: ProfileComponent},
+  { path: 'user-id/profile', component: ProfileComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: 'about', component: AboutComponent },
