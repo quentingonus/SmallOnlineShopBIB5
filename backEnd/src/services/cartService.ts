@@ -14,8 +14,8 @@ export const createCartService = async (req: any, res: Response) => {
   try {
     const cartData = {
       created_user_id: req.body.created_user_id,
-      productId: req.body.productId,
-      quantity: req.body.quantity
+      productId: JSON.parse(req.body.productId),
+      quantity: JSON.parse(req.body.quantity)
     }
     const cartStorage = new Cart(cartData);
     const result = await cartStorage.save();
@@ -38,8 +38,8 @@ export const updateCartService = async (req: any, res: Response) => {
   try {
     const cart: any = await Cart.findById(req.params.id)
     cart.created_user_id = req.body.created_user_id;
-    cart.productId = req.body.productId;
-    cart.quantity = req.body.quantity
+    cart.productId = JSON.parse(req.body.productId);
+    cart.quantity = JSON.parse(req.body.quantity)
     const result = await cart.save();
     res.json({ msg: "Updated Successfully", data: result })
   } catch (err) {

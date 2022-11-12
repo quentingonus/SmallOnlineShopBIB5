@@ -42,7 +42,7 @@ export class CheckOutComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.form);
     let newCustomer = { date: new Date(), ...this.form.value };
 
@@ -51,17 +51,15 @@ export class CheckOutComponent implements OnInit {
       discount: this.discountPrice,
       ...this.cartService.getCartNormal()[0],
     }];
-    
-    //this.orderService.order.customer.push(newCustomer);
-    //this.orderService.order.orderProduct.push(this.cartService.getCartNormal());
-    this.orderService.order.push({
-      customer: newCustomer,
-      orderProduct: this.newOrder,
-    });
+
+    //this.orderService.order.push({
+    //  customer: newCustomer,
+    //  orderProduct: this.newOrder,
+    //});
+
+    await this.orderService.postCreateOrder(newCustomer, this.newOrder)
 
     this.confirmOrder = true;
-    console.log(newCustomer);
-    console.log('Order :', this.orderService.order);
     this.cartService.deleteCart();
   }
 
