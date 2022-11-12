@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { OrderService } from 'src/app/services/order.service';
@@ -12,10 +12,11 @@ export class OrderListComponent implements OnInit {
 
   @Input('order') order: any;
   @Output() change = new EventEmitter();
+  @ViewChild('select') select!: ElementRef<HTMLSelectElement>;
   shippingList: any;
   timer: String = "Calculating...";
 
-  constructor(private orderService: OrderService, private router: Router) { }
+  constructor(private orderService: OrderService, private router: Router) {}
 
   viewOrder(order: any) {
     this.orderService.viewOrder = order;
@@ -77,6 +78,21 @@ export class OrderListComponent implements OnInit {
     return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} second${seconds > 1 ? 's' : ''}`
   }
 
+  onChange(element: any) {
+   
+    if (element.value == 'pending') {
+      this.select.nativeElement.style.color = '#2268d0';
+      this.select.nativeElement.style.backgroundColor = '#f2f4f8';
+    }
+    if (element.value == 'shipping') {
+      this.select.nativeElement.style.color = '#ffc107';
+      this.select.nativeElement.style.backgroundColor = '#fff7e6';
+    }
+    if (element.value == 'arrive') {
+      this.select.nativeElement.style.color = '#08b967';
+      this.select.nativeElement.style.backgroundColor = '#ebf9f4';
+    }
+  }
 
   ngOnInit(): void {
    let x = setInterval(() => {
@@ -87,6 +103,11 @@ export class OrderListComponent implements OnInit {
 
      if (!dateDiff) clearInterval(x);
     }, 1000)
+  }
+
+  ngAfterViewInit() { 
+    this.select.nativeElement.style.color = '#2268d0';
+    this.select.nativeElement.style.backgroundColor = '#f2f4f8';
   }
 
 }
