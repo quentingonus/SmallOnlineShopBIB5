@@ -15,58 +15,19 @@ export class OrderListComponent implements OnInit {
   @ViewChild('select') select!: ElementRef<HTMLSelectElement>;
   shippingList: any;
   timer: String = "Calculating...";
+  orderLink!: any;
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(private orderService: OrderService, private router: Router) { }
 
-  viewOrder(order: any) {
-    this.orderService.viewOrder = order;
-    let index = this.orderService.order.indexOf(order);
-    this.router.navigate(['/admin/order/detail/' + index]);
-
+  viewOrder() {
+    console.log(this.order)
+    this.router.navigate([`/admin/order/detail/${this.order._id}`]);
   }
   addShippingList(order: any) {
     this.shippingList = this.orderService.addShippingList(order);
     console.log(this.shippingList);
     this.change.emit(this.shippingList);
   }
-
-//  Timer(orderday: any) {
-//    this.today = new Date(orderday);
-//    //console.log('Today:', this.today);
-//
-//    this.tomorrow.setDate(this.today.getDate() + 1);
-//    //console.log('Tomorrow:', this.tomorrow)
-//    this.endTime = this.tomorrow.getTime();
-//
-//    let x = setInterval(() => {
-//      let overtime = new Date().getTime();
-//      this.remainingTime = (this.endTime) - overtime;
-//
-//      if (this.remainingTime > 0) {
-//        this.hours = Math.floor((this.remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//        this.minutes = Math.floor((this.remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-//        this.seconds = Math.floor((this.remainingTime % (1000 * 60)) / 1000);
-//
-//        this.timer$.next(`${this.hours}:${this.minutes}:${this.seconds}`);
-//        return this.timer$;
-//      }
-//
-//      clearInterval(x);
-//      this.remainingTime = 0;
-//
-//      this.timer$.next('Timeout');
-//      return this.timer$;
-//
-//    }, 1000);
-//
-//    return this.timer$;
-//  }
-
-//  get fullTimer() {
-//    let timer = `${this.hours} hours ${this.minutes} minutes ${this.seconds}`
-//
-//    return timer;
-//  }
 
   formatDate(time: number) {
     if (time < 0) {
@@ -79,7 +40,7 @@ export class OrderListComponent implements OnInit {
   }
 
   onChange(element: any) {
-   
+
     if (element.value == 'pending') {
       this.select.nativeElement.style.color = '#2268d0';
       this.select.nativeElement.style.backgroundColor = '#f2f4f8';
@@ -95,17 +56,18 @@ export class OrderListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   let x = setInterval(() => {
-      let customerBuyDate = new Date(this.order.customer.date)
+    let x = setInterval(() => {
+      let customerBuyDate = new Date(this.order.date)
       let dateDiff = this.formatDate(new Date(customerBuyDate.setDate(customerBuyDate.getDate() + 1)).getTime() - new Date().getTime());
-     this.timer = dateDiff ? dateDiff : "Timeout"
-     console.log(this.timer);
+      this.timer = dateDiff ? dateDiff : "Timeout"
 
-     if (!dateDiff) clearInterval(x);
+      if (!dateDiff) clearInterval(x);
     }, 1000)
+    this.orderLink = `/admin/order/detail/${this.order._id}`
+    console.log(this.orderLink)
   }
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
     this.select.nativeElement.style.color = '#2268d0';
     this.select.nativeElement.style.backgroundColor = '#f2f4f8';
   }

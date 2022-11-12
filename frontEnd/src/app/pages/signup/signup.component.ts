@@ -27,10 +27,6 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //const localData = localStorage.getItem('signUpUsers');
-    //if (localData != null) {
-    //  this.signupUsers = JSON.parse(localData);
-    //}
   }
 
   register(signupBtn: any) {
@@ -59,6 +55,7 @@ export class SignupComponent implements OnInit {
       this.errArr.push("Invalid email format.")
     }
     if (this.errArr.length) {
+      signupBtn.classList.remove("loading")
       return
     }
     //this.signupUsers.push(this.signupObj);

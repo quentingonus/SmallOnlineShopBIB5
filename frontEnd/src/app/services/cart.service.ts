@@ -99,9 +99,8 @@ export class CartService {
     formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
     return await lastValueFrom(this.http.post(`${environment.apiUrl}/carts`, formData))
       .then((res: any) => {
-        res = res.data
-        localStorage.setItem("cart", JSON.stringify(res))
-        return res
+        localStorage.setItem("cart", JSON.stringify(res.data))
+        return res.data
       })
       .catch((err: any) => {
         console.log(err)

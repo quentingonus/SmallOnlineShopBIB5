@@ -1,16 +1,21 @@
-<td>{{ order.customer.fname }}&nbsp; {{ order.customer.lname }}</td>
-<td>{{ order.customer.date | date: "fullDate" }}</td>
+<td>{{ order.created_user_id.name }}</td>
+<td>{{ order.date }}</td>
 <td>{{ timer }}</td>
 
 <td>
-  <select class="form-select" aria-label="Delivery Status" #select (change)="onChange(select)">
+  <select
+    class="form-select"
+    aria-label="Delivery Status"
+    #select
+    (change)="onChange(select)"
+  >
     <option class="option-list" selected value="pending">pending</option>
     <option class="option-list" value="shipping">shipping</option>
     <option class="option-list" value="arrive">arrive</option>
   </select>
 </td>
 <td>
-  <button class="btn btn-outline-primary" (click)="viewOrder(order)">
+  <button class="btn btn-outline-primary" [routerLink]="orderLink">
     <td>view</td>
   </button>
 </td>

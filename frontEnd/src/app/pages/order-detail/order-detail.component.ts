@@ -1,6 +1,7 @@
 import { OrderService } from './../../services/order.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-order-detail',
@@ -10,21 +11,48 @@ import { Router } from '@angular/router';
 export class OrderDetailComponent implements OnInit {
 
   customer: any;
-  orderProduct: any;
+  order: any;
   fulltime: any;
-  constructor(private orderService: OrderService, private router: Router) {
-    this.customer = orderService.viewOrder.customer;
-    this.orderProduct = orderService.viewOrder.orderProduct;
-   }
+  orderId!: String;
+  orderProducts: any = []
 
-  get fullname() {
-    return this.customer.fname + ' ' + this.customer.lname;
+  constructor(
+    private cartService: CartService,
+    private orderService: OrderService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
   }
 
-  get order() {
-    return this.orderService;
+  totalPrice(orderProducts: any) {
+    if (!orderProducts) {
+      return 0;
+    }
+    let totalPrice = 0;
+    orderProducts.map((item: any) => {
+      totalPrice += item.price * item.amount;
+    });
+    //if (hasPromo) {
+    //  let discountPrice = (this.discount / 100) * totalPrice;
+    //  return totalPrice - ((discount / 100) * totalPrice);
+    //}
+
+    return totalPrice;
   }
 
-  ngOnInit(): void { }
+  async ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.orderId = params['id'];
+    });
+    this.order = await this.orderService.postSearchOrder(this.orderId)
+    const products = await this.cartService.getShop()
+    products.forEach((item: any) => {
+      let index = this.order.data.productId.indexOf(item.id)
+      if (index > -1) {
+        item.amount = this.order.data.quantity[index]
+        this.orderProducts.push(item)
+      }
+    })
+  }
 
 }
