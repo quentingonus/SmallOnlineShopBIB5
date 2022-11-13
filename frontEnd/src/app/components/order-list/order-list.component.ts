@@ -54,8 +54,8 @@ export class OrderListComponent implements OnInit {
       this.select.nativeElement.style.backgroundColor = '#ebf9f4';
     }
     if (element.value == 'cancel') {
-      this.select.nativeElement.style.color = '#08b967';
-      this.select.nativeElement.style.backgroundColor = '#ebf9f4';
+      this.select.nativeElement.style.color = '#ef0f24';
+      this.select.nativeElement.style.backgroundColor = '#f9ebeb';
     }
   }
 
@@ -67,9 +67,9 @@ export class OrderListComponent implements OnInit {
 
       if (!dateDiff) clearInterval(x);
     }, 1000)
-    this.orderLink = `/admin/order/detail/${this.order._id}`
-    console.log(this.orderLink)
-  }
+  this.orderLink = `/admin/order/detail/${this.order._id}`
+  console.log(this.orderLink)
+}
 
   ngAfterViewInit() {
     this.select.nativeElement.style.color = '#2268d0';
