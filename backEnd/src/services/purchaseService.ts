@@ -1,5 +1,6 @@
 import Purchase from "../models/purchase";
 import { Response } from "express";
+const logger = require('../loggers/logger');
 
 export const getPurchaseServices = async (_req :any, res:Response) => {
   try {
@@ -7,6 +8,8 @@ export const getPurchaseServices = async (_req :any, res:Response) => {
     res.json({ data: result });
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in get purchase");
+    logger.purchaseErrorLogger.log('info', 'Error Purchase Lists')
   }
 };
 
@@ -27,7 +30,9 @@ export const createPurchaseServices = async (req :any, res:Response) => {
     const result = await Category.save();
     res.status(201).json({ message: "Created Successfully", data: result })
   } catch (err) {
+    res.send("An Error occured in create purchase");
     console.log(err)
+    logger.purchaseInfoLogger.log('info', 'Error Create Purchase')
   }
 };
 
@@ -37,6 +42,8 @@ export const findPurchaseServices = async (req :any, res:Response) => {
     res.send({ data: findData })
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in find purchase");
+    logger.purchaseErrorLogger.log('info', 'Error Purchase Not Found')
   }
 };
 
@@ -50,7 +57,9 @@ export const updatePurchaseServices = async (req :any, res:Response) => {
     const result = await purchase.save();
     res.json({ message: "Updated Successfully!", data: result })
   } catch (err) {
+    res.send("an error occured in Edit Purchase");
     console.log(err)
+    logger.purchaseErrorLogger.log('info', 'Error Update Purchase')
   }
 };
 
@@ -60,6 +69,8 @@ export const deletePurchaseServices = async (req :any, res:Response) => {
     await Purchase.findByIdAndRemove(req.params.id);
     res.json({ message: "purchase with id " + req.params.id + " removed." })
   } catch (err) {
+    res.send("An Error Occured During Delete Purchase")
     console.log(err)
+    logger.purchaseErrorLogger.log('info', 'Error Delete Purchase')
   }
 };
