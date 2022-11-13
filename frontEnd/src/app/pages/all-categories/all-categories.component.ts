@@ -26,7 +26,7 @@ export class AllCategoriesComponent implements OnInit {
       item.category = this.util.searchCategory(item.category, this.categories.data)
       return item
     })
-    this.shopItems = this.util.modifyCategory(shopItem);
+    this.shopItems = this.util.modifyCategory(this.util.shuffleArray(shopItem));
   }
 
 }

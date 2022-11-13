@@ -54,6 +54,7 @@ export class PostService {
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
+    formData.append("detail", product.detail)
     formData.append("created_category_id", product.category)
 
     return lastValueFrom(this.http.post(`${environment.apiUrl}/product`, formData))
@@ -68,6 +69,7 @@ export class PostService {
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
+    formData.append("detail", product.detail)
     formData.append("created_category_id", product.category)
 
     return lastValueFrom(this.http.put(`${environment.apiUrl}/product/${product.id}`, formData))
