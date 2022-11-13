@@ -4,7 +4,7 @@
   <div *ngIf="orderLists.length > 0; then orderList; else noOrder"></div>
 
   <ng-template #orderList>
-    <table class="table table-hover shadow-sm">
+    <table class="table table-hover shadow-sm table-responsive">
       <thead class="thead-light">
         <tr class="text-center">
           <th style="width: 15%">Customer Name</th>
@@ -48,8 +48,8 @@
           <td>{{ order.customer.fname }}&nbsp; {{ order.customer.lname }}</td>
           <td>{{ order.customer.date | date: "fullDate" }}</td>
           <td>
-            <button class="btn btn-link" (click)="viewOrder(order)">
-              <td>view</td>
+            <button (click)="viewOrder(order)">
+              <td><i class="bi bi-pencil-square"></i></td>
             </button>
           </td>
           <td>
