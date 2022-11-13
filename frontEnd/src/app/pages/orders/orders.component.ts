@@ -34,6 +34,43 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  downloadInCSV(data: Array<any>) {
+    if (data.length == 0) {
+      return;
+    }
+
+    let propertyNames = Object.keys(data[0]);
+    let rowWithPropertyNames = propertyNames.join(',') + '\n';
+
+    let csvContent = rowWithPropertyNames;
+
+    let rows: string[] = [];
+
+    data.forEach((item) => {
+      let values: string[] = [];
+
+      propertyNames.forEach((key) => {
+        let val: any = item[key];
+
+        if (val !== undefined && val !== null) {
+          val = new String(val);
+        } else {
+          val = '';
+        }
+        values.push(val);
+      });
+      rows.push(values.join(','));
+    });
+    csvContent += rows.join('\n');
+
+    var tmp = document.createElement('a');
+    tmp.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
+    tmp.target = '_blank';
+    tmp.download = 'ordersList.csv';
+    tmp.click();
+    return
+  }
+
   addArrivedList(order: any) {
     this.arrivedList = this.orderService.addArrivedList(order);
   }
