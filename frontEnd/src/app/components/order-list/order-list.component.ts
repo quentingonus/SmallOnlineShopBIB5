@@ -53,6 +53,10 @@ export class OrderListComponent implements OnInit {
       this.select.nativeElement.style.color = '#08b967';
       this.select.nativeElement.style.backgroundColor = '#ebf9f4';
     }
+    if (element.value == 'cancel') {
+      this.select.nativeElement.style.color = '#08b967';
+      this.select.nativeElement.style.backgroundColor = '#ebf9f4';
+    }
   }
 
   ngOnInit(): void {
