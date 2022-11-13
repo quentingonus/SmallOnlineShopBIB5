@@ -2,11 +2,11 @@ import Purchase from "../models/purchase";
 // import { } from "./productService";
 // import products from "../models/products";
 import { Response } from "express";
+const logger = require('../loggers/logger');
 
 export const getPopularProductServices = async (_req: any, res: Response) => {
   try {
     const result = await Purchase.find().populate("created_user_id");
-
     let newObj = {}
 
     // Collecting same items & Adding Items to Obj
