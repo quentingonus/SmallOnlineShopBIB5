@@ -31,7 +31,8 @@ export class AddProductComponent implements OnInit {
       title: ['', Validators.required],
       imageUrl: ['', Validators.required],
       price: ['', Validators.required],
-      category: ['', Validators.required]
+      category: ['', Validators.required],
+      detail: ['', Validators.required]
     });
   }
 
@@ -44,6 +45,7 @@ export class AddProductComponent implements OnInit {
       this.form.controls['imageUrl'].disable();
       this.form.controls['price'].disable();
       this.form.controls['category'].disable();
+      this.form.controls['detail'].disable();
     }
 
     else {
@@ -51,6 +53,7 @@ export class AddProductComponent implements OnInit {
       this.form.controls['imageUrl'].enable();
       this.form.controls['price'].enable();
       this.form.controls['category'].enable();
+      this.form.controls['detail'].enable();
     }
   }
 

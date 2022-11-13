@@ -34,8 +34,9 @@ export class CartService {
       return {
         id: item._id,
         title: item.title,
-        imageUrl: environment.apiUrl + "/" + item.profile,
+        imageUrl: item.profile.includes(environment.apiUrl) ? item.profile : environment.apiUrl + "/" + item.profile,
         price: item.price,
+        detail: item.detail,
         amount: 0,
         category: item.created_category_id,
       }
@@ -49,7 +50,7 @@ export class CartService {
       return {
         id: item._id,
         title: item.name,
-        imageUrl: environment.apiUrl + "/" + item.profile,
+        imageUrl: item.profile.includes(environment.apiUrl) ? item.profile : environment.apiUrl + "/" + item.profile,
       }
     })
   }

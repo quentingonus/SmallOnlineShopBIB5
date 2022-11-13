@@ -43,7 +43,7 @@
         </div>
 
         <div class="form-group">
-          <label for="category">Product Category</label>
+          <label for="category">Category</label>
           <select
             class="form-control mr-sm-2"
             id="category"
@@ -63,6 +63,17 @@
             *ngIf="addNewCategory"
             formControlName="category"
           />
+        </div>
+
+        <div class="form-group">
+          <label for="detail">Description</label>
+          <div class="input-group mb-2">
+            <textarea
+              class="form-control"
+              rows="3"
+              formControlName="detail"
+            ></textarea>
+          </div>
         </div>
 
         <div *ngIf="!isConfirm" class="button-group">
