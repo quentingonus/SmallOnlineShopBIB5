@@ -36,7 +36,8 @@ export class EditProductComponent implements OnInit {
       title: [this.selectProduct.title, Validators.required],
       imageUrl: [this.selectProduct.imageUrl, Validators.required],
       price: [this.selectProduct.price, Validators.required],
-      category: [this.selectProduct.category, Validators.required]
+      category: [this.selectProduct.category, Validators.required],
+      detail: [this.selectProduct.detail, Validators.required]
     });
 
 
@@ -51,6 +52,7 @@ export class EditProductComponent implements OnInit {
       this.form.controls['imageUrl'].disable();
       this.form.controls['price'].disable();
       this.form.controls['category'].disable();
+      this.form.controls['detail'].disable();
     }
 
     else {
@@ -58,6 +60,7 @@ export class EditProductComponent implements OnInit {
       this.form.controls['imageUrl'].enable();
       this.form.controls['price'].enable();
       this.form.controls['category'].enable();
+      this.form.controls['detail'].enable();
     }
   }
 
