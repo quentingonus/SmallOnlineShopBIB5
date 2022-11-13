@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private cartService: CartService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public util: UtilsService
@@ -43,10 +45,11 @@ export class LoginComponent implements OnInit {
     this.authService.login({
       mail: this.username,
       password: this.password
-    }).then((dist: any) => {
+    }).then(async (dist: any) => {
       localStorage.setItem('TOKEN', dist.token);
       localStorage.setItem('USER', JSON.stringify(dist.user));
       localStorage.setItem('ROLE', dist.user.type.toUpperCase());
+      await this.cartService.postLoginCart()
       if ("redirect" in this.params) {
         this.router.navigate([this.params.redirect]);
       } else {
