@@ -73,8 +73,39 @@ export class CartService {
 
   //API Request Session
 
+  async postLoginCart() {
+    const currentUser = this.authService.getCurrentUser()
+    return await lastValueFrom(this.http.get(`${environment.apiUrl}/carts`))
+      .then(async (res: any) => {
+        const cartCached: any = JSON.parse(localStorage.getItem("CART") ? localStorage.getItem("CART")! : "{}")
+        let cartToCache = res.data.filter((item: any) => item.created_user_id == currentUser._id)
+        let emptyCart = cartToCache.length ? cartToCache[0] : await this.postCreateEmptyCart()
+        if ("_id" in cartCached) {
+          let formData = new FormData()
+          formData.append("productId", JSON.stringify(cartCached.productId))
+          formData.append("quantity", JSON.stringify(cartCached.quantity))
+          formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
+          return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${emptyCart._id}`, formData))
+            .then((res: any) => {
+              res = res.data
+              localStorage.setItem("CART", JSON.stringify(res))
+              return res
+            })
+            .catch((err: any) => {
+              console.log(err)
+              throw "An error occurs at Updating Cart @ Getting Login Cart."
+            })
+        }
+      })
+      .catch((err: any) => {
+        console.log(err)
+        throw "Cannot get Login Cart."
+      })
+
+  }
+
   async postGetCart() {
-    const cartCached: any = JSON.parse(localStorage.getItem("cart") ? localStorage.getItem("cart")! : "{}")
+    const cartCached: any = JSON.parse(localStorage.getItem("CART") ? localStorage.getItem("CART")! : "{}")
     if ("_id" in cartCached) {
       let products = await this.getShop()
       for (let i = 0; i < products.length; i++) {
@@ -92,6 +123,14 @@ export class CartService {
   }
 
   async postCreateEmptyCart() {
+    if (!this.authService.isAuthenticated()) {
+      localStorage.setItem("CART", JSON.stringify({
+        productId: [],
+        quantity: [],
+        _id: ""
+      }))
+      return
+    }
     const currentUser = this.authService.getCurrentUser()
     let formData = new FormData()
     formData.append("productId", JSON.stringify([]))
@@ -99,7 +138,7 @@ export class CartService {
     formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
     return await lastValueFrom(this.http.post(`${environment.apiUrl}/carts`, formData))
       .then((res: any) => {
-        localStorage.setItem("cart", JSON.stringify(res.data))
+        localStorage.setItem("CART", JSON.stringify(res.data))
         return res.data
       })
       .catch((err: any) => {
@@ -110,21 +149,31 @@ export class CartService {
 
   async postUpdateCart() {
     const currentUser = this.authService.getCurrentUser()
-    const cartCached: any = JSON.parse(localStorage.getItem("cart") ? localStorage.getItem("cart")! : "{}")
+    const cartCached: any = JSON.parse(localStorage.getItem("CART") ? localStorage.getItem("CART")! : "{}")
     let productArr: any = []
     let quantityArr: any = []
-    let formData = new FormData()
     this.cartItem.forEach((item: any) => {
       productArr.push(item.id)
       quantityArr.push(item.amount)
     });
+
+    if (!this.authService.isAuthenticated()) {
+      localStorage.setItem("CART", JSON.stringify({
+        productId: productArr,
+        quantity: quantityArr,
+        _id: ""
+      }))
+      return
+    }
+
+    let formData = new FormData()
     formData.append("productId", JSON.stringify(productArr))
     formData.append("quantity", JSON.stringify(quantityArr))
     formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
     return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${cartCached._id}`, formData))
       .then((res: any) => {
         res = res.data
-        localStorage.setItem("cart", JSON.stringify(res))
+        localStorage.setItem("CART", JSON.stringify(res))
         return res
       })
       .catch((err: any) => {
@@ -134,13 +183,19 @@ export class CartService {
   }
 
   async postDeleteCart() {
-    const cartCached: any = JSON.parse(localStorage.getItem("cart")!)
-    return lastValueFrom(this.http.delete(`${environment.apiUrl}/carts/${cartCached._id}`))
+    const cartCached: any = JSON.parse(localStorage.getItem("CART")!)
+
+    lastValueFrom(this.http.delete(`${environment.apiUrl}/carts/${cartCached._id}`))
+      .then(res => {
+        localStorage.removeItem("CART")
+      })
   }
+
+  // API Request Session Ends
 
   async addToCart(newItem: any) {
     try {
-      if (!(localStorage.getItem("cart"))) {
+      if (!(localStorage.getItem("CART"))) {
         await this.postCreateEmptyCart()
       }
       let newIndex = this.findById(newItem.id, this.cartItem)
