@@ -19,26 +19,20 @@ export class AllCategoriesComponent implements OnInit {
     private postService: PostService,
     public util: UtilsService,
     public router: Router
-  ) {}
+  ) { }
 
   onFocus() {
     this.router.navigate(['/search']);
   }
 
   async findProduct(query: any) {
-    console.log(query.value);
-
     if (query.value.trim().length > 0) {
-      let products = await this.cart.getShop();
-      console.log('Products', products);
-
-      this.filterProducts = products.filter((product: any) => {
-        return product.title
-          .toLowerCase()
-          .includes(query.value.trim().toLowerCase());
-      });
-
-      console.log('FilteredProducts :', this.filterProducts);
+      let filter: any = await this.postService.postSearchService(query.value)
+      this.filterProducts = filter.data.map((item: any) => {
+        item = this.cart.modifyItem(item)
+        item.category = this.util.searchCategory(item.category, this.categories.data)
+        return item
+      })
     }
     if (query.value.trim().length == 0) {
       this.filterProducts = null;
