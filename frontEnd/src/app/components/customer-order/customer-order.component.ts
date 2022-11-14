@@ -10,7 +10,7 @@ import { OrderService } from 'src/app/services/order.service';
 export class CustomerOrderComponent implements OnInit {
   @Input('order') order: any;
   @Output() change = new EventEmitter();
-  
+
   timer: String = "Calculating...";
 
   constructor(private orderService: OrderService, private router: Router) { }
@@ -25,17 +25,15 @@ export class CustomerOrderComponent implements OnInit {
     return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} second${seconds > 1 ? 's' : ''}`
   }
 
-  viewOrder(order: any) {
-    this.orderService.viewOrder = order;
-    let index = this.orderService.order.indexOf(order);
-    this.router.navigate(['/admin/order/detail/' + index]);
+  viewOrder() {
+    this.router.navigate(['/admin/order/detail/' + this.order._id]);
 
   }
 
 
   ngOnInit(): void {
     setInterval(() => {
-      let customerBuyDate = new Date(this.order.customer.date)
+      let customerBuyDate = new Date(this.order.date)
       let dateDiff = this.formatDate(new Date(customerBuyDate.setDate(customerBuyDate.getDate() + 1)).getTime() - new Date().getTime());
       this.timer = dateDiff ? dateDiff : "Timeout"
     }, 1000)

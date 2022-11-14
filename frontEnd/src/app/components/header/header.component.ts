@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   burgurMenu = false;
 
-  navItems1 = [
+  navItem = [
     {
       name: "Home",
       route: "/"
@@ -25,26 +25,7 @@ export class HeaderComponent implements OnInit {
     {
       name: "Categories",
       route: "/categories"
-    },
-    {
-      name: "Login",
-      route: "/login"
-    },
-  ]
-
-  navItems2 = [
-    {
-      name: "Home",
-      route: "/"
-    },
-    {
-      name: "Categories",
-      route: "/categories"
-    },
-    {
-      name: "Logout",
-      route: "/logout",
-    },
+    }
   ]
 
   constructor(
@@ -117,11 +98,24 @@ export class HeaderComponent implements OnInit {
   }
 
   getNav() {
+    let tmpNav = [...this.navItem]
     if (this.authService.isAuthenticated()) {
-      return this.navItems2
+      let currentUser = JSON.parse(localStorage.getItem("USER")!)
+      tmpNav.push({
+        name: "Account",
+        route: "/profile/" + currentUser._id
+      })
+      tmpNav.push({
+        name: "Logout",
+        route: "/logout"
+      })
     } else {
-      return this.navItems1
+      tmpNav.push({
+        name: "Login",
+        route: "/login"
+      })
     }
+    return tmpNav
   }
 
   checkout(offcanvas: any) {
