@@ -48,16 +48,16 @@ export class AuthService {
   }
 
   postUpdateUser(payload: any) {
-    const token = localStorage.getItem("TOKEN") || "";
-    const options = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json;charset=utf-8;')
-        .set('Cache-Control', 'no-cache')
-        .set('Pragma', 'no-cache')
-        .set('userType', payload.type)
-        .set('userId', payload._id)
-        .set('Authorization', `Bearer ${token}`)
-    };
+    //const token = localStorage.getItem("TOKEN") || "";
+    //const options = {
+    //  headers: new HttpHeaders()
+    //    .set('Content-Type', 'application/json;charset=utf-8;')
+    //    .set('Cache-Control', 'no-cache')
+    //    .set('Pragma', 'no-cache')
+    //    .set('userType', payload.type)
+    //    .set('userId', payload._id)
+    //    .set('Authorization', `Bearer ${token}`)
+    //};
     let formData = new FormData()
     formData.append("name", payload.name)
     formData.append("email", payload.email)
@@ -67,7 +67,7 @@ export class AuthService {
     formData.append("dob", "")
     formData.append("created_user_id", payload._id)
     formData.append("updated_user_id", payload._id)
-    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${payload._id}`, formData, options))
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${payload._id}`, formData))
   }
 
 
