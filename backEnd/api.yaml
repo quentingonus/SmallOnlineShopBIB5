@@ -2,8 +2,8 @@ openapi: 3.0.2
 servers:
   - url: http://127.0.0.1:3000
 info:
-  description: This is API Doc for Angular+ NodeJS Bulletinboard
-  title: Swagger API Doc for Angular+NodeJS Bulletinboard
+  description: This is API Doc for Angular+ NodeJS Small Online Shop
+  title: Swagger API Doc for Angular+NodeJS Small Online Shop
   version: 1.0.0
 
 tags:
@@ -11,14 +11,22 @@ tags:
     description: Operations about Authentication
   - name: Password
     description: Operations about Password
-  - name: Posts
-    description: Operations about Posts
+  - name: Category
+    description: Operations about Category
+  - name: Product
+    description: Operations about Product
+  - name: Purchase
+    description: Operations about Purchase
+  - name: Cart
+    description: Operations about Cart
+  - name: Popular
+    description: Operations about Popular
   - name: Users
     description: Operations about Users
 
 paths:
   # Auth Routes
-  /api/login:
+  /auth/login:
     post:
       tags:
         - Authentication
@@ -63,7 +71,7 @@ paths:
         "200":
           description: Login Successfully.
 
-  /api/logout:
+  /auth/logout:
     post:
       tags:
         - Authentication
@@ -75,7 +83,7 @@ paths:
         default:
           description: Logout Successfully.
 
-  /api/signup:
+  /auth/signup:
     post:
       tags:
         - Authentication
@@ -102,7 +110,7 @@ paths:
           description: Signup user Successfully.
 
   # Password Routes
-  /api/forgot-password:
+  /auth/forgot_password:
     post:
       tags:
         - Password
@@ -121,7 +129,7 @@ paths:
         "200":
           description: Password reset link sent to your email account
 
-  /api/password-reset-update/{userId}/{token}:
+  /auth/password-reset-update/{userId}/{token}:
     post:
       tags:
         - Password
@@ -153,7 +161,7 @@ paths:
         "200":
           description: Password reset sucessfully.
 
-  /api/password-change/{userId}/{token}:
+  /auth/password-change/{userId}/{token}:
     post:
       tags:
         - Password
@@ -193,145 +201,320 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
         "404":
           description: Could not find user
-  # Post Routes
-  /api/posts:
+
+  # Category Routes
+  /category:
     get:
       tags:
-        - Posts
-      summary: Get all posts
+        - Categories
+      summary: Get all Categories
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Returns all Users
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    post:
+      tags:
+        - Categories
+      summary: Create Category
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: createCategory
+      requestBody:
+        description: Created Category
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                name:
+                  type: string
+                  example: "Category01"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                name:
+                  type: string
+                  example: "Category01"
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                name:
+                  type: string
+                  example: "Category01"
+      responses:
+        "200":
+          description: Created Category Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: string
+                  name:
+                    type: string
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+    # /category/{categoryId}:
+    #   get:
+    #     tags:
+    #       - category
+    #     summary: Find category by ID
+    #     description: This can only be done by the logged in user.
+    #     security:
+    #       - bearerAuth: []
+    #     operationId: getCategoryById
+    #     parameters:
+    #       - name: categoryId
+    #         in: path
+    #         description: ID of category to return
+    #         required: true
+    #         schema:
+    #           type: string
+    #     responses:
+    #       "200":
+    #         description: Successful operation
+    #         content:
+    #           application/json:
+    #             schema:
+    #               type: object
+    #               properties:
+    #                 _id:
+    #                   type: string
+    #                   example: "62c6a49a087a13d74076e514"
+    #                 profile:
+    #                   type: string
+    #                   example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+    #                 name:
+    #                   type: string
+    #                   example: "Category01"
+    #       "404":
+    #         description: Category not found
+    put:
+      tags:
+        - Categories
+      summary: Update a Category
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: updateCategoryId
+      parameters:
+        - name: CategoryId
+          in: path
+          description: ID of Category to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing Category data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                name:
+                  type: string
+                  example: "Category01"
+      responses:
+        "200":
+          description: Updated Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  name:
+                    type: string
+                    example: "Category01"
+        "405":
+          description: Invalid input
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Categories
+      summary: Deletes a Category
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: deleteCategory
+      parameters:
+        - name: CategoryId
+          in: path
+          description: Category id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Category Successfully!
+        "400":
+          description: Invalid post value
+
+  # Product Routes
+  /product:
+    get:
+      tags:
+        - Products
+      summary: Get all Products
       description: This can only be done by the logged in user.
       security:
         - bearerAuth: []
       parameters:
         - name: page
           in: query
-          description: PageNumber 
+          description: PageNumber
           schema:
             type: number
-        - name: ppp
+        - name: upp
           in: query
-          description: Number of posts that want to show per Page
+          description: Number of users that want to show per Page
           schema:
             type: number
       responses:
         "200":
-          description: Returns all Posts
+          description: Returns all Users
         "401":
           $ref: "#/components/responses/UnauthorizedError"
     post:
       tags:
-        - Posts
-      summary: Create a new post
+        - Products
+      summary: Create product
       description: This can only be done by the logged in user.
       security:
         - bearerAuth: []
+      operationId: createProduct
       requestBody:
-        description: Create a new post
-        required: true
+        description: Created product
         content:
           application/json:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
                 created_user_id:
                   type: string
-                  example: "62fde243b554f4955fdf7914"
+                  example: "62c6a49a087a13d74076e514"
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                title:
+                  type: string
+                  example: "Product01"
+                price:
+                  type: number
+                  example: "300"
+                detail:
+                  type: string
+                  example: "This is best product of our shop"
+                created_category_id:
+                  type: string
+                  example: "62c6a49a087a13d74076e514"
           application/xml:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
                 created_user_id:
                   type: string
-                  example: "62fde243b554f4955fdf7914"
+                  example: "62c6a49a087a13d74076e514"
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                title:
+                  type: string
+                  example: "Product01"
+                price:
+                  type: number
+                  example: "300"
+                detail:
+                  type: string
+                  example: "This is best product of our shop"
+                created_category_id:
+                  type: string
+                  example: "62c6a49a087a13d74076e514"
           application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  example: "Post01"
-                description:
-                  type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
                 created_user_id:
                   type: string
-                  example: "62fde243b554f4955fdf7914"
-
+                  example: "62c6a49a087a13d74076e514"
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                title:
+                  type: string
+                  example: "Product01"
+                price:
+                  type: number
+                  example: "300"
+                detail:
+                  type: string
+                  example: "This is best product of our shop"
+                created_category_id:
+                  type: string
+                  example: "62c6a49a087a13d74076e514"
       responses:
         "200":
-          description: Successful operation
+          description: Created Product Successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  title:
-                    type: string
-                    example: "Post01"
-                  description:
-                    type: string
-                    example: "Description01"
-                  status:
-                    type: boolean
-                    example: true
                   created_user_id:
                     type: string
-                    example: "62fde243b554f4955fdf7914"
-            application/xml:
-              schema:
-                type: object
-                properties:
+                  profile:
+                    type: string
                   title:
                     type: string
-                    example: "Post01"
-                  description:
+                  price:
+                    type: number
+                  detail:
                     type: string
-                    example: "Description01"
-                  status:
-                    type: boolean
-                    example: true
-                  created_user_id:
+                  created_category_id:
                     type: string
-                    example: "62fde243b554f4955fdf7914"
-        "405":
-          description: Invalid input
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
-  /api/posts/{postId}:
-    get:
+  /product/{productId}:
+    post:
       tags:
-        - Posts
-      summary: Find post by ID
+        - Products
+      summary: Find product by ID
       description: This can only be done by the logged in user.
       security:
         - bearerAuth: []
-      operationId: getPostById
+      operationId: getProductById
       parameters:
-        - name: postId
+        - name: productId
           in: path
-          description: ID of post to return
+          description: ID of product to return
           required: true
           schema:
             type: string
@@ -345,66 +528,557 @@ paths:
                 properties:
                   _id:
                     type: string
-                    example: "62fde243b554f4955fdf7914"
-                  title:
-                    type: string
-                    example: "Title01"
-                  description:
-                    type: string
-                    example: "Description01"
-                  status:
-                    type: boolean
-                    example: true
+                    example: "62c6a49a087a13d74076e514"
                   created_user_id:
                     type: string
-                    example: "62fde243b554f4955fdf7914"
-                  _v:
+                    example: "62c6a49a087a13d74076e514"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  title:
+                    type: string
+                    example: "Product01"
+                  price:
                     type: number
-                    example: 0
-                  createdAt:
+                    example: "300"
+                  detail:
                     type: string
-                    format: date
-                  updatedAt:
+                    example: "This is best product of our shop"
+                  created_category_id:
                     type: string
-                    format: date
+                    example: "62c6a49a087a13d74076e514"
         "404":
-          description: Post not found
+          description: User not found
     put:
       tags:
-        - Posts
-      summary: Update a post
+        - Products
+      summary: Update a product
       description: This can only be done by the logged in user.
       security:
         - bearerAuth: []
-      operationId: updatePostId
+      operationId: updateProductId
       parameters:
-        - name: postId
+        - name: productId
           in: path
-          description: ID of post to return
+          description: ID of product to return
           required: true
           schema:
             type: string
       requestBody:
-        description: Update an existing post
+        description: Update an existing product data
         content:
           application/json:
             schema:
               type: object
               properties:
+                created_user_id:
+                  type: string
+                  example: "62c6a49a087a13d74076e514"
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 title:
                   type: string
-                  example: "Post01"
-                description:
+                  example: "Product01"
+                price:
+                  type: number
+                  example: "300"
+                detail:
                   type: string
-                  example: "Description01"
-                status:
-                  type: boolean
-                  example: true
+                  example: "This is best product of our shop"
+                created_category_id:
+                  type: string
+                  example: "62c6a49a087a13d74076e514"
+      responses:
+        "200":
+          description: Updated Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  created_user_id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  title:
+                    type: string
+                    example: "Product01"
+                  price:
+                    type: number
+                    example: "300"
+                  detail:
+                    type: string
+                    example: "This is best product of our shop"
+                  created_category_id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
+        "405":
+          description: Invalid input
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Products
+      summary: Deletes a product
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: deleteProduct
+      parameters:
+        - name: productId
+          in: path
+          description: product id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Product Successfully!
+        "400":
+          description: Invalid post value
+
+  # Purchase Routes
+  /purchase:
+    get:
+      tags:
+        - Purchases
+      summary: Get all Purchases
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: PageNumber
+          schema:
+            type: number
+        - name: upp
+          in: query
+          description: Number of purchase that want to show per Page
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Returns all Purchases
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    post:
+      tags:
+        - Purchases
+      summary: Create purchase
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: createPurchase
+      requestBody:
+        description: Created purchase
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
                 created_user_id:
                   type: string
                   example: "62fde243b554f4955fdf7914"
-                updated_user_id:
+                productId:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+                quantity:
+                  type: array
+                  example: "12"
+                address:
                   type: string
+                  example: "Address"
+                credit:
+                  type: string
+                  example: "credit"
+                date:
+                  type: string
+                  format: date
+                  example: "1999-01-22"
+                order_status:
+                  type: string
+                  example: "shipping"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                productId:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+                quantity:
+                  type: array
+                  example: "12"
+                address:
+                  type: string
+                  example: "Address"
+                credit:
+                  type: string
+                  example: "credit"
+                date:
+                  type: string
+                  format: date
+                  example: "1999-01-22"
+                order_status:
+                  type: string
+                  example: "shipping"
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                productId:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+                quantity:
+                  type: array
+                  example: "12"
+                address:
+                  type: string
+                  example: "Address"
+                credit:
+                  type: string
+                  example: "credit"
+                date:
+                  type: string
+                  format: date
+                  example: "1999-01-22"
+                order_status:
+                  type: string
+                  example: "shipping"
+      responses:
+        "200":
+          description: Created User Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created_user_id:
+                    type: string
+                  productId:
+                    type: array
+                  quantity:
+                    type: array
+                  address:
+                    type: string
+                  credit:
+                    type: string
+                  date:
+                    type: string
+                    format: date
+                  order_status:
+                    type: string
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+  /purchase/{purchaseId}:
+    post:
+      tags:
+        - Purchses
+      summary: Find purchase by ID
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: getPurchaseById
+      parameters:
+        - name: purchaseId
+          in: path
+          description: ID of purchase to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
+                  created_user_id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  productId:
+                    type: array
+                    example: "62fde243b554f4955fdf7914"
+                  quantity:
+                    type: array
+                    example: "12"
+                  address:
+                    type: string
+                    example: "Address"
+                  credit:
+                    type: string
+                    example: "credit"
+                  date:
+                    type: string
+                    format: date
+                    example: "1999-01-22"
+                  order_status:
+                    type: string
+                    example: "shipping"
+        "404":
+          description: purchase not found
+    put:
+      tags:
+        - Purchases
+      summary: Update a purchase
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: updatePurchaseId
+      parameters:
+        - name: purchaseId
+          in: path
+          description: ID of purchase to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing purchase data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                productId:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+                quantity:
+                  type: array
+                  example: "12"
+                address:
+                  type: string
+                  example: "Address"
+                credit:
+                  type: string
+                  example: "credit"
+                date:
+                  type: string
+                  format: date
+                  example: "1999-01-22"
+                order_status:
+                  type: string
+                  example: "shipping"
+      responses:
+        "200":
+          description: Updated Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  created_user_id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  productId:
+                    type: array
+                    example: "62fde243b554f4955fdf7914"
+                  quantity:
+                    type: array
+                    example: "12"
+                  address:
+                    type: string
+                    example: "Address"
+                  credit:
+                    type: string
+                    example: "credit"
+                  date:
+                    type: string
+                    format: date
+                    example: "1999-01-22"
+                  order_status:
+                    type: string
+                    example: "shipping"
+        "405":
+          description: Invalid input
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    delete:
+      tags:
+        - Purchases
+      summary: Deletes a purchase
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: deletePurchase
+      parameters:
+        - name: purchaseId
+          in: path
+          description: Purchase id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Purchase Successfully!
+        "400":
+          description: Invalid post value
+
+  # Cart Routes
+  /carts:
+    get:
+      tags:
+        - Carts
+      summary: Get all Carts
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: PageNumber
+          schema:
+            type: number
+        - name: upp
+          in: query
+          description: Number of users that want to show per Page
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Returns all Carts
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    post:
+      tags:
+        - Carts
+      summary: Create cart
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: createCart
+      requestBody:
+        description: Created cart
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                created_product_id:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                created_product_id:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                created_product_id:
+                  type: array
+                  example: "62fde243b554f4955fdf7914"
+      responses:
+        "200":
+          description: Created Cart Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created_user_id:
+                    type: string
+                  created_product_id:
+                    type: array
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+  /carts/{cartId}:
+    post:
+      tags:
+        - Carts
+      summary: Find cart by ID
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: getCartById
+      parameters:
+        - name: cartId
+          in: path
+          description: ID of cart to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
+                  created_user_id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  created_product_id:
+                    type: array
+                    example: "62fde243b554f4955fdf7914"
+        "404":
+          description: cart not found
+    put:
+      tags:
+        - Carts
+      summary: Update a cart
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: updateCartId
+      parameters:
+        - name: cartId
+          in: path
+          description: ID of cart to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing cart data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                created_user_id:
+                  type: string
+                  example: "62fde243b554f4955fdf7914"
+                created_product_id:
+                  type: array
                   example: "62fde243b554f4955fdf7914"
       responses:
         "200":
@@ -417,91 +1091,43 @@ paths:
                   _id:
                     type: string
                     example: "62fde243b554f4955fdf7914"
-                  title:
-                    type: string
-                    example: "Title Updated"
-                  description:
-                    type: string
-                    example: "Description Updated"
-                  status:
-                    type: boolean
-                    example: true
                   created_user_id:
                     type: string
                     example: "62fde243b554f4955fdf7914"
-                  updated_user_id:
-                    type: string
+                  created_product_id:
+                    type: array
                     example: "62fde243b554f4955fdf7914"
-                  createdAt:
-                    type: string
-                    format: date
-                  updatedAt:
-                    type: string
-                    format: date
         "405":
           description: Invalid input
         "401":
           $ref: "#/components/responses/UnauthorizedError"
     delete:
       tags:
-        - Posts
-      summary: Delete a post
+        - Carts
+      summary: Deletes a cart
       description: This can only be done by the logged in user.
       security:
         - bearerAuth: []
-      operationId: deletePost
+      operationId: deleteCart
       parameters:
-        - name: postId
+        - name: cartId
           in: path
-          description: Post id to delete
+          description: Cart id to delete
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: Deleted Successfully!
+          description: Deleted Cart Successfully!
         "400":
           description: Invalid post value
 
-  /api/posts/search:
-    post:
-      tags:
-        - Posts
-      summary: Get search posts
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: page
-          in: query
-          description: PageNumber 
-          schema:
-            type: number
-        - name: ppp
-          in: query
-          description: Number of posts that want to show per Page
-          schema:
-            type: number
-      requestBody:
-        description: Title of the post that you want to search
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Post"
-      responses:
-        "200":
-          description: Returns search Posts
-        "400":
-          description: An error occured
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
+  # Popular Routes
+
+  # ContactUs Routes
 
   # User Routes
-  /api/users:
+  /users:
     get:
       tags:
         - Users
@@ -512,7 +1138,7 @@ paths:
       parameters:
         - name: page
           in: query
-          description: PageNumber 
+          description: PageNumber
           schema:
             type: number
         - name: upp
@@ -540,101 +1166,101 @@ paths:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "Post01"
+                  example: "Hla Hla"
                 email:
                   type: string
-                  example: "Description01"
+                  example: "email@gmail.com"
                 password:
                   type: string
                   format: password
                   example: "password123"
+                address:
+                  type: string
+                  example: "Address"
+                phone:
+                  type: string
+                  example: "09123456789"
+                dob:
+                  type: string
+                  format: Date,
+                  example: 1999-01-22
                 type:
                   type: string
                   description: User Roles
                   enum:
                     - Admin
                     - User
-                phone:
-                  type: string
-                  example: "0912345678"
-                dob:
-                  type: string
-                  format: date
-                  example: 2022-06-30
-                address:
-                  type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
           application/xml:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "Post01"
+                  example: "Hla Hla"
                 email:
                   type: string
-                  example: "Description01"
+                  example: "email@gmail.com"
                 password:
                   type: string
                   format: password
                   example: "password123"
+                address:
+                  type: string
+                  example: "Address"
+                phone:
+                  type: string
+                  example: "09123456789"
+                dob:
+                  type: string
+                  format: Date,
+                  example: 1999-01-22
                 type:
                   type: string
                   description: User Roles
                   enum:
                     - Admin
                     - User
-                phone:
-                  type: string
-                  example: "0912345678"
-                dob:
-                  type: string
-                  format: date
-                  example: 2022-06-30
-                address:
-                  type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
           application/x-www-form-urlencoded:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "Post01"
+                  example: "Hla Hla"
                 email:
                   type: string
-                  example: "Description01"
+                  example: "email@gmail.com"
                 password:
                   type: string
                   format: password
                   example: "password123"
+                address:
+                  type: string
+                  example: "Address"
+                phone:
+                  type: string
+                  example: "09123456789"
+                dob:
+                  type: string
+                  format: Date,
+                  example: 1999-01-22
                 type:
                   type: string
                   description: User Roles
                   enum:
                     - Admin
                     - User
-                phone:
-                  type: string
-                  example: "0912345678"
-                dob:
-                  type: string
-                  format: date
-                  example: 2022-06-30
-                address:
-                  type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
       responses:
         "200":
           description: Created User Successfully
@@ -643,6 +1269,8 @@ paths:
               schema:
                 type: object
                 properties:
+                  profile:
+                    type: string
                   name:
                     type: string
                   email:
@@ -650,16 +1278,14 @@ paths:
                   password:
                     type: string
                     format: password
-                  type:
+                  address:
                     type: string
                   phone:
                     type: string
                   dob:
                     type: string
-                    format: date
-                  address:
-                    type: string
-                  profile:
+                    format: date,
+                  type:
                     type: string
                   _id:
                     type: string
@@ -672,7 +1298,7 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
-  /api/users/{userId}:
+  /users/{userId}:
     post:
       tags:
         - Users
@@ -699,9 +1325,12 @@ paths:
                   _id:
                     type: string
                     example: "62c6a49a087a13d74076e514"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                   name:
                     type: string
-                    example: "User One"
+                    example: "User one"
                   email:
                     type: string
                     example: "userone@gmail.com"
@@ -709,24 +1338,21 @@ paths:
                     type: string
                     format: password
                     example: "password123"
-                  type:
+                  address:
                     type: string
-                    description: User Roles
-                    enum:
-                      - Admin
-                      - User
+                    example: "Address"
                   phone:
                     type: string
                     example: "0912345678"
                   dob:
                     type: string
                     format: date
-                  address:
+                  type:
                     type: string
-                    example: "Address"
-                  profile:
-                    type: string
-                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                    description: User Roles
+                    enum:
+                      - Admin
+                      - User
                   createdAt:
                     type: string
                     format: date
@@ -757,30 +1383,34 @@ paths:
             schema:
               type: object
               properties:
+                profile:
+                  type: string
+                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                 name:
                   type: string
-                  example: "User One"
+                  example: "User one"
                 email:
                   type: string
-                  example: "Description01"
-                type:
+                  example: "userone@gmail.com"
+                password:
                   type: string
-                  description: User Roles
-                  enum:
-                    - Admin
-                    - User
+                  format: password
+                  example: "password123"
+                address:
+                  type: string
+                  example: "Address"
                 phone:
                   type: string
                   example: "0912345678"
                 dob:
                   type: string
                   format: date
-                address:
+                type:
                   type: string
-                  example: "Address"
-                profile:
-                  type: string
-                  example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  description: User Roles
+                  enum:
+                    - Admin
+                    - User
                 created_user_id:
                   type: string
                   example: "62fde243b554f4955fdf7914"
@@ -798,34 +1428,34 @@ paths:
                   _id:
                     type: string
                     example: "62fde243b554f4955fdf7914"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
                   name:
                     type: string
-                    example: "User One"
+                    example: "User one"
                   email:
                     type: string
-                    example: "Description01"
+                    example: "userone@gmail.com"
                   password:
                     type: string
                     format: password
                     example: "password123"
-                  type:
+                  address:
                     type: string
-                    description: User Roles
-                    enum:
-                      - Admin
-                      - User
+                    example: "Address"
                   phone:
                     type: string
                     example: "0912345678"
                   dob:
                     type: string
                     format: date
-                  address:
+                  type:
                     type: string
-                    example: "Address"
-                  profile:
-                    type: string
-                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                    description: User Roles
+                    enum:
+                      - Admin
+                      - User
                   created_user_id:
                     type: string
                     example: "62fde243b554f4955fdf7914"
@@ -863,54 +1493,53 @@ paths:
         "400":
           description: Invalid post value
 
-  /api/users/search:
-    post:
-      tags:
-        - Users
-      summary: Get search users
-      description: This can only be done by the logged in user.
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: page
-          in: query
-          description: PageNumber 
-          schema:
-            type: number
-        - name: upp
-          in: query
-          description: Number of users that want to show per Page
-          schema:
-            type: number
-      requestBody:
-        description: Search with Username, Email, Fromdate & Todate
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  example: "Example User"
-                email:
-                  type: string
-                  example: "example@gmail.com"
-                fromDate:
-                  type: string
-                  format: date
-                toDate:
-                  type: string
-                  format: date
-      responses:
-        "200":
-          description: Returns search Users
-        "400":
-          description: An error occured
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
+  # /api/users/search:
+  #   post:
+  #     tags:
+  #       - Users
+  #     summary: Get search users
+  #     description: This can only be done by the logged in user.
+  #     security:
+  #       - bearerAuth: []
+  #     parameters:
+  #       - name: page
+  #         in: query
+  #         description: PageNumber
+  #         schema:
+  #           type: number
+  #       - name: upp
+  #         in: query
+  #         description: Number of users that want to show per Page
+  #         schema:
+  #           type: number
+  #     requestBody:
+  #       description: Search with Username, Email, Fromdate & Todate
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               username:
+  #                 type: string
+  #                 example: "Example User"
+  #               email:
+  #                 type: string
+  #                 example: "example@gmail.com"
+  #               fromDate:
+  #                 type: string
+  #                 format: date
+  #               toDate:
+  #                 type: string
+  #                 format: date
+  #     responses:
+  #       "200":
+  #         description: Returns search Users
+  #       "400":
+  #         description: An error occured
+  #       "401":
+  #         $ref: "#/components/responses/UnauthorizedError"
 
 components:
-
   securitySchemes:
     bearerAuth: # arbitrary name for the security scheme
       type: http

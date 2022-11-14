@@ -8,10 +8,10 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 // passport.use(
 //   new JWTstrategy(
 //     {
-//       secretOrKey: 'TOP_SECRET',
+//       secretOrKey: 'NYAN',
 //       jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
 //     },
-//     async (token:any, done) => {
+//     async (token: any, done: any) => {
 //       try {
 //         return done(null, token.user);
 //       } catch (error) {
@@ -23,18 +23,18 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 passport.use(new JWTstrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey   : 'nyan'
+  secretOrKey: 'furtive'
 },
-function (jwtPayload: any, cb: any) {
-  return User.findOne({ id: jwtPayload.id }, function (err: any, user: any) {
-    if (err) {
-      return cb(err, false);
-    }
-    if (user) {
-      return cb (null, user);
-    } else {
-      return cb (null, false);
-    }
-  });
+  function (jwtPayload: any, cb: any) {
+    return User.findOne({ id: jwtPayload.id }, function (err: any, user: any) {
+      if (err) {
+        return cb(err, false);
+      }
+      if (user) {
+        return cb(null, user);
+      } else {
+        return cb(null, false);
+      }
+    });
   }
 ));

@@ -17,9 +17,6 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
-  detail: {
-    type: String,
-  },
   created_category_id: {
     type: Schema.Types.ObjectId,
     ref: "category",
