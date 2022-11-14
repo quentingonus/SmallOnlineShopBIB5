@@ -38,6 +38,7 @@ import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-an
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { PromotionCardComponent } from './components/promotion-card/promotion-card.component';
+import { FocusOnInitDirective } from './services/focus-on-init.directive';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PromotionCardComponent } from './components/promotion-card/promotion-ca
     PrivacyAndPolicyComponent,
     ProfileComponent,
     CustomerOrderComponent,
-    PromotionCardComponent
+    PromotionCardComponent,
+    FocusOnInitDirective
   ],
   imports: [
     BrowserModule,
