@@ -66,6 +66,7 @@ export class AdminDashboardComponent implements OnInit {
   products!: Product[];
   category!: any;
   filteredProducts!: Product[];
+  pageName = 'products'
 
   page = 1;
   pageSize = 4;
