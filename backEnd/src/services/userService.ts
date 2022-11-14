@@ -91,8 +91,8 @@ export const updateUserService = async (req: any, res: Response) => {
       }
     });
   } catch (err) {
-    res.send("an error occured in Edit User");
     console.log(err)
+    res.send("an error occured in Edit User");
     logger.userErrorLogger.log('info', 'Error Update User')
   }
 };
@@ -111,8 +111,8 @@ export const deleteUserService = async (req: any, res: Response) => {
     // await User.findByIdAndRemove(req.params.id); 
     // res.json({ message: "User with id " + req.params.id + " removed." })
   } catch (err) {
-      res.send("An Error Occured During Delete user")
-      console.log(err)
-      logger.userErrorLogger.log('info', 'Error Delete User')
+    res.send("An Error Occured During Delete user")
+    console.log(err)
+    logger.userErrorLogger.log('info', 'Error Delete User')
   }
 };

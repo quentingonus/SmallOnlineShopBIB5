@@ -73,5 +73,5 @@ mongoose
     app.use('/category', category_route);
     app.use('/contactus', contact_route);
     app.use('/popular', popular_route);
-    app.use('/search',search_route);
+    app.use('/search', search_route);
   })
