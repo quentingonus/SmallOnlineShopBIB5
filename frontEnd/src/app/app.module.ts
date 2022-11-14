@@ -38,6 +38,7 @@ import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-an
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { PromotionCardComponent } from './components/promotion-card/promotion-card.component';
+import { FocusOnInitDirective } from './services/focus-on-init.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
@@ -74,7 +75,8 @@ import { environment } from '../environments/environment';
     PrivacyAndPolicyComponent,
     ProfileComponent,
     CustomerOrderComponent,
-    PromotionCardComponent
+    PromotionCardComponent,
+    FocusOnInitDirective
   ],
   imports: [
     BrowserModule,

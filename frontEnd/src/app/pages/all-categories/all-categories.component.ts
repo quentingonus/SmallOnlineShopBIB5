@@ -40,8 +40,8 @@ export class AllCategoriesComponent implements OnInit {
 
       console.log('FilteredProducts :', this.filterProducts);
     }
-    if (query.value.trim().lenght <= 0) {
-      this.filterProducts = [];
+    if (query.value.trim().length == 0) {
+      this.filterProducts = null;
     }
   }
 

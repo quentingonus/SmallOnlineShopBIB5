@@ -31,19 +31,33 @@
           class="form-control"
           type="text"
           placeholder="Search..."
-          autofocus
+          FocusOnInit
           #search
           (input)="findProduct(search)"
         />
       </div>
-    </form>
+    </form>  
+    <div *ngIf="filterProducts; then products else noData"></div>
 
-    <div class="row">
-      <app-item-card
-        class="col-3 m-3"
-        *ngFor="let shopItem of filterProducts"
-        [cardItem]="shopItem"
-      ></app-item-card>
-    </div>
+    <ng-template #products>
+      <div class="row">
+        <app-item-card
+          class="col-3 m-3"
+          *ngFor="let item of filterProducts"
+          [cardItem]="item"
+        ></app-item-card>
+      </div>
+    </ng-template>
+
+    <ng-template #noData>
+      <div class="no-data">
+        <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0Bil23yHFVzseITQ14PeXhz6p8nia6OzjUQ&usqp=CAU"
+        alt="No Item In Cart"
+            />
+
+       <h2>No Product found</h2> 
+      </div>
+    </ng-template>
   </div>
 </div>
