@@ -31,9 +31,9 @@ export class OrderService {
     return this.arriveList;
   }
 
-  orderFindbyCustomer(customer: any) {
-    let order = this.order.filter(order => order.customer.username == customer)
-    return order;
+  async orderFindbyCustomer(customerId: any) {
+    let orders: any = await this.postGetOrder()
+    return orders.data.filter((order: any) => order.created_user_id._id == customerId)
   }
 
 
@@ -42,7 +42,7 @@ export class OrderService {
     let productArr: any = []
     let quantityArr: any = []
 
-    order.forEach((item: any) => {
+    order.products.forEach((item: any) => {
       productArr.push(item.id)
       quantityArr.push(item.amount)
     })

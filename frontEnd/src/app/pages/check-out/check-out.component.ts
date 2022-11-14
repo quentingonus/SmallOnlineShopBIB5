@@ -43,14 +43,13 @@ export class CheckOutComponent implements OnInit {
   }
 
   async onSubmit() {
-    console.log(this.form);
     let newCustomer = { date: new Date(), ...this.form.value };
 
-    this.newOrder = [{
+    this.newOrder = {
       totalPrice: this.totalPrice(),
       discount: this.discountPrice,
-      ...this.cartService.getCartNormal()[0],
-    }];
+      products: [...this.cartService.getCartNormal()],
+    };
 
     await this.orderService.postCreateOrder(newCustomer, this.newOrder)
 

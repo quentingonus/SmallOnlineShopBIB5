@@ -4,11 +4,16 @@
   <div *ngIf="orderLists.length > 0; then orderList; else noOrder"></div>
 
   <ng-template #orderList>
-    <button type="button" class="btn btn-light" (click)="downloadInCSV(orderLists)">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="makeDownloadInCSV(orderLists)"
+    >
       <i class="bi bi-file-earmark-arrow-down"></i>
       Download
-    </button>    <div style="overflow: scroll; width: 100%;">
-      <table class="table table-hover shadow-sm table-responsive" >
+    </button>
+    <div style="overflow: scroll; width: 100%">
+      <table class="table table-hover shadow-sm table-responsive">
         <thead class="thead-light">
           <tr class="text-center">
             <th style="width: 15%">Customer Name</th>
@@ -40,8 +45,8 @@
   <div *ngIf="shippingList && shippingList.length > 0" class="my-5">
     <h2>Shipping Orders</h2>
 
-    <div >
-      <table class="table table-striped shadow-sm" >
+    <div>
+      <table class="table table-striped shadow-sm">
         <thead class="thead-light">
           <tr>
             <th>Customers</th>

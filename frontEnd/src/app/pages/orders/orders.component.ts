@@ -34,6 +34,22 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  makeDownloadInCSV(data: any) {
+    let newData = data.map((item: any) => {
+      return {
+        _id: item._id,
+        created_user_id: item.created_user_id._id,
+        productId: item.productId,
+        quantity: item.quantity,
+        address: item.address,
+        credit: item.credit,
+        date: item.date,
+        order_status: item.order_status
+      }
+    })
+    return this.downloadInCSV(newData)
+  }
+
   downloadInCSV(data: Array<any>) {
     if (data.length == 0) {
       return;
