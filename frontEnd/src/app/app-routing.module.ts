@@ -28,8 +28,9 @@ import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-an
 import { PromotionComponent } from './pages/promotion/promotion.component';
 
 const routes: Routes = [
-  { path: 'categories', component: AllCategoriesComponent },
   { path: 'categories/:id', component: CategoryDetailComponent },
+  { path: 'categories', component: AllCategoriesComponent },
+  { path: 'search', component: AllCategoriesComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },

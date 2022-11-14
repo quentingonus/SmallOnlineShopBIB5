@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
@@ -12,12 +13,27 @@ export class AllCategoriesComponent implements OnInit {
 
   shopItems!: any;
   categories!: any;
+  filterProducts!: any;
 
   constructor(
     private cart: CartService,
     private postService: PostService,
-    public util: UtilsService
+    public util: UtilsService,
+    public router: Router
   ) { }
+  
+  onFocus() {
+    this.router.navigate(['/search']);
+  }
+
+  async findProduct(product: any) {
+    console.log(product.value);
+
+    if (this.shopItems) {
+      this.filterProducts = await this.cart.getShop();
+      console.log(this.filterProducts)
+    }
+  }
 
   async ngOnInit() {
     let shopItem = await this.cart.getShop();
