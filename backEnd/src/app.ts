@@ -21,6 +21,7 @@ import auth_route from './routes/auth_route';
 import contact_route from "./routes/contact_route";
 import category_route from "./routes/category_route";
 import popular_route from "./routes/PopularProduct_route";
+import search_route from "./routes/search_route";
 
 
 require("./config/passport")
@@ -72,5 +73,5 @@ mongoose
     app.use('/category', category_route);
     app.use('/contactus', contact_route);
     app.use('/popular', popular_route);
+    app.use('/search',search_route);
   })
-

@@ -2,7 +2,6 @@ import Purchase from "../models/purchase";
 // import { } from "./productService";
 // import products from "../models/products";
 import { Response } from "express";
-const logger = require('../loggers/logger');
 
 export const getPopularProductServices = async (_req: any, res: Response) => {
   try {
@@ -36,24 +35,6 @@ export const getPopularProductServices = async (_req: any, res: Response) => {
 
     return res.json({ data: newArr });
 
-    // Kaung si thu 's idea
-
-    // const test = [
-    //   {
-    //     productId : req.body.productId,
-    //     quantity : req.body.quantity
-    //   }
-    // ]
-
-    // test.sort((max, min)=> {
-    //   return min.quantity - max.quantity 
-    // }) 
-
-    // test.forEach((top) => {
-    //   res.send("testing")
-    //   console.log(`${top.productId}`);
-    //   res.json({ data : result});
-    // })
   } catch (err) {
     return console.log(err)
   }
