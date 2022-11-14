@@ -99,9 +99,16 @@ table {
     width: 70%;
     height: 100%;
     padding: 22px 5px;
+    transition: .6s;
   }
 
   li:hover .card-logo {
     background-image: url(https://cdn.dribbble.com/userupload/3158902/file/original-7c71bfa677e61dea61bc2acd59158d32.jpg?resize=400x0);
+  
+  }
+
+  li:hover .card-text {
+    opacity: .6;
+    transform: scale(1.03);
   }
 }
