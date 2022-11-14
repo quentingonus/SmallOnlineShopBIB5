@@ -65,7 +65,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-    app.use('/users', passport.authenticate('jwt', { session: false }), user_route);
+    app.use('/users', user_route);
     app.use('/auth', auth_route);
     app.use('/carts', cart_route);
     app.use('/product', product_route);

@@ -16,6 +16,7 @@ export const loginService = async (req: Request, res: Response) => {
         msg: "Could not find user"
       })
     }
+    // console.log(user);
 
     if (!compareSync(req.body.password, user.password)) {
       return res.status(404).send({
@@ -28,12 +29,21 @@ export const loginService = async (req: Request, res: Response) => {
       id: await bcrypt.hash(user.id, 12)
     }
 
-    const token = jwt.sign(payload, 'nyan', { expiresIn: '1d' });
+    const token = jwt.sign(payload, 'furtive', { expiresIn: '1d' });
 
     return res.status(200).send({
       success: true,
       message: 'Login Successfully!',
-      user: user,
+      user: {
+        _id: user._id,
+        profile: user.profile,
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        phone: user.phone,
+        dob: user.dob,
+        type: user.type
+      },
       token: token
     });
   })
@@ -57,7 +67,7 @@ export const forgetPasswordService = async (req: any, res: Response) => {
         token: crypto.randomBytes(16).toString("hex"),
       }).save();
     }
-    const link = `${process.env.BASE_URL}/forget_password_update/${user._id}/${token.token}`;
+    const link = `${process.env.BASE_URL}/password-reset-update/${user._id}/${token.token}`;
     await sendEmail(user.email, "Password Reset", link);
 
     return res.status(200).json({

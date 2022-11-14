@@ -78,7 +78,18 @@ export const updateUserService = async (req: any, res: Response) => {
     user.created_user_id = req.body.created_user_id;
     user.updated_user_id = req.body.updated_user_id;
     const result = await user.save();
-    res.json({ msg: "Image Updated Successfully", data: result });
+    res.json({
+      msg: "Image Updated Successfully", data: {
+        _id: result._id,
+        profile: result.profile,
+        name: result.name,
+        email: result.email,
+        address: result.address,
+        phone: result.phone,
+        dob: result.dob,
+        type: result.type
+      }
+    });
   } catch (err) {
     res.send("an error occured in Edit User");
     console.log(err)
