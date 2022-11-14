@@ -1,11 +1,49 @@
 <div class="container">
-  <p class="fs-2 my-3">All Categories</p>
-  <div class="row col-12" *ngFor="let category of util.getKeyArr(shopItems)">
-    <h4 class="text-left my-4">{{ category | titlecase }}</h4>
-    <app-item-card
-      class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3"
-      *ngFor="let shopItem of shopItems[category]"
-      [cardItem]="shopItem"
-    ></app-item-card>
+  <div *ngIf="router.url == '/categories'">
+    <form class="container mt-3">
+      <div class="form-group">
+        <input
+          id="search"
+          class="form-control"
+          type="text"
+          placeholder="Search..."
+          autofocus
+          (focus)="onFocus()"
+        />
+      </div>
+    </form>
+    <p class="fs-2 my-3">All Categories</p>
+    <div class="row col-12" *ngFor="let category of util.getKeyArr(shopItems)">
+      <h4 class="text-left my-4">{{ category | titlecase }}</h4>
+      <app-item-card
+        class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3"
+        *ngFor="let shopItem of shopItems[category]"
+        [cardItem]="shopItem"
+      ></app-item-card>
+    </div>
+  </div>
+  
+  <div *ngIf="router.url == '/search'" class="search">
+    <form class="container mt-3">
+      <div class="form-group">
+        <input
+          id="search"
+          class="form-control"
+          type="text"
+          placeholder="Search..."
+          autofocus
+          #search
+          (input)="findProduct(search)"
+        />
+      </div>
+    </form>
+  
+    <div class="row">
+      <app-item-card
+        class="col-3 m-3"
+        *ngFor="let shopItem of filterProducts"
+        [cardItem]="shopItem"
+      ></app-item-card>
+    </div>
   </div>
 </div>
