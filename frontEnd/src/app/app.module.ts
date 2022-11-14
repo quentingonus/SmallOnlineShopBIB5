@@ -38,6 +38,8 @@ import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-an
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
 import { PromotionCardComponent } from './components/promotion-card/promotion-card.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,12 @@ import { PromotionCardComponent } from './components/promotion-card/promotion-ca
     FontAwesomeModule,
     SlickCarouselModule,
     HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
