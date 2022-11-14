@@ -166,21 +166,22 @@ export class CartService {
       }))
       return
     }
-
-    let formData = new FormData()
-    formData.append("productId", JSON.stringify(productArr))
-    formData.append("quantity", JSON.stringify(quantityArr))
-    formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
-    return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${cartCached._id}`, formData))
-      .then((res: any) => {
-        res = res.data
-        localStorage.setItem("CART", JSON.stringify(res))
-        return res
-      })
-      .catch((err: any) => {
-        console.log(err)
-        throw "An error occurs at updating cart."
-      })
+    if (productArr.length) {
+      let formData = new FormData()
+      formData.append("productId", JSON.stringify(productArr))
+      formData.append("quantity", JSON.stringify(quantityArr))
+      formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
+      return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${cartCached._id}`, formData))
+        .then((res: any) => {
+          res = res.data
+          localStorage.setItem("CART", JSON.stringify(res))
+          return res
+        })
+        .catch((err: any) => {
+          console.log(err)
+          throw "An error occurs at updating cart."
+        })
+    }
   }
 
   async postDeleteCart() {
