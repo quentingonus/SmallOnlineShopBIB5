@@ -2,7 +2,7 @@ import Purchase from "../models/purchase";
 // import { } from "./productService";
 // import products from "../models/products";
 import { Response } from "express";
-const logger = require('../loggers/logger');
+//const logger = require('../loggers/logger');
 
 export const getPopularProductServices = async (_req: any, res: Response) => {
   try {
