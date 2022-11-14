@@ -131,4 +131,3 @@ export const passwordChangeService = async (req: Request, res: Response) => {
     res.send("An error occured");
   }
 };
-
