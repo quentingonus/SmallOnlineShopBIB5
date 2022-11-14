@@ -1,0 +1,27 @@
+<td>{{ order.created_user_id.name }}</td>
+<td>{{ order.date }}</td>
+<td>{{ timer }}</td>
+
+<td>
+  <select
+    class="form-select"
+    aria-label="Delivery Status"
+    #select
+    (change)="onChange(select)"
+  >
+    <option class="option-list" selected value="pending">pending</option>
+    <option class="option-list" value="shipping">shipping</option>
+    <option class="option-list" value="arrive">arrive</option>
+    <option class="option-list" value="cancel">cancel</option>
+  </select>
+</td>
+<td>
+  <a class="btn btn-light" [routerLink]="orderLink">
+    <td><i class="bi bi-pencil-square"></i></td>
+  </a>
+</td>
+<td>
+  <!--<button class="btn btn-outline-primary" (click)="addShippingList(order)">
+    <td>ship</td>
+  </button>-->
+</td>

@@ -1,0 +1,114 @@
+
+.container {
+  min-height: 80vh;
+}
+.card {
+  overflow: hidden;
+}
+
+table {
+  vertical-align: middle;
+}
+
+.nav {
+  border-right: 1px solid #ccc;
+  border-radius: 1px;
+}
+
+.sticky-top {
+  top: 125px;
+}
+
+.list-group-item {
+  width: 100%;
+  cursor: pointer;
+}
+
+.profile {
+  .card-img {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 110%;
+    height: 190px;
+    margin-top: -20px;
+    margin-right: 0px;
+    margin-bottom: 100px;
+    margin-left: -23px;
+    background: url(https://images.unsplash.com/photo-1568301956237-25a54f5f0d21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80) no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .card-img-top {
+    position: absolute;
+    top: 50%;
+    width: 180px;
+    border: 3px solid #fff;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+}
+
+.order {
+  height: 80vh;
+}
+
+.socials {
+  height: 80vh;
+  li {
+    cursor: pointer;
+    transition: 0.6s;
+  }
+
+  .card {
+    height: 70px;
+    padding: 0;
+  }
+
+  .card-logo {
+    width: 30%;
+    height: 100%;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    transition: all 0.6s;
+    -webkit-transition: all 0.6s;
+    -o-transition: all 0.6s;
+    -moz-transition: all 0.6s;
+  }
+
+  .card-facebook {
+    background-image: url("https://images.unsplash.com/photo-1627843563095-f6e94676cfe0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80");
+  }
+
+  .card-instagram {
+    background-image: url("https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
+  }
+
+  .card-youtube {
+    background-image: url("https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
+  }
+
+  .card-twitter {
+    background-image: url("https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
+  }
+
+  .card-text {
+    width: 70%;
+    height: 100%;
+    padding: 22px 5px;
+    transition: .6s;
+  }
+
+  li:hover .card-logo {
+    background-image: url(https://cdn.dribbble.com/userupload/3158902/file/original-7c71bfa677e61dea61bc2acd59158d32.jpg?resize=400x0);
+  
+  }
+
+  li:hover .card-text {
+    opacity: .6;
+    transform: scale(1.03);
+  }
+}

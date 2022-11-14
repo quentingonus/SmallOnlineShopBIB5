@@ -1,6 +1,7 @@
 import products from "../models/products";
 import { Response } from "express";
 import { deleteFile } from "../utils";
+const logger = require('../loggers/logger');
 
 export const getproductServices = async (_req: any, res: Response) => {
   try {
@@ -8,6 +9,8 @@ export const getproductServices = async (_req: any, res: Response) => {
     res.json({ data: result });
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in get product");
+    logger.productInfoLogger.log('info', 'Error Product Lists')
   }
 };
 
@@ -24,6 +27,7 @@ export const createproductServices = async (req: any, res: Response) => {
       profile: profile,
       title: req.body.title,
       price: req.body.price,
+      detail: req.body.detail,
       created_category_id: req.body.created_category_id
     }
 
@@ -33,6 +37,8 @@ export const createproductServices = async (req: any, res: Response) => {
     res.status(201).json({ message: "Created Successfully", data: result })
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in create product");
+    logger.productInfoLogger.log('info', 'Error Create Product')
   }
 };
 
@@ -42,6 +48,8 @@ export const findproductServices = async (req: any, res: Response) => {
     res.send({ data: findData })
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in find product");
+    logger.productErrorLogger.log('error', 'Error Product Not Found')
   }
 };
 
@@ -63,12 +71,18 @@ export const updateproductServices = async (req: any, res: Response) => {
       }
     }
     const product: any = await products.findById(req.params.id)
+    product.created_user_id = req.body.created_user_id;
+    product.profile = profile;
     product.title = req.body.title;
     product.price = req.body.price;
+    product.detail = req.body.detail;
+    product.created_category_id = req.body.created_category_id
     const result = await product.save();
     res.json({ message: "Updated Successfully!", data: result })
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in update product");
+    logger.productErrorLogger.log('error', 'Error Update Product')
   }
 };
 
@@ -79,5 +93,7 @@ export const deleteproductServices = async (req: any, res: Response) => {
     res.json({ message: "product with id " + req.params.id + " removed." })
   } catch (err) {
     console.log(err)
+    res.send("An Error occured in delete product");
+    logger.productErrorLogger.log('error', 'Error Delete Product')
   }
 };

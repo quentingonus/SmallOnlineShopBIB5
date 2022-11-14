@@ -25,9 +25,19 @@ import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 import { AboutComponent } from './pages/about/about.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { FaqComponent } from './pages/faq/faq.component';
+import { PromotionComponent } from './pages/promotion/promotion.component';
+import { OrderandshippingComponent } from './pages/orderandshipping/orderandshipping.component';
+import { DeliveryComponent } from './pages/delivery/delivery.component';
+import { RefundsComponent } from './pages/refunds/refunds.component';
+import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CustomerOrderComponent } from './components/customer-order/customer-order.component';
+import { PromotionCardComponent } from './components/promotion-card/promotion-card.component';
 
 @NgModule({
   declarations: [
@@ -51,8 +61,18 @@ import { LogoutComponent } from './pages/logout/logout.component';
     OrdersComponent,
     OrderDetailComponent,
     CategoryDetailComponent,
+    OrderListComponent,
     AboutComponent,
-    LogoutComponent
+    LogoutComponent,
+    FaqComponent,
+    PromotionComponent,
+    OrderandshippingComponent,
+    DeliveryComponent,
+    RefundsComponent,
+    PrivacyAndPolicyComponent,
+    ProfileComponent,
+    CustomerOrderComponent,
+    PromotionCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbOffcanvas, OffcanvasDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -26,10 +27,6 @@ export class HeaderComponent implements OnInit {
       route: "/categories"
     },
     {
-      name: "Contact",
-      route: "/contact"
-    },
-    {
       name: "Login",
       route: "/login"
     },
@@ -45,14 +42,6 @@ export class HeaderComponent implements OnInit {
       route: "/categories"
     },
     {
-      name: "Contact",
-      route: "/contact"
-    },
-    {
-      name: "About",
-      route: "/about"
-    },
-    {
       name: "Logout",
       route: "/logout",
     },
@@ -60,6 +49,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private offcanvasService: NgbOffcanvas,
+    private router: Router,
     private cart: CartService,
     private headerService: HeaderService,
     private authService: AuthService
@@ -132,6 +122,18 @@ export class HeaderComponent implements OnInit {
     } else {
       return this.navItems1
     }
+  }
+
+  checkout(offcanvas: any) {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(["/check-out"])
+    } else {
+      this.router.navigate(
+        ['/login'],
+        { queryParams: { redirect: "check-out" } }
+      );
+    }
+    offcanvas.dismiss()
   }
 
   ngOnInit(): void {

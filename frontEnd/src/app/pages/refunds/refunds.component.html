@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <p class="fs-3 my-5 text-uppercase">
+      <span class="border-bottom border-dark">Refunds</span>
+    </p>
+    <ngb-accordion
+      #acc="ngbAccordion"
+      activeIds="static-1"
+      class="mb-5"
+      [closeOthers]="true"
+    >
+      <ngb-panel id="static-1">
+        <ng-template ngbPanelTitle>
+          <span>Do we refund?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Yes we do, but it is conditional.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>How the refund will be processed?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          The refund will be directly in your account with which you made the
+          payment.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>When we refund?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Approximately, 24 hours but if we do not feel well, we do not refund.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Refund costs something?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Yes we refund only 50% of the payment. Don't ask me why.
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>
