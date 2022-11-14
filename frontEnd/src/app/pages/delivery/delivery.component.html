@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <p class="fs-3 my-5 text-uppercase">
+      <span class="border-bottom border-dark">Delivery</span>
+    </p>
+    <ngb-accordion
+      #acc="ngbAccordion"
+      activeIds="static-1"
+      class="mb-5"
+      [closeOthers]="true"
+    >
+      <ngb-panel id="static-1">
+        <ng-template ngbPanelTitle>
+          <span>How about delivery?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          We have no delivery service currently, but we hope one in the future.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Shipping time?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Approximately, 24 hours but if we do not feel well, we do not ship.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Which countries do we ship to?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Actually, we do not ship anything.
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Shipping has extra cost?</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Of course, we normally do not ship anything but when we ship, there
+          will be an affortable extra cost.
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

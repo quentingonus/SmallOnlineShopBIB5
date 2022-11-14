@@ -74,8 +74,8 @@ export const forgetPasswordService = async (req: any, res: Response) => {
       msg: "Password Reset link sent to your email"
     })
   } catch (err) {
-    return res.send("An Error occured in passwordReset");
     console.log(err);
+    return res.send("An Error occured in passwordReset");
   }
 }
 
@@ -127,7 +127,7 @@ export const passwordChangeService = async (req: Request, res: Response) => {
       }
 
       if (compareSync(req.body.newPassword, user.password)) {
-        return res.send({
+        return res.status(401).send({
           success: false,
           message: 'Current Password and New Password are same.'
         });
@@ -135,10 +135,9 @@ export const passwordChangeService = async (req: Request, res: Response) => {
 
       user.password = await bcrypt.hash(req.body.newPassword, 12);
       await user.save();
-      return res.json({ message: "Password Change Successfully!" });
+      return res.status(200).json({ message: "Password Change Successfully!" });
     })
   } catch (error) {
     res.send("An error occured");
   }
 };
-

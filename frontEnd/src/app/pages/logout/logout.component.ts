@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-logout',
@@ -8,12 +9,16 @@ import { Router } from '@angular/router';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private cartService: CartService
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     localStorage.removeItem("TOKEN")
     localStorage.removeItem("USER")
     localStorage.removeItem("ROLE")
+    await this.cartService.postDeleteCart()
     this.router.navigate(["login"])
   }
 

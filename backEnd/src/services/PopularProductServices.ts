@@ -6,7 +6,6 @@ import { Response } from "express";
 export const getPopularProductServices = async (_req: any, res: Response) => {
   try {
     const result = await Purchase.find().populate("created_user_id");
-
     let newObj = {}
 
     // Collecting same items & Adding Items to Obj
@@ -36,24 +35,6 @@ export const getPopularProductServices = async (_req: any, res: Response) => {
 
     return res.json({ data: newArr });
 
-    // Kaung si thu 's idea
-
-    // const test = [
-    //   {
-    //     productId : req.body.productId,
-    //     quantity : req.body.quantity
-    //   }
-    // ]
-
-    // test.sort((max, min)=> {
-    //   return min.quantity - max.quantity 
-    // }) 
-
-    // test.forEach((top) => {
-    //   res.send("testing")
-    //   console.log(`${top.productId}`);
-    //   res.json({ data : result});
-    // })
   } catch (err) {
     return console.log(err)
   }

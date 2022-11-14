@@ -30,7 +30,7 @@ export class CheckOutComponent implements OnInit {
       username: ['', Validators.required],
       email: [],
       address1: ['', Validators.required],
-      address2: [],
+      address2: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
@@ -42,26 +42,18 @@ export class CheckOutComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    console.log(this.form);
+  async onSubmit() {
     let newCustomer = { date: new Date(), ...this.form.value };
 
-    this.newOrder = [{
+    this.newOrder = {
       totalPrice: this.totalPrice(),
       discount: this.discountPrice,
-      ...this.cartService.getCartNormal()[0],
-    }];
-    
-    //this.orderService.order.customer.push(newCustomer);
-    //this.orderService.order.orderProduct.push(this.cartService.getCartNormal());
-    this.orderService.order.push({
-      customer: newCustomer,
-      orderProduct: this.newOrder,
-    });
+      products: [...this.cartService.getCartNormal()],
+    };
+
+    await this.orderService.postCreateOrder(newCustomer, this.newOrder)
 
     this.confirmOrder = true;
-    console.log(newCustomer);
-    console.log('Order :', this.orderService.order);
     this.cartService.deleteCart();
   }
 

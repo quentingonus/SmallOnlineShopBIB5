@@ -31,15 +31,30 @@ export class PostService {
     return product[categoryId]
   }
 
-  createProducts(product: any): Promise<any> {
+  createProducts(product: any) {
+    //const token = localStorage.getItem("TOKEN") || "";
+    //const user = JSON.parse(localStorage.getItem("USER") || "[]")
+    //if (!user.length) {
+    //  return null
+    //}
+    //const options = {
+    //  headers: new HttpHeaders()
+    //    .set('Content-Type', 'application/json;charset=utf-8;')
+    //    .set('Cache-Control', 'no-cache')
+    //    .set('Pragma', 'no-cache')
+    //    .set('userType', user.type)
+    //    .set('userId', user._id)
+    //    .set('Authorization', `Bearer ${token}`)
+    //};
     let formData = new FormData();
 
     //Temporary Adding Default Value
-    formData.append("created_user_id", "636a297484a745b2bd40a3b0")
+    formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
 
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
+    formData.append("detail", product.detail)
     formData.append("created_category_id", product.category)
 
     return lastValueFrom(this.http.post(`${environment.apiUrl}/product`, formData))
@@ -49,11 +64,12 @@ export class PostService {
     let formData = new FormData();
 
     //Temporary Adding Default Value
-    formData.append("created_user_id", "636a297484a745b2bd40a3b0")
+    formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
 
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
+    formData.append("detail", product.detail)
     formData.append("created_category_id", product.category)
 
     return lastValueFrom(this.http.put(`${environment.apiUrl}/product/${product.id}`, formData))
@@ -80,66 +96,6 @@ export class PostService {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/category/${id}`))
   }
 
-  // Cart Service
-
-  getCart(id: any): Promise<any> {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/cart`))
-  }
-
-  createCart(id: any, product: any): Promise<any> {
-    let formData = new FormData();
-    // Must be changed
-    //formData.append("name", id)
-    //formData.append("profileImage", product)
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/cart`, formData))
-  }
-
-  updateCart(id: any, product: any): Promise<any> {
-    let formData = new FormData();
-    // Must be changed
-    //formData.append("name", id)
-    //formData.append("profileImage", product)
-    return lastValueFrom(this.http.put(`${environment.apiUrl}/cart`, formData))
-  }
-
-  // Order Service
-
-  getOrder(): Promise<any> {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/`))
-  }
-
-  getOrderById(id: any): Promise<any> {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`))
-  }
-
-  createOrder(product: any, quantity: any): Promise<any> {
-    let formData = new FormData();
-
-    //Temporary Adding Default Value
-    formData.append("created_user_id", "636a297484a745b2bd40a3b0")
-
-    formData.append("productId", JSON.stringify(product))
-    formData.append("quantity", JSON.stringify(quantity))
-    formData.append("date", new Date().toLocaleString())
-    formData.append("order_status", "new order")
-
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/purchase/`, formData))
-  }
-
-  updateOrder(product: any, quantity: any): Promise<any> {
-    let formData = new FormData();
-
-    //Temporary Adding Default Value
-    formData.append("created_user_id", "636a297484a745b2bd40a3b0")
-
-    formData.append("productId", JSON.stringify(product))
-    formData.append("quantity", JSON.stringify(quantity))
-    formData.append("date", new Date().toLocaleString())
-    formData.append("order_status", "new order")
-
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/purchase/`, formData))
-  }
-
   // Send Feedback
 
   sendFeedback(mail: any, details: any) {
@@ -147,6 +103,12 @@ export class PostService {
     formData.append("email", mail)
     formData.append("detail", details)
     return lastValueFrom(this.http.post(`${environment.apiUrl}/contactus`, formData))
+  }
+
+  postSearchService(search: any) {
+    let formData = new FormData()
+    formData.append("query", search)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/search`, formData))
   }
 
 

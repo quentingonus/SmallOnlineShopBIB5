@@ -1,0 +1,8 @@
+<td>{{ order.created_user_id.name }}</td>
+<td>{{ order.date | date: "fullDate" }}</td>
+<td>{{ timer }}</td>
+<td>
+  <button class="btn btn-light" (click)="viewOrder()">
+    <td><i class="bi bi-pencil-square"></i></td>
+  </button>
+</td>

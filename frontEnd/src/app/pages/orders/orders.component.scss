@@ -1,7 +1,8 @@
-.second-container {
-  height: 60vh;
+tr,
+td {
+  vertical-align: middle;
 }
 
-tr,td {
-  vertical-align: middle;
+.container {
+  min-height: 70vh;
 }

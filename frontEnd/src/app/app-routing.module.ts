@@ -1,3 +1,4 @@
+import { ProfileComponent } from './pages/profile/profile.component';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
@@ -19,10 +20,17 @@ import { CategoryDetailComponent } from './pages/category-detail/category-detail
 import { AboutComponent } from './pages/about/about.component';
 import AuthGuard from "./guards/auth.guard";
 import { LogoutComponent } from './pages/logout/logout.component';
+import { FaqComponent } from './pages/faq/faq.component';
+import { OrderandshippingComponent } from './pages/orderandshipping/orderandshipping.component';
+import { DeliveryComponent } from './pages/delivery/delivery.component';
+import { RefundsComponent } from './pages/refunds/refunds.component';
+import { PrivacyAndPolicyComponent } from './pages/privacy-and-policy/privacy-and-policy.component';
+import { PromotionComponent } from './pages/promotion/promotion.component';
 
 const routes: Routes = [
-  { path: 'categories', component: AllCategoriesComponent },
   { path: 'categories/:id', component: CategoryDetailComponent },
+  { path: 'categories', component: AllCategoriesComponent },
+  { path: 'search', component: AllCategoriesComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -33,12 +41,19 @@ const routes: Routes = [
   { path: 'admin/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
   { path: 'admin/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: ProfileComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'check-out', component: CheckOutComponent },
   { path: 'forget', component: ForgetpasswordComponent },
   { path: 'reset', component: ResetComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'order-and-shipping', component: OrderandshippingComponent },
+  { path: 'delivery', component: DeliveryComponent },
+  { path: 'refund', component: RefundsComponent },
+  { path: 'privacy-and-policy', component: PrivacyAndPolicyComponent },
+  { path: 'promotion', component: PromotionComponent },
   { path: '**', component: HomeComponent }
 ];
 

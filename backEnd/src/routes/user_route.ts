@@ -8,7 +8,7 @@ router
   .get(getUser)
   .post(createUser)
 
- router
+router
   .route('/:id')
   .get(findUser)
   .put(updateUser)

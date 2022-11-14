@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbOffcanvas, OffcanvasDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   burgurMenu = false;
 
-  navItems1 = [
+  navItem = [
     {
       name: "Home",
       route: "/"
@@ -24,42 +25,12 @@ export class HeaderComponent implements OnInit {
     {
       name: "Categories",
       route: "/categories"
-    },
-    {
-      name: "Contact",
-      route: "/contact"
-    },
-    {
-      name: "Login",
-      route: "/login"
-    },
-  ]
-
-  navItems2 = [
-    {
-      name: "Home",
-      route: "/"
-    },
-    {
-      name: "Categories",
-      route: "/categories"
-    },
-    {
-      name: "Contact",
-      route: "/contact"
-    },
-    {
-      name: "About",
-      route: "/about"
-    },
-    {
-      name: "Logout",
-      route: "/logout",
-    },
+    }
   ]
 
   constructor(
     private offcanvasService: NgbOffcanvas,
+    private router: Router,
     private cart: CartService,
     private headerService: HeaderService,
     private authService: AuthService
@@ -127,11 +98,36 @@ export class HeaderComponent implements OnInit {
   }
 
   getNav() {
+    let tmpNav = [...this.navItem]
     if (this.authService.isAuthenticated()) {
-      return this.navItems2
+      let currentUser = JSON.parse(localStorage.getItem("USER")!)
+      tmpNav.push({
+        name: "Account",
+        route: "/profile/" + currentUser._id
+      })
+      tmpNav.push({
+        name: "Logout",
+        route: "/logout"
+      })
     } else {
-      return this.navItems1
+      tmpNav.push({
+        name: "Login",
+        route: "/login"
+      })
     }
+    return tmpNav
+  }
+
+  checkout(offcanvas: any) {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(["/check-out"])
+    } else {
+      this.router.navigate(
+        ['/login'],
+        { queryParams: { redirect: "check-out" } }
+      );
+    }
+    offcanvas.dismiss()
   }
 
   ngOnInit(): void {

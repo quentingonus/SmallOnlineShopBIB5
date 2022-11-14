@@ -1,122 +1,142 @@
-<div class="m-3">
-  <h3>Products in Shop</h3>
+<ul class="d-flex flex-row justify-content-center mt-4 custom-list">
+  <li (click)="pageName = 'products'" class="list-item d-flex flex-column align-items-center" [class.active]="pageName == 'products'">
+    <i class="bi bi-basket"></i>
+    <p class="list-text">Products</p>
+  </li>
+  <li (click)="pageName = 'users'" class="list-item d-flex flex-column align-items-center" [class.active]="pageName == 'users'">
+    <i class="bi bi-people"></i>
+    <p class="list-text">Users</p> 
+  </li>
+</ul>
 
-  <div class="row">
-    <div class="col-12 col-md-3 mb-3">
-      <input
-        #query
-        (input)="filter(query.value)"
-        [(ngModel)]="searchQuery"
-        type="text"
-        class="form-control"
-        placeholder="search..."
-      />
+
+<div [ngSwitch]="pageName" class="container">
+
+  <div *ngSwitchCase="'products'" class="m-3">
+    <h3>Products in Shop</h3>
+  
+    <div class="row">
+      <div class="col-12 col-md-3 mb-3">
+        <input
+          #query
+          (input)="filter(query.value)"
+          [(ngModel)]="searchQuery"
+          type="text"
+          class="form-control"
+          placeholder="search..."
+        />
+      </div>
+      <a
+        routerLink="/admin/add-product"
+        class="btn btn-success col-12 col-md-2 col-lg-2 mb-3"
+        >Add Product</a
+      >
     </div>
-    <a
-      routerLink="/admin/add-product"
-      class="btn btn-success col-12 col-md-2 col-lg-1 mb-3"
-      >Add Product</a
+    <div class="row">
+      <div class="col-12" style="width: 100%; overflow: scroll">
+        <table class="table table-hover table-responsive shadow-sm">
+          <thead>
+            <tr>
+              <th style="width: 3%" scope="col">#</th>
+              <th
+                style="width: 10%"
+                scope="col"
+                sortable="id"
+                (sort)="onSort($event)"
+              >
+                Id
+              </th>
+              <th
+                style="width: 50%"
+                scope="col"
+                sortable="title"
+                (sort)="onSort($event)"
+              >
+                Title
+              </th>
+              <th
+                style="width: 10%"
+                scope="col"
+                sortable="price"
+                (sort)="onSort($event)"
+              >
+                Price
+              </th>
+              <th
+                style="width: 10%"
+                scope="col"
+                sortable="category"
+                (sort)="onSort($event)"
+              >
+                Category
+              </th>
+              <th style="width: 30%" scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable-row" *ngFor="let product of filteredProduct()">
+              <th>{{ product.index }}</th>
+              <td scope="row">{{ product.id }}</td>
+              <td (click)="editProduct(product)">
+                <img
+                  [src]="product.imageUrl"
+                  class="me-2"
+                  style="width: 50px; height: 50px; border-radius: 50%"
+                />
+                {{ product.title }}
+              </td>
+              <td>{{ product.price | currency: "USD" }}</td>
+              <td>{{ util.searchCategory(product.category, category) }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  (click)="editProduct(product)"
+                >
+                <i class="bi bi-pencil-square"></i>
+                </button>
+                <button
+                  #deleteBtn
+                  type="button"
+                  class="btn btn-light ms-2"
+                  (click)="deleteProduct(product, deleteBtn)"
+                >
+                  <span *ngIf="!util.isLoading(deleteBtn)"><i class="bi bi-trash"></i></span>
+                  <span *ngIf="util.isLoading(deleteBtn)">
+                    <div class="spinner-border spinner-border-sm" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div
+      class="d-flex justify-content-between p-2"
+      *ngIf="products && products.length"
     >
-  </div>
-  <div class="row">
-    <div class="col-12" style="width: 100%; overflow: scroll">
-      <table class="table table-hover table-responsive">
-        <thead>
-          <tr>
-            <th style="width: 3%" scope="col">#</th>
-            <th
-              style="width: 10%"
-              scope="col"
-              sortable="id"
-              (sort)="onSort($event)"
-            >
-              Id
-            </th>
-            <th
-              style="width: 67%"
-              scope="col"
-              sortable="title"
-              (sort)="onSort($event)"
-            >
-              Title
-            </th>
-            <th
-              style="width: 5%"
-              scope="col"
-              sortable="price"
-              (sort)="onSort($event)"
-            >
-              Price
-            </th>
-            <th
-              style="width: 5%"
-              scope="col"
-              sortable="category"
-              (sort)="onSort($event)"
-            >
-              Category
-            </th>
-            <th style="width: 20%" scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="clickable-row" *ngFor="let product of filteredProduct()">
-            <th>{{ product.index }}</th>
-            <td scope="row">{{ product.id }}</td>
-            <td (click)="editProduct(product)">
-              <img
-                [src]="product.imageUrl"
-                class="me-2"
-                style="width: 50px; height: 50px; border-radius: 50%"
-              />
-              {{ product.title }}
-            </td>
-            <td>{{ product.price | currency: "USD" }}</td>
-            <td>{{ util.searchCategory(product.category, category) }}</td>
-            <td>
-              <button
-                type="button"
-                class="btn btn-link"
-                (click)="editProduct(product)"
-              >
-                Edit
-              </button>
-              <button
-                #deleteBtn
-                type="button"
-                class="btn btn-link"
-                (click)="deleteProduct(product, deleteBtn)"
-              >
-                <span *ngIf="!util.isLoading(deleteBtn)">Delete</span>
-                <span *ngIf="util.isLoading(deleteBtn)">
-                  <div class="spinner-border spinner-border-sm" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <ngb-pagination
+        [collectionSize]="products.length"
+        [(page)]="page"
+        [pageSize]="pageSize"
+      >
+      </ngb-pagination>
+  
+      <select class="form-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [ngValue]="products.length">All items</option>
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+      </select>
     </div>
   </div>
 
-  <div
-    class="d-flex justify-content-between p-2"
-    *ngIf="products && products.length"
-  >
-    <ngb-pagination
-      [collectionSize]="products.length"
-      [(page)]="page"
-      [pageSize]="pageSize"
-    >
-    </ngb-pagination>
-
-    <select class="form-select" style="width: auto" [(ngModel)]="pageSize">
-      <option [ngValue]="products.length">All items</option>
-      <option [ngValue]="2">2 items per page</option>
-      <option [ngValue]="4">4 items per page</option>
-      <option [ngValue]="6">6 items per page</option>
-    </select>
+  <div *ngSwitchCase="'users'">
+    Users List
   </div>
 </div>
+

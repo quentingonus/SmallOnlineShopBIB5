@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -12,12 +13,16 @@ export class LoginComponent implements OnInit {
   username = "";
   password = "";
   errorMsg = "";
+  params!: any;
 
   constructor(
     private router: Router,
+    private cartService: CartService,
+    private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public util: UtilsService
-  ) { }
+  ) {
+  }
 
   login(signinBtn: any) {
     signinBtn.classList.add("loading")
@@ -40,11 +45,16 @@ export class LoginComponent implements OnInit {
     this.authService.login({
       mail: this.username,
       password: this.password
-    }).then((dist: any) => {
+    }).then(async (dist: any) => {
       localStorage.setItem('TOKEN', dist.token);
       localStorage.setItem('USER', JSON.stringify(dist.user));
       localStorage.setItem('ROLE', dist.user.type.toUpperCase());
-      this.router.navigate(['home']);
+      await this.cartService.postLoginCart()
+      if ("redirect" in this.params) {
+        this.router.navigate([this.params.redirect]);
+      } else {
+        this.router.navigate(['home']);
+      }
     }).catch((err: any) => {
       this.errorMsg = "Creditionals doesn't match."
       signinBtn.classList.remove("loading")
@@ -63,6 +73,10 @@ export class LoginComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['home']);
     }
+
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.params = params
+    });
   }
 
 }
