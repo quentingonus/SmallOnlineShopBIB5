@@ -42,7 +42,7 @@ export class OrderService {
     let productArr: any = []
     let quantityArr: any = []
 
-    order.forEach((item: any) => {
+    order.products.forEach((item: any) => {
       productArr.push(item.id)
       quantityArr.push(item.amount)
     })
