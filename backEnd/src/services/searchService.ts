@@ -7,7 +7,7 @@ export const createsearchServices = async (req: any, res: Response) => {
         let search = await products.find(
             {
                 "$or": [
-                    { title: { $regex: req.params.key } }
+                    { title: { $regex: req.body.query } }
                 ]
             }
         )

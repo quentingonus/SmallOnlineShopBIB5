@@ -105,5 +105,11 @@ export class PostService {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/contactus`, formData))
   }
 
+  postSearchService(search: any) {
+    let formData = new FormData()
+    formData.append("query", search)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/search`, formData))
+  }
+
 
 }

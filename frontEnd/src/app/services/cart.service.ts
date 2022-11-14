@@ -27,20 +27,21 @@ export class CartService {
 
   public shopItems: any = []
 
+  modifyItem(item: any) {
+    return {
+      id: item._id,
+      title: item.title,
+      imageUrl: item.profile.includes(environment.apiUrl) ? item.profile : environment.apiUrl + "/" + item.profile,
+      price: item.price,
+      detail: item.detail,
+      amount: 0,
+      category: item.created_category_id,
+    }
+  }
+
   async getShop() {
     let tmp = await this.postService.getProducts()
-
-    return tmp.data.map((item: any) => {
-      return {
-        id: item._id,
-        title: item.title,
-        imageUrl: item.profile.includes(environment.apiUrl) ? item.profile : environment.apiUrl + "/" + item.profile,
-        price: item.price,
-        detail: item.detail,
-        amount: 0,
-        category: item.created_category_id,
-      }
-    })
+    return tmp.data.map((item: any) => this.modifyItem(item))
   }
 
   async getCategory() {
