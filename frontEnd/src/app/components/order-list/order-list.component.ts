@@ -19,10 +19,6 @@ export class OrderListComponent implements OnInit {
 
   constructor(private orderService: OrderService, private router: Router) { }
 
-  viewOrder() {
-    console.log(this.order)
-    this.router.navigate([`/admin/order/detail/${this.order._id}`]);
-  }
   addShippingList(order: any) {
     this.shippingList = this.orderService.addShippingList(order);
     console.log(this.shippingList);
@@ -68,7 +64,8 @@ export class OrderListComponent implements OnInit {
       if (!dateDiff) clearInterval(x);
     }, 1000)
   this.orderLink = `/admin/order/detail/${this.order._id}`
-  console.log(this.orderLink)
+    console.log(this.orderLink);
+    console.log('Order: ', this.order);
 }
 
   ngAfterViewInit() {
