@@ -75,7 +75,6 @@ export const updateUserService = async (req: any, res: Response) => {
     user.address = req.body.address;
     user.phone = req.body.phone;
     user.dob = req.body.dob;
-    user.type = req.body.type;
     user.created_user_id = req.body.created_user_id;
     user.updated_user_id = req.body.updated_user_id;
     const result = await user.save();

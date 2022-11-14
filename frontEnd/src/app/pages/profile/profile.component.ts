@@ -1,6 +1,8 @@
 import { OrderService } from 'src/app/services/order.service';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,16 +17,22 @@ export class ProfileComponent implements OnInit {
   form;
   addressForm;
   myOrder: any[] = [];
+  userId: any = ""
+  currentUser!: any;
+  tmpForm!: any;
 
-  constructor(private fb: FormBuilder, private orderService: OrderService) {
+  constructor(
+    private fb: FormBuilder,
+    private orderService: OrderService,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {
     this.form = fb.group({
-      username: ['PhyoThiHA0805'],
-      email: ['bib.ptkyaw505@gmail.com']
+      username: [''],
+      email: ['']
     });
 
     this.addressForm = fb.group({
-      fname: ['Phyo Thiha'],
-      lname: ['Kyaw'],
       phone: ['09445442252'],
       address1: ['1106 Kyaunggone(1) Street, Aungsan, Insein'],
       address2: ['-------'],
@@ -32,30 +40,50 @@ export class ProfileComponent implements OnInit {
       state: ['Yangon'],
     })
   }
-  
+
   update() {
     this.form.enable();
     this.isconfirm = true;
     this.isUpdate = true;
+    this.tmpForm = { ...this.form.value }
   }
 
   cancel(form: any) {
     this.isconfirm = false;
     this.isUpdate = false;
     this.form.disable();
-    this.form.get('username')?.setValue('PhyoThiHA0805')
-    this.form.get('email')?.setValue('bib.ptkyaw505@gmail.com');
+    this.form.get('username')?.setValue(this.tmpForm.username)
+    this.form.get('email')?.setValue(this.tmpForm.email);
   }
 
-  confirm() {
+  async confirm() {
     this.isconfirm = false;
     this.isUpdate = false;
+    this.currentUser.name = this.form.value.username
+    this.currentUser.email = this.form.value.email
+    await this.authService.postUpdateUser(this.currentUser)
+      .then(res => {
+        this.form.disable();
+        this.tmpForm = {}
+      })
+      .catch(err => {
+        this.form.get('username')?.setValue(this.tmpForm.username)
+        this.form.get('email')?.setValue(this.tmpForm.email);
+        alert("An error occurs at Updating User")
+        this.form.disable();
+      })
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.userId = params['id'];
+    });
+    this.currentUser = this.authService.getCurrentUser()
+    this.form.get('username')?.setValue(this.currentUser.name)
+    this.form.get('email')?.setValue(this.currentUser.email)
     this.form.disable();
     this.addressForm.disable();
-    this.myOrder = this.orderService.orderFindbyCustomer('PhyoThiHA');
+    this.myOrder = await this.orderService.orderFindbyCustomer(this.currentUser._id);
   }
 
 }
