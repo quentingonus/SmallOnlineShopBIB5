@@ -25,14 +25,32 @@ export class AllCategoriesComponent implements OnInit {
     this.router.navigate(['/search']);
   }
 
+  textType(elem: any) {
+    clearTimeout(elem.delay);
+    elem.delay = setTimeout(function () {
+      elem.dispatchEvent(new Event('search'))
+    }.bind(elem), 800);
+  }
+
   async findProduct(query: any) {
     if (query.value.trim().length > 0) {
-      let filter: any = await this.postService.postSearchService(query.value)
-      this.filterProducts = filter.data.map((item: any) => {
-        item = this.cart.modifyItem(item)
-        item.category = this.util.searchCategory(item.category, this.categories.data)
-        return item
-      })
+      this.postService.postSearchService(query.value)
+        .then((res: any) => {
+          this.filterProducts = res.data.map((item: any) => {
+            item = this.cart.modifyItem(item)
+            item.category = this.util.searchCategory(item.category, this.categories.data)
+            return item
+          })
+        })
+        .catch((e: any) => {
+          this.filterProducts = null
+        })
+      //let filter: any = await this.postService.postSearchService(query.value)
+      //this.filterProducts = filter.data.map((item: any) => {
+      //  item = this.cart.modifyItem(item)
+      //  item.category = this.util.searchCategory(item.category, this.categories.data)
+      //  return item
+      //})
     }
     if (query.value.trim().length == 0) {
       this.filterProducts = null;
