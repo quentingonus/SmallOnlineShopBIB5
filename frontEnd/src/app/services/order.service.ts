@@ -65,6 +65,10 @@ export class OrderService {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`))
   }
 
+  updateOrder(id: string, payload: any) {
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/purchase/${id}`, payload))
+  }
+
   constructor(private http: HttpClient) {
   }
 }

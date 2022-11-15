@@ -54,6 +54,8 @@ export const updatePurchaseServices = async (req :any, res:Response) => {
     purchase.quantity = req.body.quantity;
     purchase.address = req.body.address;
     purchase.credit = req.body.credit;
+    
+    purchase.order_status = req.body.order_status;
     const result = await purchase.save();
     res.json({ message: "Updated Successfully!", data: result })
   } catch (err) {
