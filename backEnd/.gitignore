@@ -3,3 +3,5 @@ dist
 apiuploads
 /.env
 /src/dailylog
+/src/dailylog/
+/src/dailylog/*
