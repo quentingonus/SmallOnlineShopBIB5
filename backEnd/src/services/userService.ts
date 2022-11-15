@@ -106,10 +106,11 @@ export const deleteUserService = async (req: any, res: Response) => {
       throw error;
     }
     user.deleted_at = new Date();   //testing and if error!,must be rep air
-    const result = await user.save(); //testing and if error!,must be repair
+    //const result = await user.save(); //testing and if error!,must be repair
+    const result = await User.findByIdAndRemove(req.params.id); 
+    //cosole.log(result)
     res.json({ msg: "Deleted User Successfully", data: result }) //testing and if error!,must be repair
-    // await User.findByIdAndRemove(req.params.id); 
-    // res.json({ message: "User with id " + req.params.id + " removed." })
+     res.json({ message: "User with id " + req.params.id + " removed." })
   } catch (err) {
     res.send("An Error Occured During Delete user")
     console.log(err)
