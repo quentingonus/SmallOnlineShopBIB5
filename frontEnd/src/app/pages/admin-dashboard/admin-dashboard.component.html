@@ -1,19 +1,19 @@
 <ul class="d-flex flex-row justify-content-center mt-4 custom-list">
   <li
     (click)="pageName = 'products'"
-    class="list-item d-flex flex-column align-items-center"
+    class="list-item d-flex flex-column align-items-center px-5 text-success"
     [class.active]="pageName == 'products'"
   >
     <i class="bi bi-basket"></i>
-    <p class="list-text">Products</p>
+    <p>Products</p>
   </li>
   <li
     (click)="pageName = 'users'"
-    class="list-item d-flex flex-column align-items-center"
+    class="list-item d-flex flex-column align-items-center px-5 text-info"
     [class.active]="pageName == 'users'"
   >
     <i class="bi bi-people"></i>
-    <p class="list-text">Users</p>
+    <p>Users</p>
   </li>
 </ul>
 

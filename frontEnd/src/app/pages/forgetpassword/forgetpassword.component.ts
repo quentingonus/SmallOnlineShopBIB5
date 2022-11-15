@@ -11,6 +11,7 @@ export class ForgetpasswordComponent implements OnInit {
   email = "";
   formErr: any = [];
   formStatus = ""
+  successArr = false
 
   constructor(
     private router: Router,
@@ -21,6 +22,7 @@ export class ForgetpasswordComponent implements OnInit {
   }
 
   onSubmit() {
+    this.successArr = false;
     let mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.formErr = []
     this.formStatus = "Submitting..."
@@ -33,8 +35,14 @@ export class ForgetpasswordComponent implements OnInit {
     }
     this.postService.forgetPassword(this.email)
       .then((res: any) => {
-        this.formStatus = res.msg;
-        this.email = ""
+        if (res.success) {
+          this.successArr = true
+          this.email = ""
+          this.formStatus = ""
+        } else {
+          this.successArr = false
+          this.formStatus = res.msg;
+        }
       })
       .catch((e: any) => {
         this.formErr.push(e.error)

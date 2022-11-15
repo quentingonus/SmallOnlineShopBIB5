@@ -12,8 +12,10 @@ export class ResetComponent implements OnInit {
   new_password = "";
   password_confirm = "";
   formErr: any = [];
+  successArr: any = false
   userId!: any;
   resetToken!: any;
+  tokenValid = "unknown";
 
   constructor(
     private route: Router,
@@ -26,11 +28,21 @@ export class ResetComponent implements OnInit {
       this.userId = params['id'];
       this.resetToken = params['token'];
     });
-    console.log(this.userId)
-    console.log(this.resetToken);
-
+    this.authService.checkResetToken(this.userId, this.resetToken)
+      .then((res: any) => {
+        if (res.success) {
+          this.tokenValid = 'valid'
+        } else {
+          this.tokenValid = 'not-valid'
+        }
+      })
+      .catch((err: any) => {
+        this.tokenValid = "not-valid"
+      })
   }
   reset() {
+    this.successArr = false
+    this.formErr = []
     if (!this.new_password.length) {
       this.formErr.push("New Password is required")
     }
@@ -48,20 +60,17 @@ export class ResetComponent implements OnInit {
     }
     this.authService.changePassword(this.userId, this.resetToken, this.new_password)
       .then((res: any) => {
-        this.route.navigate(['/login'])
+        if (!res.success) {
+          this.formErr.push(res.message)
+        } else {
+          this.successArr = true
+          setTimeout(() => {
+            this.route.navigate(['/login'])
+          }, 5000)
+        }
       })
       .catch((err: any) => {
-        this.formErr.push(err.error)
+        alert("An error occurs at updating password.")
       })
-    //if (this.forgetPasswordUpdateForm.controls['password'].value && this.forgetPasswordUpdateForm.controls['confirmPassword'].value &&
-    //  this.forgetPasswordUpdateForm.controls['password'].value !== this.forgetPasswordUpdateForm.controls['confirmPassword'].value) {
-    //  this.errorMsg = "Password and Password confirmation are not matched";
-    //} else {
-    //  const payload = {
-    //    password: this.forgetPasswordUpdateForm.controls['password'].value
-    //  }
-    //  this.authService.resetPasswordUpdate(this.userId, this.token, payload)
-    //  this.router.navigate(['/login', { resetEmail: 'success' }]);
-    //}
   }
 }

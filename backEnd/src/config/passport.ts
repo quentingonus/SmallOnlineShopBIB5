@@ -26,9 +26,6 @@ passport.use(new JWTstrategy({
   secretOrKey: 'furtive'
 },
   function (jwtPayload: any, cb: any) {
-    console.log(ExtractJWT.fromAuthHeaderAsBearerToken());
-
-
     return User.findOne({ id: jwtPayload.id }, function (err: any, user: any) {
       if (err) {
         return cb(err, false);

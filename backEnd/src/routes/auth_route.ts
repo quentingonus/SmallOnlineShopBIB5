@@ -1,7 +1,7 @@
 import express from 'express';
 import { createUser } from "../controllers/UserController";
 import { body } from "express-validator";
-import { login, logout, forgotPassword, resetPassword, passwordChange } from "../controllers/AuthController";
+import { login, logout, forgotPassword, resetPassword, passwordChange, checkPasswdResetToken } from "../controllers/AuthController";
 
 const router = express.Router();
 
@@ -16,27 +16,31 @@ router
 router.route('/logout').post([], logout);
 
 router
-    .route("/signup")
-    .post(
-      [
-        body("name").notEmpty().withMessage("Name must not be empty"),
-        body("email").notEmpty().withMessage("Email must not be empty"),
-        body("password").notEmpty().withMessage("Password must not be empty")
-      ], createUser);
+  .route("/signup")
+  .post(
+    [
+      body("name").notEmpty().withMessage("Name must not be empty"),
+      body("email").notEmpty().withMessage("Email must not be empty"),
+      body("password").notEmpty().withMessage("Password must not be empty")
+    ], createUser);
 
 router
-      .route("/forgot_password")
-      .post(
-        [
-          body("email").notEmpty().withMessage("Email must be empty"),
-        ], forgotPassword);
+  .route("/forgot_password")
+  .post(
+    [
+      body("email").notEmpty().withMessage("Email must be empty"),
+    ], forgotPassword);
 
 router
-      .route('/password-reset-update/:userId/:token')
-      .post(resetPassword);
+  .route('/password-reset-update/:userId/:token')
+  .post(resetPassword);
 
 router
-      .route('/password-change/:userId/:token')
-      .post(passwordChange);
+  .route('/password-change/:userId/:token')
+  .post(passwordChange);
+
+router
+  .route('/password-token/check')
+  .post(checkPasswdResetToken);
 
 export default router;

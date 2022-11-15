@@ -72,11 +72,15 @@ export const forgetPasswordService = async (req: any, res: Response) => {
     await sendEmail(user.email, "Password Reset", link);
 
     return res.status(200).json({
+      success: true,
       msg: "Password Reset link sent to your email"
     })
   } catch (err) {
     console.log(err);
-    return res.send("An Error occured in passwordReset");
+    return res.send({
+      success: false,
+      msg: "An Error occured in passwordReset"
+    });
   }
 }
 
@@ -86,23 +90,27 @@ export const resetPasswordService = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).send("UserId does not exist");
     }
-    const passwordReset = await PasswordReset.findOne({
+    const PasswordResetToken: any = await PasswordReset.findOne({
       token: req.params.token
     });
 
-    if (!passwordReset) {
+    if (!PasswordResetToken) {
       return res.status(404).send("Invalid link or expired");
     }
 
     user.password = await bcrypt.hash(req.body.password, 12);
     await user.save();
-    await passwordReset.delete();
+    await PasswordResetToken.delete();
 
     return res.json({
+      success: true,
       msg: 'Password reset Successfully'
     })
   } catch (err) {
-    return res.send("Password Reset Failed")
+    return res.send({
+      success: false,
+      msg: "Password Reset Failed"
+    })
   }
 };
 
@@ -117,6 +125,7 @@ export const passwordChangeService = async (req: Request, res: Response) => {
       }
 
       const token = req.params.token;
+
       if (!token) return res.status(401).send("Unauthorized");
 
 
@@ -136,9 +145,45 @@ export const passwordChangeService = async (req: Request, res: Response) => {
 
       user.password = await bcrypt.hash(req.body.newPassword, 12);
       await user.save();
-      return res.status(200).json({ message: "Password Change Successfully!" });
+      return res.status(200).json({
+        success: true,
+        message: "Password Change Successfully!"
+      });
     })
   } catch (error) {
+    console.log(error)
     res.send("An error occured");
+  }
+};
+
+export const checkPasswdResetTokenService = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    if (!user) {
+      return res.status(404).send("UserId does not exist");
+    }
+
+    const token = await PasswordReset.findOne({ token: req.body.resetToken });
+
+    if (!token) {
+      return res.status(404).send("Invalid link or expired");
+    }
+    if (user.email == token.email) {
+      return res.json({
+        success: true,
+        msg: 'Token is valid'
+      })
+    }
+
+    return res.json({
+      success: false,
+      msg: 'Token is not valid'
+    })
+  } catch (error) {
+    console.log(error)
+    return res.send({
+      success: false,
+      msg: "An error occured"
+    });
   }
 };

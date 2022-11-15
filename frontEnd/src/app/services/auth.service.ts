@@ -104,7 +104,13 @@ export class AuthService {
     let formData = new FormData()
     formData.append("userId", userId)
     formData.append("password", newPassword)
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-change/${userId}/${resetToken}`, formData));
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-reset-update/${userId}/${resetToken}`, formData));
+  }
+  checkResetToken(userId: any, resetToken: any) {
+    let formData = new FormData()
+    formData.append("userId", userId)
+    formData.append("resetToken", resetToken)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-token/check`, formData));
   }
 }
 
