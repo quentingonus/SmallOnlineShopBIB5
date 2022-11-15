@@ -14,14 +14,14 @@ router
     ],
     createProduct)
 
- router
+router
   .route('/:id')
   .get(findProduct)
-  .put
-  ([
-    body("name").notEmpty().withMessage("Name must not be empty"),
-    body("price").notEmpty().withMessage("Price must note be empty"),
-  ],
+  .put(
+    [
+      body("name").notEmpty().withMessage("Name must not be empty"),
+      body("price").notEmpty().withMessage("Price must note be empty"),
+    ],
     updateProduct)
   .delete(deleteProduct)
 
