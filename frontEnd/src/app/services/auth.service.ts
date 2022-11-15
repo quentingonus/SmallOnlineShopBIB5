@@ -96,8 +96,15 @@ export class AuthService {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/users`));
   }
 
-  public deleteUser(userId:any) {
+  public deleteUser(userId: any) {
     return lastValueFrom(this.http.delete(`${environment.apiUrl}/users/${userId}`));
+  }
+
+  public changePassword(userId: any, resetToken: any, newPassword: any) {
+    let formData = new FormData()
+    formData.append("userId", userId)
+    formData.append("password", newPassword)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-change/${userId}/${resetToken}`, formData));
   }
 }
 
