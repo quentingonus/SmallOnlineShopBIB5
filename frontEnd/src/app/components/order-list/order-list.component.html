@@ -7,9 +7,11 @@
     class="form-select"
     aria-label="Delivery Status"
     #select
-    (change)="onChange(select)"
+    [(ngModel)]="order.order_status"
+    [style]="styleChange(select)"
+    (change)="onChange()"
   >
-    <option class="option-list" selected value="pending">pending</option>
+    <option class="option-list" value="pending">pending</option>
     <option class="option-list" value="shipping">shipping</option>
     <option class="option-list" value="arrive">arrive</option>
     <option class="option-list" value="cancel">cancel</option>
