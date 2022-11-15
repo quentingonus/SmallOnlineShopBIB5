@@ -25,14 +25,11 @@ export class CheckOutComponent implements OnInit {
     private orderService: OrderService
   ) {
     this.form = fb.group({
-      fname: ['', Validators.required],
-      lname: ['', Validators.required],
-      username: ['', Validators.required],
-      email: [],
       address1: ['', Validators.required],
       address2: [''],
-      country: ['', Validators.required],
+      city: ['', Validators.required],
       state: ['', Validators.required],
+      country: ['', Validators.required],
       zip: ['', Validators.required],
       sameaddress: [],
       remember: [],

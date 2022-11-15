@@ -56,12 +56,12 @@ export class ProfileComponent implements OnInit {
     this.form.get('email')?.setValue(this.tmpForm.email);
   }
 
-  async confirm() {
+  confirm() {
     this.isconfirm = false;
     this.isUpdate = false;
     this.currentUser.name = this.form.value.username
     this.currentUser.email = this.form.value.email
-    await this.authService.postUpdateUser(this.currentUser)
+    this.authService.postUpdateUser(this.currentUser)
       .then((res: any) => {
         this.form.disable();
         this.tmpForm = {}

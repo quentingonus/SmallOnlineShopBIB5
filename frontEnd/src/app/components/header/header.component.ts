@@ -80,7 +80,8 @@ export class HeaderComponent implements OnInit {
   }
 
   addItem(product: any) {
-    return product.amount ? product.amount++ : 1;
+    product.amount ? product.amount++ : 1;
+    return this.cart.updateCart(product)
   }
 
   reduceItem(product: any) {
@@ -91,6 +92,7 @@ export class HeaderComponent implements OnInit {
     if (product.amount == 0) {
       this.cart.removeFromCart(product)
     }
+    return this.cart.updateCart(product)
   }
 
   checkAdmin() {

@@ -5,17 +5,17 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #ffe645, #e2aa02 100%);
-  font-family: 'Aladin', cursive;
+  background: linear-gradient(135deg, #656565, #353535 100%);
+  font-family: "Aladin", cursive;
 }
 
 .login-form {
   width: 500px;
-  height: 400px;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 5px 5px 20px #383838;
+  transform: translateY(-15%);
 }
 
 .form-group {
@@ -34,8 +34,21 @@ label {
   color: red;
 }
 
-a{
+a {
   cursor: pointer;
+  text-decoration: none;
+  color: #353535;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
 }
 
-
+.signup-text {
+  color: #353535;
+  opacity: 0.7;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}

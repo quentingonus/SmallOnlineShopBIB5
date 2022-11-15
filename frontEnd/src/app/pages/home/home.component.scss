@@ -3,7 +3,7 @@
 }
 
 .clearfix::after {
-  content: '';
+  content: "";
   display: block;
   clear: both;
 }
@@ -29,7 +29,7 @@ nav {
 }
 
 .cart::after {
-  content: '2';
+  content: "2";
   position: absolute;
   border-radius: 100%;
   background-color: #000;
@@ -85,7 +85,7 @@ ngb-carousel .wrapper {
   object-fit: cover;
 }
 
-ngb-carousel .wrapper>img {
+ngb-carousel .wrapper > img {
   width: 100%;
 }
 
@@ -94,34 +94,34 @@ ngb-carousel .wrapper>img {
 }
 
 .card {
-  border: 1px solid rgba(204, 204, 204, .8);
-  transition: .3s;
+  border: 1px solid rgba(204, 204, 204, 0.8);
+  transition: 0.3s;
 }
 
 .card:hover {
- border: 1px solid#198754;
+  border: 1px solid#198754;
 }
 
 .popular-card {
   height: 340px;
 }
 
-.btn-outline-success fa-icon{
+.btn-outline-success fa-icon {
   color: #198754;
 }
 
-.btn-outline-success:hover fa-icon{
+.btn-outline-success:hover fa-icon {
   color: #fff;
 }
 
-.slick-wrapper{
+.slick-wrapper {
   width: 100%;
   margin: 20px auto;
 }
 
 .slide {
   margin-left: 10px;
-  margin-right: 10px
+  margin-right: 10px;
 }
 
 section {
@@ -133,10 +133,10 @@ section {
   margin: auto;
 }
 
-.category-card{
+.category-card {
   cursor: pointer;
-  .card-body{
-    .card-img-top{
+  .card-body {
+    .card-img-top {
       width: 100%;
       height: 200px;
       object-fit: cover;

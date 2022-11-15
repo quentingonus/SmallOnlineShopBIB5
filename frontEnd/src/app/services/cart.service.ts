@@ -116,12 +116,10 @@ export class CartService {
           let cartIndex = this.findById(products[i].id, this.cartItem)
           if (cartIndex < 0) {
             products[i].amount = parseInt(cartCached.quantity[index])
-            console.log(cartCached.quantity[index])
             this.cartItem.push(products[i])
           }
         }
       }
-      console.log(this.cartItem)
       this.cartItem$.next(this.cartItem)
     }
   }

@@ -1,1 +1,6 @@
 /backEnd/src/dailylog
+/backEnd/src/dailylog
+/backEnd/src/dailylog/
+/backEnd/src/dailylog/*
+/backEnd/src/dailylog/*.json
+/.vscode
