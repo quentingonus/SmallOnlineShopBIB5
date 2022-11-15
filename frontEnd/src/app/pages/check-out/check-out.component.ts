@@ -34,8 +34,6 @@ export class CheckOutComponent implements OnInit {
       sameaddress: [],
       remember: [],
       payment: ['', Validators.required],
-      card_name: ['', Validators.required],
-      card_number: ['', Validators.required],
     });
   }
 

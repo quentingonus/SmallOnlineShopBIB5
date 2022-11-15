@@ -14,6 +14,8 @@ export class ProfileComponent implements OnInit {
   pageName = 'profile';
   isconfirm = false;
   isUpdate = false;
+  isconfirm2 = false;
+  isUpdate2 = false;
   form;
   addressForm;
   myOrder: any[] = [];
@@ -33,12 +35,51 @@ export class ProfileComponent implements OnInit {
     });
 
     this.addressForm = fb.group({
-      phone: ['09445442252'],
-      address1: ['1106 Kyaunggone(1) Street, Aungsan, Insein'],
-      address2: ['-------'],
-      city: ['Yangon'],
-      state: ['Yangon'],
+      dob: [{}],
+      phone: [''],
+      address1: [''],
+      address2: [''],
+      city: [''],
+      state: [''],
     })
+  }
+
+  update2() {
+    this.addressForm.enable();
+    this.isconfirm2 = true;
+    this.isUpdate2 = true;
+    this.tmpForm = { ...this.addressForm.value }
+  }
+  cancel2() {
+    this.isconfirm2 = false;
+    this.isUpdate2 = false;
+    this.addressForm.disable();
+    this.addressForm.get('phone')?.setValue(this.tmpForm.phone)
+    this.addressForm.get('dob')?.setValue(this.tmpForm.dob)
+    this.addressForm.get('address1')?.setValue(this.tmpForm.address1);
+    this.addressForm.get('address2')?.setValue(this.tmpForm.address2);
+    this.addressForm.get('city')?.setValue(this.tmpForm.city);
+    this.addressForm.get('state')?.setValue(this.tmpForm.state);
+  }
+  confirm2() {
+    this.isconfirm2 = false;
+    this.isUpdate2 = false;
+    this.authService.postUpdateUserAddress(this.currentUser, { ...this.addressForm.value })
+      .then((res: any) => {
+        this.addressForm.disable();
+        this.tmpForm = {}
+        localStorage.setItem('USER', JSON.stringify(res.data));
+      })
+      .catch(err => {
+        this.addressForm.get('phone')?.setValue(this.tmpForm.phone)
+        this.addressForm.get('dob')?.setValue(this.tmpForm.dob)
+        this.addressForm.get('address1')?.setValue(this.tmpForm.address1);
+        this.addressForm.get('address2')?.setValue(this.tmpForm.address2);
+        this.addressForm.get('city')?.setValue(this.tmpForm.city);
+        this.addressForm.get('state')?.setValue(this.tmpForm.state);
+        alert("An error occurs at Updating Address")
+        this.addressForm.disable();
+      })
   }
 
   update() {
@@ -48,7 +89,7 @@ export class ProfileComponent implements OnInit {
     this.tmpForm = { ...this.form.value }
   }
 
-  cancel(form: any) {
+  cancel() {
     this.isconfirm = false;
     this.isUpdate = false;
     this.form.disable();
@@ -82,9 +123,28 @@ export class ProfileComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser()
     this.form.get('username')?.setValue(this.currentUser.name)
     this.form.get('email')?.setValue(this.currentUser.email)
+    let addr = this.currentUser.address.split("|")
+    this.addressForm.get('address1')?.setValue(addr[0])
+    this.addressForm.get('address2')?.setValue(addr[1])
+    this.addressForm.get('city')?.setValue(addr[2])
+    this.addressForm.get('state')?.setValue(addr[3])
+    this.addressForm.get('phone')?.setValue(this.currentUser.phone)
+    let tmpDob = this.currentUser.dob
+    if (tmpDob) {
+      tmpDob = new Date(tmpDob)
+      this.addressForm.get('dob')?.setValue({
+        year: tmpDob.getFullYear(),
+        month: tmpDob.getMonth() + 1,
+        day: tmpDob.getDate()
+      })
+    } else {
+      this.addressForm.get('dob')?.setValue({})
+    }
+    console.log(this.addressForm)
     this.form.disable();
     this.addressForm.disable();
-    this.myOrder = await this.orderService.orderFindbyCustomer(this.currentUser._id);
+    let tmpOrder = await this.orderService.orderFindbyCustomer(this.currentUser._id);
+    this.myOrder = tmpOrder.map((item: any, index: any) => { item.index = index + 1; return item; });
   }
 
 }

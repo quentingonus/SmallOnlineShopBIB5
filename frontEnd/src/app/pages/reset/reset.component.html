@@ -24,8 +24,8 @@
     <button class="btn btn-dark" (click)="reset()">Submit</button>
   </div>
   <ul class="d-block">
-    <li class="text-success" *ngFor="let err of formErr">{{ err }} <br /></li>
-    <li class="text-danger" *ngIf="successArr">
+    <li class="text-danger" *ngFor="let err of formErr">{{ err }} <br /></li>
+    <li class="text-success" *ngIf="successArr">
       Password reset successful!<br />You will be redirected to login in 5
       seconds.
     </li>

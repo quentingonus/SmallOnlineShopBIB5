@@ -186,7 +186,7 @@ export class AdminDashboardComponent implements OnInit {
     this.category = this.category.data;
 
     this.users = await this.authService.getUsers();
-    this.users = this.users.data;
+    this.users = this.users.data.map((item: any, index: any) => { item.index = index + 1; return item; });
     console.log('Users', this.users)
 
   }

@@ -30,6 +30,18 @@ export class CustomerOrderComponent implements OnInit {
 
   }
 
+  getStatus(status: any) {
+    if (status == "pending") {
+      return "Pending"
+    } else if (status == "arrive") {
+      return "Arrived"
+    } else if (status == "shipping") {
+      return "Shipping"
+    } else {
+      return "Cancelled"
+    }
+  }
+
 
   ngOnInit(): void {
     setInterval(() => {

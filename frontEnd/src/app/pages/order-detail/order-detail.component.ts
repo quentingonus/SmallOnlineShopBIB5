@@ -2,6 +2,8 @@ import { OrderService } from './../../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-order-detail',
@@ -15,12 +17,15 @@ export class OrderDetailComponent implements OnInit {
   fulltime: any;
   orderId!: String;
   orderProducts: any = []
+  categories!: any;
 
   constructor(
     private cartService: CartService,
     private orderService: OrderService,
+    private postService: PostService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private util: UtilsService
   ) {
   }
 
@@ -45,11 +50,13 @@ export class OrderDetailComponent implements OnInit {
       this.orderId = params['id'];
     });
     this.order = await this.orderService.postSearchOrder(this.orderId)
+    this.categories = await this.postService.getCategory();
     const products = await this.cartService.getShop()
     products.forEach((item: any) => {
       let index = this.order.data.productId.indexOf(item.id)
       if (index > -1) {
         item.amount = this.order.data.quantity[index]
+        item.category = this.util.searchCategory(item.category, this.categories.data)
         this.orderProducts.push(item)
       }
     })
