@@ -786,7 +786,7 @@ paths:
   /purchase/{purchaseId}:
     post:
       tags:
-        - Purchses
+        - Purchases
       summary: Find purchase by ID
       description: This can only be done by the logged in user.
       security:
@@ -1126,6 +1126,8 @@ paths:
 
   # ContactUs Routes
 
+  # Search Routes
+
   # User Routes
   /users:
     get:
@@ -1299,7 +1301,7 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
 
   /users/{userId}:
-    post:
+    get:
       tags:
         - Users
       summary: Find user by ID

@@ -2,10 +2,12 @@ import products from "../models/products";
 import { Response } from "express";
 import { deleteFile } from "../utils";
 const logger = require('../loggers/logger');
+import { isAuthenticate } from "./customService";
 
 export const getproductServices = async (_req: any, res: Response) => {
   try {
     const result = await products.find().populate("created_user_id");
+    isAuthenticate("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiQyYiQxMiRGRHp2OEljREhVci9RREZGazd4WG0uS3lsbHVmVUhIbGFKRVo5VmJOTklNd3k2Q3ZNSXhraSIsImlkIjoiJDJiJDEyJDE4VFNGQ29oWTBPS0dxc25CeXlkSXVuUXMvdjNhMC9BZTJzaXlsWS5iUlVxOEZRVm9wbUlHIiwiaWF0IjoxNjY4NDgyNjY5LCJleHAiOjE2Njg1NjkwNjl9.azVJxFZJrG16ZtEjvz5Z3_3IfO4TDk-QQkK0Z9AtZM4");
     res.json({ data: result });
   } catch (err) {
     console.log(err)

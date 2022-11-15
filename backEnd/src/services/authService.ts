@@ -26,7 +26,8 @@ export const loginService = async (req: Request, res: Response) => {
     }
     const payload = {
       email: await bcrypt.hash(user.email, 12),
-      id: await bcrypt.hash(user.id, 12)
+      // id: await bcrypt.hash(user.id, 12),
+      id: user.id
     }
 
     const token = jwt.sign(payload, 'furtive', { expiresIn: '1d' });
