@@ -9,38 +9,59 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./reset.component.scss']
 })
 export class ResetComponent implements OnInit {
-  forgetPasswordUpdateForm!: FormGroup;
-  public password = "";
-  public new_password = "";
-  public password_confirm = "";
-  public errorMsg: string = '';
-  public userId: string = '';
-  public token: string = '';
+  new_password = "";
+  password_confirm = "";
+  formErr: any = [];
+  userId!: any;
+  resetToken!: any;
 
   constructor(
-    private router: Router,
+    private route: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.userId = this.activatedRoute.snapshot.params['userId'];
-    this.token = this.activatedRoute.snapshot.params['token'];
-    this.forgetPasswordUpdateForm = new FormGroup({
-      password: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required),
+    this.activatedRoute.params.subscribe(params => {
+      this.userId = params['id'];
+      this.resetToken = params['token'];
     });
+    console.log(this.userId)
+    console.log(this.resetToken);
+
   }
   reset() {
-    if (this.forgetPasswordUpdateForm.controls['password'].value && this.forgetPasswordUpdateForm.controls['confirmPassword'].value &&
-      this.forgetPasswordUpdateForm.controls['password'].value !== this.forgetPasswordUpdateForm.controls['confirmPassword'].value) {
-      this.errorMsg = "Password and Password confirmation are not matched";
-    } else {
-      const payload = {
-        password: this.forgetPasswordUpdateForm.controls['password'].value
-      }
-      this.authService.resetPasswordUpdate(this.userId, this.token, payload)
-      this.router.navigate(['/login', { resetEmail: 'success' }]);
+    if (!this.new_password.length) {
+      this.formErr.push("New Password is required")
     }
+    if (!this.password_confirm.length) {
+      this.formErr.push("Password Confirmation is required")
+    }
+    if (this.new_password.length < 6) {
+      this.formErr.push("Password length must be at least 6.")
+    }
+    if (this.new_password != this.password_confirm) {
+      this.formErr.push("Password and Confirm Password needs to be the same.")
+    }
+    if (this.formErr.length) {
+      return
+    }
+    this.authService.changePassword(this.userId, this.resetToken, this.new_password)
+      .then((res: any) => {
+        this.route.navigate(['/login'])
+      })
+      .catch((err: any) => {
+        this.formErr.push(err.error)
+      })
+    //if (this.forgetPasswordUpdateForm.controls['password'].value && this.forgetPasswordUpdateForm.controls['confirmPassword'].value &&
+    //  this.forgetPasswordUpdateForm.controls['password'].value !== this.forgetPasswordUpdateForm.controls['confirmPassword'].value) {
+    //  this.errorMsg = "Password and Password confirmation are not matched";
+    //} else {
+    //  const payload = {
+    //    password: this.forgetPasswordUpdateForm.controls['password'].value
+    //  }
+    //  this.authService.resetPasswordUpdate(this.userId, this.token, payload)
+    //  this.router.navigate(['/login', { resetEmail: 'success' }]);
+    //}
   }
 }
