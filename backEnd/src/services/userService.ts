@@ -100,16 +100,21 @@ export const updateUserService = async (req: any, res: Response) => {
 export const deleteUserService = async (req: any, res: Response) => {
   try {
     const user: any = await User.findById(req.params.id);
+
     if (!user) {
       const error: any = new Error("Not Found !!")
       error.statusCode = 404;
       throw error;
     }
-    user.deleted_at = new Date();   //testing and if error!,must be rep air
-    const result = await user.save(); //testing and if error!,must be repair
-    res.json({ msg: "Deleted User Successfully", data: result }) //testing and if error!,must be repair
-    // await User.findByIdAndRemove(req.params.id); 
-    // res.json({ message: "User with id " + req.params.id + " removed." })
+
+    const result = await user.save();
+    user.deleted_at = new Date();
+    await User.findByIdAndDelete(req.params.id);
+
+    res.json({ msg: "Deleted User Successfully", data: result })
+    // res.json({ message: "User with id " + req.params._id + " removed." })
+
+
   } catch (err) {
     res.send("An Error Occured During Delete user")
     console.log(err)
