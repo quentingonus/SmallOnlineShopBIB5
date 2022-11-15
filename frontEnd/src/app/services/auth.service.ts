@@ -92,5 +92,12 @@ export class AuthService {
     return JSON.parse(localStorage.getItem("USER") || "{}")
   }
 
+  public getUsers() {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/users`));
+  }
+
+  public deleteUser(userId:any) {
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/users/${userId}`));
+  }
 }
 
