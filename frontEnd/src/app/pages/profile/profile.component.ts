@@ -62,9 +62,10 @@ export class ProfileComponent implements OnInit {
     this.currentUser.name = this.form.value.username
     this.currentUser.email = this.form.value.email
     await this.authService.postUpdateUser(this.currentUser)
-      .then(res => {
+      .then((res: any) => {
         this.form.disable();
         this.tmpForm = {}
+        localStorage.setItem('USER', JSON.stringify(res.data));
       })
       .catch(err => {
         this.form.get('username')?.setValue(this.tmpForm.username)

@@ -2,7 +2,7 @@ import Purchase from "../models/purchase";
 import { Response } from "express";
 const logger = require('../loggers/logger');
 
-export const getPurchaseServices = async (_req :any, res:Response) => {
+export const getPurchaseServices = async (_req: any, res: Response) => {
   try {
     const result = await Purchase.find().populate("created_user_id");
     res.json({ data: result });
@@ -13,17 +13,17 @@ export const getPurchaseServices = async (_req :any, res:Response) => {
   }
 };
 
-export const createPurchaseServices = async (req :any, res:Response) => {
+export const createPurchaseServices = async (req: any, res: Response) => {
   try {
-   console.log(req.body)
+    console.log(req.body)
     const CategoryData = {
-        created_user_id: req.body.created_user_id,
-        productId: JSON.parse(req.body.productId),
-        quantity:  JSON.parse(req.body.quantity),
-        address: req.body.address,
-        credit: req.body.credit,
-        date: req.body.date,
-        order_status: req.body.order_status
+      created_user_id: req.body.created_user_id,
+      productId: JSON.parse(req.body.productId),
+      quantity: JSON.parse(req.body.quantity),
+      address: req.body.address,
+      credit: req.body.credit,
+      date: req.body.date,
+      order_status: req.body.order_status
     }
     console.log(CategoryData)
     const Category = new Purchase(CategoryData);
@@ -36,7 +36,7 @@ export const createPurchaseServices = async (req :any, res:Response) => {
   }
 };
 
-export const findPurchaseServices = async (req :any, res:Response) => {
+export const findPurchaseServices = async (req: any, res: Response) => {
   try {
     const findData = await Purchase.findById(req.params.id).populate("created_user_id")
     res.send({ data: findData })
@@ -47,14 +47,13 @@ export const findPurchaseServices = async (req :any, res:Response) => {
   }
 };
 
-export const updatePurchaseServices = async (req :any, res:Response) => {
+export const updatePurchaseServices = async (req: any, res: Response) => {
   try {
-    const purchase:any = await Purchase.findById(req.params.id)
+    const purchase: any = await Purchase.findById(req.params.id)
     purchase.productId = req.body.productId;
     purchase.quantity = req.body.quantity;
     purchase.address = req.body.address;
     purchase.credit = req.body.credit;
-    
     purchase.order_status = req.body.order_status;
     const result = await purchase.save();
     res.json({ message: "Updated Successfully!", data: result })
@@ -65,7 +64,7 @@ export const updatePurchaseServices = async (req :any, res:Response) => {
   }
 };
 
-export const deletePurchaseServices = async (req :any, res:Response) => {
+export const deletePurchaseServices = async (req: any, res: Response) => {
   try {
     await Purchase.findById(req.params.id);
     await Purchase.findByIdAndRemove(req.params.id);

@@ -28,8 +28,8 @@ export class CategoryDetailComponent implements OnInit {
     this.shopItems = await this.postService.getProductsByCategory(this.category.data._id)
     this.shopItems.map((item: any) => {
       item.category = this.category.data.name
-      item.imageUrl = environment.apiUrl + "/" + item.profile
-      item.amount = 0
+      item.imageUrl = item.profile.includes(environment.apiUrl) ? item.profile : environment.apiUrl + "/" + item.profile,
+        item.amount = 0
       item.id = item._id
       return item
     })
