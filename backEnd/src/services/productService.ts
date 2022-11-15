@@ -4,14 +4,24 @@ import { deleteFile } from "../utils";
 const logger = require('../loggers/logger');
 //import { isAuthenticate } from "./customService";
 
-export const getproductServices = async (_req: any, res: Response) => {
+export const getproductServices = async (req: any, res: Response) => {
   try {
-    const result = await products.find().populate("created_user_id");
-    res.json({ data: result });
+    // const result = await products.find().populate("created_user_id");
+    // res.json({ data: result });
+
+    const page: any = req.query.page ? req.query.page - 1 : 0;
+    const productPerPage: any = req.query.chunk || 5;
+
+    const product: any = await products.find({}).populate("created_user_id").skip(page * productPerPage).limit(productPerPage);
+    return res.json({
+      success: true,
+      data: product
+    });
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in get product");
     logger.productInfoLogger.log('info', 'Error Product Lists')
+    return res.send("An Error occured in get product");
+
   }
 };
 
