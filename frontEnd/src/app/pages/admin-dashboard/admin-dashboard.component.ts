@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Product } from './../../services/cart.service';
 import { Router } from '@angular/router';
 import { ProductsService } from './../../services/products.service';
@@ -72,13 +73,15 @@ export class AdminDashboardComponent implements OnInit {
   pageSize = 4;
   collectionSize: any;
   searchQuery = "";
+  users!: any;
 
   constructor(
     private productService: ProductsService,
     private router: Router,
     private cartService: CartService,
     private postService: PostService,
-    public util: UtilsService
+    public util: UtilsService,
+    private authService: AuthService
   ) { }
 
   onSort({ column, direction }: SortEvent) {
@@ -163,6 +166,17 @@ export class AdminDashboardComponent implements OnInit {
 
   }
 
+  getUserId(userIndex: any) {
+    return this.users[userIndex]._id;
+  }
+
+  async deleteUser(user: any) {
+    let userIndex = this.users.indexOf(user);
+    let userId = this.getUserId(userIndex);
+    console.log('User ID: ',userId);
+    return await this.authService.deleteUser(userId);
+  }
+
   async ngOnInit() {
     this.products = await this.cartService.getShop();
     this.products = this.products.map((product, i) => ({ index: i + 1, ...product }));
@@ -170,5 +184,10 @@ export class AdminDashboardComponent implements OnInit {
 
     this.category = await this.postService.getCategory();
     this.category = this.category.data;
+
+    this.users = await this.authService.getUsers();
+    this.users = this.users.data;
+    console.log('Users', this.users)
+    
   }
 }

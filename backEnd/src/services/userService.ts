@@ -114,7 +114,6 @@ export const deleteUserService = async (req: any, res: Response) => {
     res.json({ msg: "Deleted User Successfully", data: result })
     // res.json({ message: "User with id " + req.params._id + " removed." })
 
-
   } catch (err) {
     res.send("An Error Occured During Delete user")
     console.log(err)
