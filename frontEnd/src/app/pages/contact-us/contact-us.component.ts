@@ -23,7 +23,7 @@ export class ContactUsComponent implements OnInit {
     });
   }
 
-  async onSubmit(e: any) {
+  onSubmit(e: any) {
     e.preventDefault();
     let mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.formStatus = "Submitting..."
@@ -44,13 +44,17 @@ export class ContactUsComponent implements OnInit {
       return
     }
 
-    let res = await this.postService.sendFeedback(this.form.value.mail, this.form.value.details)
-    this.formStatus = (res as any).msg;
-    setTimeout(() => {
-      this.formStatus = ""
-      this.form.get("mail")?.setValue("")
-      this.form.get("details")?.setValue("")
-    }, 2000)
+    this.postService.sendFeedback(this.form.value.mail, this.form.value.details)
+      .then((res: any) => {
+        this.formStatus = res.msg
+        this.form.get("mail")?.setValue("")
+        this.form.get("details")?.setValue("")
+      })
+      .catch((e: any) => {
+        this.formStatus = e.error
+        this.form.get("mail")?.setValue("")
+        this.form.get("details")?.setValue("")
+      })
   }
 
   ngOnInit(): void {

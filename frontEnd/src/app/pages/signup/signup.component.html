@@ -1,56 +1,48 @@
 <div class="login-form">
   <h3>Sign Up Account</h3>
-  <div class="form-group">
-    <label for="uname">First name</label>
-    <input
-      type="text"
-      name="uname"
-      class="form-control"
-      [(ngModel)]="signupObj.fname"
-      (input)="errArr = []"
-    />
+  <div class="row mb-3">
+    <div class="col-6">
+      <label class="mb-2" for="fName">First name</label>
+      <input
+        type="text"
+        name="fName"
+        class="form-control"
+        [(ngModel)]="signupObj.fname"
+        (input)="errArr = []"
+      />
+    </div>
+    <div class="col-6">
+      <label class="mb-2" for="lName mb-3">Last name</label>
+      <input
+        type="text"
+        name="lName"
+        class="form-control"
+        [(ngModel)]="signupObj.lname"
+        (input)="errArr = []"
+      />
+    </div>
   </div>
-  <div class="form-group">
-    <label for="uname">Last name</label>
-    <input
-      type="text"
-      name="uname"
-      class="form-control"
-      [(ngModel)]="signupObj.lname"
-      (input)="errArr = []"
-    />
-  </div>
-  <div class="form-group">
-    <label for="uname">Email</label>
+  <div class="form-group mb-3">
+    <label class="mb-2" for="email">Email</label>
     <input
       type="email"
-      name="uname"
+      name="email"
       class="form-control"
       [(ngModel)]="signupObj.email"
       (input)="errArr = []"
     />
   </div>
   <div class="form-group">
-    <label for="uname">Username</label>
-    <input
-      type="text"
-      name="uname"
-      class="form-control"
-      [(ngModel)]="signupObj.username"
-      (input)="errArr = []"
-    />
-  </div>
-  <div class="form-group">
-    <label for="pword">Password</label>
+    <label class="mb-2" for="passwd">Password</label>
     <input
       type="password"
-      name="pword"
+      name="passwd"
       class="form-control"
       [(ngModel)]="signupObj.password"
       (input)="errArr = []"
     />
   </div>
-  <div class="d-flex">
+  <div class="d-flex mb-3">
     <div class="btn-container d-flex justify-content-space-between">
       <button
         #signupBtn
@@ -58,7 +50,7 @@
         style="height: 50px"
         (click)="register(signupBtn)"
       >
-        Sign Up
+        <span *ngIf="!util.isLoading(signupBtn)"> Sign Up </span>
         <div
           class="spinner-border spinner-border-sm"
           role="status"

@@ -1,39 +1,38 @@
 <form class="login-form">
   <h2>Small Online Shop</h2>
-  <div class="form-group">
-    <label for="uname">Email</label>
+  <div class="form-group mb-3">
+    <label class="mb-2" for="mail">Email</label>
     <input
       type="text"
       class="form-control"
       [(ngModel)]="username"
       (input)="errorMsg = ''"
-      name="username"
+      name="mail"
     />
   </div>
-  <div class="form-group">
-    <label for="pword">Password</label>
+  <div class="form-group mb-3">
+    <label class="mb-2" for="passwd">Password</label>
     <input
       type="password"
       class="form-control"
       [(ngModel)]="password"
       (input)="errorMsg = ''"
-      name="password"
+      name="passwd"
     />
   </div>
-  <div class="error">{{ errorMsg }}</div>
-  <div class="form-inline fr mt-4">
+  <div class="form-inline fr">
     <a id="forget" class="font-weight-bold" (click)="forget()"
       >Forget Password?</a
     >
   </div>
-  <div class="btn-container">
+  <div class="btn-container mb-3">
     <button
       #signinBtn
       class="btn btn-dark"
       (click)="login(signinBtn)"
       [disabled]="util.isLoading(signinBtn)"
     >
-      Login
+      <span *ngIf="!util.isLoading(signinBtn)">Login</span>
       <div
         class="spinner-border spinner-border-sm"
         role="status"
@@ -42,8 +41,9 @@
         <span class="sr-only">Loading...</span>
       </div>
     </button>
-    <div class="text-center pt-4 text-muted">
-      Don't have account? <a id="forget" (click)="signup()">Sign Up</a>
+    <small class="error ms-3">{{ errorMsg }}</small>
+    <div class="text-center signup-text">
+      Don't have account? <a (click)="signup()">Sign Up</a>
     </div>
   </div>
 </form>

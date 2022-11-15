@@ -31,7 +31,7 @@ export class ItemCardComponent implements OnInit {
     if (product.amount == 0) {
       this.cartService.removeFromCart(product)
     }
-    this.cartService.updateCart(product)
+    return this.cartService.updateCart(product)
   }
 
   getAmount(product: any) {

@@ -14,7 +14,6 @@ export class SignupComponent implements OnInit {
     fname: '',
     lname: '',
     email: '',
-    username: '',
     pasword: '',
   }
   errArr: any = []
@@ -42,12 +41,6 @@ export class SignupComponent implements OnInit {
     if (!this.signupObj.email.length) {
       this.errArr.push("Email cannot be blank.")
     }
-    if (!this.signupObj.username.length) {
-      this.errArr.push("Username cannot be blank.")
-    }
-    if (this.signupObj.username.length && this.signupObj.username.length < 6) {
-      this.errArr.push("Username should be over 6 characters.")
-    }
     if (!this.signupObj.password.length) {
       this.errArr.push("Password cannot be blank.")
     }
@@ -58,15 +51,6 @@ export class SignupComponent implements OnInit {
       signupBtn.classList.remove("loading")
       return
     }
-    //this.signupUsers.push(this.signupObj);
-    //localStorage.setItem('signUpUsers', JSON.stringify(this.signupUsers));
-    //this.signupObj = {
-    //  fname: '',
-    //  lname: '',
-    //  email: '',
-    //  username: '',
-    //  pasword: '',
-    //}
     this.authService.signUp({
       name: `${this.signupObj.fname} ${this.signupObj.lname}`,
       email: this.signupObj.email,
@@ -74,11 +58,10 @@ export class SignupComponent implements OnInit {
     })
       .then(res => {
         this.errArr = []
-        setTimeout(() => {
-          this.router.navigate(['login']);
-        }, 2000)
+        this.router.navigate(['login']);
       })
-      .catch(err => {
+      .catch((err: any) => {
+        this.errArr.push(err.error)
         console.log(err)
       })
   }

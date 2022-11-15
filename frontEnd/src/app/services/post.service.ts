@@ -111,5 +111,13 @@ export class PostService {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/search`, formData))
   }
 
+  // Forgot Password
+
+  forgetPassword(email: any) {
+    let formData = new FormData()
+    formData.append("email", email)
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/forgot_password`, formData))
+  }
+
 
 }

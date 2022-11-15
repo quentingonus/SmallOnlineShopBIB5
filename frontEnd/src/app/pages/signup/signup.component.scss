@@ -5,19 +5,20 @@
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #ffe645, #e2aa02 100%);
-  font-family: 'Aladin', cursive;
+  background: linear-gradient(135deg, #656565, #353535 100%);
+  font-family: "Aladin", cursive;
 }
 
 .login-form {
-  width: 400px;
+  width: 550px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 5px 5px 20px #383838;
+  box-shadow: 5px 5px 20px #a9a9a9;
+  transform: translateY(-15%);
 }
 
-.form-group {
+.row {
   margin-top: 20px;
 }
 
@@ -33,6 +34,6 @@ label {
   color: red;
 }
 
-a{
+a {
   cursor: pointer;
 }
