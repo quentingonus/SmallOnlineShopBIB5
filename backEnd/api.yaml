@@ -23,6 +23,10 @@ tags:
     description: Operations about Carts
   - name: Popular Products
     description: Operations about Popular Products
+  - name: Contact Us
+    description: Operations about Contact Us
+  - name: Search
+    description: Operations about Search
 
 paths:
   # Auth Routes
@@ -1505,18 +1509,94 @@ paths:
           description: Returns all Users
         "401":
           $ref: "#/components/responses/UnauthorizedError"
+
   # ContactUs Routes
-  # /contactus:
-  #   post:
-  #     tags:
-  #       - Contact Us
-  #     summary: Customer can contact
-  # description: This can only be done by the logged in user.
-  # security:
-  #   - bearerAuth: []
+  /contactus:
+    post:
+      tags:
+        - Contact Us
+      summary: Create ContactUs
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: ContactUs
+      requestBody:
+        description: Create ContactUs
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@gamil.com"
+                detail:
+                  type: string
+                  example: "this is our request"
+      responses:
+        "200":
+          description: Created Search
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: "user@gamil.com"
+                  detail:
+                    type: string
+                    example: "this is our request"
 
   # Search Routes
-
+  /search:
+    post:
+      tags:
+        - Search
+      summary: Create search
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      operationId: createsearch
+      requestBody:
+        description: Update an existing cart data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  example: "iPhone"
+      responses:
+        "200":
+          description: Created Search
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
+                  created_user_id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  title:
+                    type: string
+                    example: "Product01"
+                  price:
+                    type: number
+                    example: "300"
+                  detail:
+                    type: string
+                    example: "This is best product of our shop"
+                  created_category_id:
+                    type: string
+                    example: "62c6a49a087a13d74076e514"
 components:
   securitySchemes:
     bearerAuth: # arbitrary name for the security scheme
