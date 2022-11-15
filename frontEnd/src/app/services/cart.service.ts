@@ -188,10 +188,14 @@ export class CartService {
   async postDeleteCart() {
     const cartCached: any = JSON.parse(localStorage.getItem("CART")!)
 
-    lastValueFrom(this.http.delete(`${environment.apiUrl}/carts/${cartCached._id}`))
-      .then(res => {
-        localStorage.removeItem("CART")
-      })
+    if (cartCached && "_id" in cartCached) {
+      return await lastValueFrom(this.http.delete(`${environment.apiUrl}/carts/${cartCached._id}`))
+        .then(res => {
+          return localStorage.removeItem("CART")
+        })
+    } else {
+      return
+    }
   }
 
   // API Request Session Ends
