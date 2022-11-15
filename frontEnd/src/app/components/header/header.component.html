@@ -1,11 +1,14 @@
 <div class="sticky-top bg-light">
   <div class="container">
     <div class="d-flex justify-content-between px-3 py-3">
-      <p class="h3 text-sm-h5">
+      <p class="h3 text-sm-h5 d-none d-sm-inline">
         <a class="nav-link text-success" routerLink="/">Everything Shop</a>
       </p>
+      <p class="h3 text-sm-h5 d-sm-none d-md-none d-lg-none d-xl-none">
+        <a class="nav-link text-success" routerLink="/">EShop</a>
+      </p>
       <div
-        class="d-sm-none d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
+        class="d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
       >
         <div class="me-3" (click)="openCart(cartCanvas)">
           <i
@@ -19,7 +22,7 @@
           <i class="bi h3" [class]="burgurMenu ? 'bi-x-lg' : 'bi-list'"></i>
         </div>
       </div>
-      <ul class="nav justify-content-end d-none d-sm-flex">
+      <ul class="nav justify-content-end d-none d-md-flex">
         <li class="nav-item" *ngFor="let navItem of getNav()">
           <a class="nav-link" [routerLink]="navItem.route">{{
             navItem.name
