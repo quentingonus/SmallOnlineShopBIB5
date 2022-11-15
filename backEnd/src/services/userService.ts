@@ -4,14 +4,24 @@ import { deleteFile } from "../utils";
 import bcrypt from "bcrypt";
 const logger = require('../loggers/logger');
 
-export const getUserService = async (_req: any, res: Response) => {
+export const getUserService = async (req: any, res: Response) => {
   try {
-    const result = await User.find();
-    res.json({ data: result });
+    // const result = await User.find();
+    // res.json({ data: result });
+
+    const page: any = req.query.page ? req.query.page - 1 : 0;
+    const usersPerPage: any = req.query.chunk || 5;
+
+    const users: any = await User.find({}).skip(page * usersPerPage).limit(usersPerPage);
+    return res.json({
+      success: true,
+      data: users
+    });
+
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in get user");
     logger.userErrorLogger.log('info', 'Error User Lists')
+    return res.status(400).send("An Error occured in get user");
   }
 };
 

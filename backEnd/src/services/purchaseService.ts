@@ -2,14 +2,24 @@ import Purchase from "../models/purchase";
 import { Response } from "express";
 const logger = require('../loggers/logger');
 
-export const getPurchaseServices = async (_req: any, res: Response) => {
+export const getPurchaseServices = async (req: any, res: Response) => {
   try {
-    const result = await Purchase.find().populate("created_user_id");
-    res.json({ data: result });
+    // const result = await Purchase.find().populate("created_user_id");
+    // res.json({ data: result });
+
+    const page: any = req.query.page ? req.query.page - 1 : 0;
+    const purchasePerPage: any = req.query.chunk || 5;
+
+    const purchase: any = await Purchase.find({}).populate("created_user_id").skip(page * purchasePerPage).limit(purchasePerPage);
+    return res.json({
+      success: true,
+      data: purchase
+    });
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in get purchase");
     logger.purchaseErrorLogger.log('info', 'Error Purchase Lists')
+    return res.send("An Error occured in get purchase");
+
   }
 };
 

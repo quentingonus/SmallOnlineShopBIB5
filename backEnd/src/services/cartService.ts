@@ -2,14 +2,24 @@ import { Response } from "express";
 import Cart from "../models/Cart";
 const logger = require('../loggers/logger');
 
-export const getCartService = async (_req: any, res: Response) => {
+export const getCartService = async (req: any, res: Response) => {
   try {
-    const result = await Cart.find();
-    res.json({ data: result });
+    // const result = await Cart.find();
+    // res.json({ data: result });
+
+    const page: any = req.query.page ? req.query.page - 1 : 0;
+    const cartPerPage: any = req.query.chunk || 5;
+
+    const carts: any = await Cart.find({}).skip(page * cartPerPage).limit(cartPerPage);
+    return res.json({
+      success: true,
+      data: carts
+    });
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in get cart");
     logger.cartErrorLogger.log('info', 'Error Cart Lists')
+    return res.send("An Error occured in get cart");
+
   }
 };
 
