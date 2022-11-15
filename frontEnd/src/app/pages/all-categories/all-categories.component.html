@@ -28,11 +28,12 @@
         <input
           id="search"
           class="form-control"
-          type="text"
+          type="search"
           placeholder="Search..."
           FocusOnInit
           #search
-          (keydown)="findProduct(search)"
+          (input)="textType(search)"
+          (search)="findProduct(search)"
         />
       </div>
     </form>

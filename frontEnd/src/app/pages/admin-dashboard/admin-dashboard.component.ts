@@ -173,7 +173,7 @@ export class AdminDashboardComponent implements OnInit {
   async deleteUser(user: any) {
     let userIndex = this.users.indexOf(user);
     let userId = this.getUserId(userIndex);
-    console.log('User ID: ',userId);
+    console.log('User ID: ', userId);
     return await this.authService.deleteUser(userId);
   }
 
@@ -188,6 +188,6 @@ export class AdminDashboardComponent implements OnInit {
     this.users = await this.authService.getUsers();
     this.users = this.users.data;
     console.log('Users', this.users)
-    
+
   }
 }
