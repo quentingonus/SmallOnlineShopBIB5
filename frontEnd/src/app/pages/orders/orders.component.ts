@@ -93,7 +93,7 @@ export class OrdersComponent implements OnInit {
 
   async ngOnInit() {
     let orders: any = await this.orderService.postGetOrder()
-    this.orderLists = orders.data;
+    this.orderLists = orders.data.map((item: any, index: any) => { item.index = index + 1; return item; });
     console.log('Orders From Order Component :', this.orderLists);
   }
 

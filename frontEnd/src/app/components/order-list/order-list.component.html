@@ -1,3 +1,4 @@
+<td>{{ order.index }}</td>
 <td>{{ order.created_user_id.name }}</td>
 <td>{{ order.date }}</td>
 <td>{{ timer }}</td>
@@ -19,7 +20,9 @@
 </td>
 <td>
   <a class="btn btn-light" [routerLink]="orderLink">
-    <td><i class="bi bi-pencil-square"></i></td>
+    <td>
+      <i class="bi bi-box-arrow-in-right"></i>
+    </td>
   </a>
 </td>
 <td>

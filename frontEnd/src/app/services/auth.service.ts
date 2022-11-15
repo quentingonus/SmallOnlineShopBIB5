@@ -70,6 +70,19 @@ export class AuthService {
     return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${payload._id}`, formData))
   }
 
+  postUpdateUserAddress(user: any, address: any) {
+    let formData = new FormData()
+    formData.append("name", user.name)
+    formData.append("email", user.email)
+    formData.append("profileImage", user.profile)
+    formData.append("address", `${address.address1}|${address.address2}|${address.city}|${address.state}`)
+    formData.append("phone", address.phone)
+    formData.append("dob", `${address.dob.year}-${address.dob.month}-${address.dob.day}`)
+    formData.append("created_user_id", user._id)
+    formData.append("updated_user_id", user._id)
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${user._id}`, formData))
+  }
+
 
   public reset(payload: any): Promise<any> {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/forgot-password`, payload))

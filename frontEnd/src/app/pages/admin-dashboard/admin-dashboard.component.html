@@ -98,7 +98,7 @@
                 class="btn btn-light"
                 (click)="editProduct(product)"
               >
-                <i class="bi bi-pencil-square"></i>
+                <i class="bi bi-pencil-square text-success"></i>
               </button>
               <button
                 #deleteBtn
@@ -107,7 +107,7 @@
                 (click)="deleteProduct(product, deleteBtn)"
               >
                 <span *ngIf="!util.isLoading(deleteBtn)"
-                  ><i class="bi bi-trash"></i
+                  ><i class="bi bi-trash text-danger"></i
                 ></span>
                 <span *ngIf="util.isLoading(deleteBtn)">
                   <div class="spinner-border spinner-border-sm" role="status">
@@ -148,6 +148,7 @@
       <table class="table table-hover shadow-sm" style="min-width: 500px">
         <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Type</th>
@@ -157,13 +158,14 @@
 
         <tbody>
           <tr *ngFor="let user of users">
+            <td>{{ user.index }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.type }}</td>
 
             <td>
               <button class="btn btn-light" (click)="deleteUser(user)">
-                <i class="bi bi-trash"></i>
+                <i class="bi bi-trash text-danger"></i>
               </button>
             </td>
           </tr>
