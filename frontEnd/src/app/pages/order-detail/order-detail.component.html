@@ -1,46 +1,48 @@
 <div class="container my-5">
   <h2>Order Detail</h2>
   <div class="row">
-    <div class="card col-6">
-      <div class="card-body">
-        <h3 class="card-title">Customer's Details</h3>
-
-        <table *ngIf="order">
-          <tbody>
-            <tr>
-              <td><strong>Name:</strong></td>
-              <td>{{ order.data.created_user_id.name }}</td>
-            </tr>
-            <tr>
-              <strong>
-                <td>Email:</td>
-              </strong>
-              <td>{{ order.data.created_user_id.email }}</td>
-            </tr>
-            <tr>
-              <td><strong>Adderss:</strong></td>
-              <td>{{ order.data.address }}</td>
-            </tr>
-            <tr>
-              <td><strong>Payment Method:</strong></td>
-              <td>{{ order.data.credit }}</td>
-            </tr>
-            <tr>
-              <td><strong>Card Name:</strong></td>
-              <td>{{ order.data.created_user_id.name }}</td>
-            </tr>
-            <!--<tr>
-              <td><strong>Card Number:</strong></td>
-              <td>{{ customer.card_number }}</td>
-            </tr>-->
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="col-6">
+    <div class="col-md-6 col-12 my-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Orders List</h5>
+          <h4 class="card-title">Customer's Details</h4>
+          <table *ngIf="order">
+            <tbody>
+              <tr>
+                <td><strong>Name:</strong></td>
+                <td>{{ order.data.created_user_id.name }}</td>
+              </tr>
+              <tr>
+                <strong>
+                  <td>Email:</td>
+                </strong>
+                <td>{{ order.data.created_user_id.email }}</td>
+              </tr>
+              <tr>
+                <td><strong>Adderss:</strong></td>
+                <td>{{ order.data.address }}</td>
+              </tr>
+              <tr>
+                <td><strong>Payment Method:</strong></td>
+                <td>{{ order.data.credit }}</td>
+              </tr>
+              <tr>
+                <td><strong>Card Name:</strong></td>
+                <td>{{ order.data.created_user_id.name }}</td>
+              </tr>
+              <!--<tr>
+                <td><strong>Card Number:</strong></td>
+                <td>{{ customer.card_number }}</td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-12 my-3">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Orders List</h4>
           <ul class="list-group">
             <li
               *ngFor="let item of orderProducts"

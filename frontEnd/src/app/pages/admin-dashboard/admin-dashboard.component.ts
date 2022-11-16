@@ -177,6 +177,11 @@ export class AdminDashboardComponent implements OnInit {
     return await this.authService.deleteUser(userId);
   }
 
+  isProduct(): boolean {
+    if (this.pageName == 'products') return true;
+    return false;
+  }
+
   async ngOnInit() {
     this.products = await this.cartService.getShop();
     this.products = this.products.map((product, i) => ({ index: i + 1, ...product }));
