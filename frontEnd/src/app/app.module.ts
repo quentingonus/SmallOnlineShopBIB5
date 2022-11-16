@@ -41,6 +41,8 @@ import { PromotionCardComponent } from './components/promotion-card/promotion-ca
 import { FocusOnInitDirective } from './services/focus-on-init.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { environment } from '../environments/environment';
     ProfileComponent,
     CustomerOrderComponent,
     PromotionCardComponent,
-    FocusOnInitDirective
+    FocusOnInitDirective,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,7 @@ import { environment } from '../environments/environment';
     FontAwesomeModule,
     SlickCarouselModule,
     HttpClientModule,
+    NgChartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

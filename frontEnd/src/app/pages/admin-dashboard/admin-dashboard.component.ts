@@ -9,12 +9,9 @@ import {
   Input,
   OnInit,
   Output,
-  PipeTransform,
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { map, Observable, pipe, startWith } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -170,11 +167,14 @@ export class AdminDashboardComponent implements OnInit {
     return this.users[userIndex]._id;
   }
 
-  async deleteUser(user: any) {
+  async deleteUser(user: any, button: any) {
+    button.classList.add('loading');
     let userIndex = this.users.indexOf(user);
     let userId = this.getUserId(userIndex);
     console.log('User ID: ', userId);
-    return await this.authService.deleteUser(userId);
+    await this.authService.deleteUser(userId);
+    this.users.splice(userIndex, 1);
+    button.classList.remove('loading');
   }
 
   isProduct(): boolean {

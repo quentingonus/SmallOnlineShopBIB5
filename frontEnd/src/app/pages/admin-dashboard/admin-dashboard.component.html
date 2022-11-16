@@ -1,27 +1,36 @@
 <ul class="d-flex flex-row justify-content-center mt-4 custom-list">
   <li
     (click)="pageName = 'products'"
-    class="list-item d-flex flex-column align-items-center px-5"
+    class="list-item d-flex flex-column align-items-center px-4"
     [ngClass]="{
-      'active': isProduct(),
-      'text-success': isProduct(),
-      'text-info': !isProduct()
+      active: pageName == 'products',
+      'text-success': pageName == 'products',
+      'text-info': pageName != 'products'
     }"
   >
     <i class="bi bi-basket"></i>
-    <p>Products</p>
   </li>
   <li
     (click)="pageName = 'users'"
-    class="list-item d-flex flex-column align-items-center px-5"
+    class="list-item d-flex flex-column align-items-center px-4"
     [ngClass]="{
-      'active': !isProduct(),
-      'text-success': !isProduct(),
-      'text-info': isProduct()
+      active: pageName == 'users',
+      'text-success': pageName == 'users',
+      'text-info': pageName !== 'users'
     }"
   >
     <i class="bi bi-people"></i>
-    <p>Users</p>
+  </li>
+  <li
+    (click)="pageName = 'chart'"
+    class="list-item d-flex flex-column align-items-center px-4"
+    [ngClass]="{
+      active: pageName == 'chart',
+      'text-success': pageName == 'chart',
+      'text-info': pageName != 'chart'
+    }"
+  >
+    <i class="bi bi-graph-up-arrow"></i>
   </li>
 </ul>
 
@@ -172,13 +181,32 @@
             <td>{{ user.type }}</td>
 
             <td>
-              <button class="btn btn-light" (click)="deleteUser(user)">
-                <i class="bi bi-trash text-danger"></i>
+              <button
+                class="btn btn-light"
+                (click)="deleteUser(user, deleteuser)"
+                #deleteuser
+              >
+                <span *ngIf="!util.isLoading(deleteuser)"
+                  ><i class="bi bi-trash text-danger"></i
+                ></span>
+                <span *ngIf="util.isLoading(deleteuser)">
+                  <div
+                    class="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </span>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
+
+  <div *ngSwitchCase="'chart'" class="m-3">
+    <h3>Chart</h3>
+    <app-line-chart></app-line-chart>
   </div>
 </div>

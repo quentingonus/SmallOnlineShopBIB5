@@ -90,7 +90,7 @@ export class HeaderComponent implements OnInit {
     }
     product.amount--
     if (product.amount == 0) {
-      this.cart.removeFromCart(product)
+      return this.cart.removeFromCart(product)
     }
     return this.cart.updateCart(product)
   }

@@ -16,7 +16,7 @@ export class PostService {
   // Product Service
 
   getProducts(): Promise<any> {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/product`))
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/product?page=1&chunk=1000`))
   }
 
   async getProductsByCategory(categoryId: any): Promise<any> {

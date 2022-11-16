@@ -8,26 +8,36 @@
           <table *ngIf="order">
             <tbody>
               <tr>
-                <td><strong>Name:</strong></td>
-                <td>{{ order.data.created_user_id.name }}</td>
+                <td class="pb-2"><strong>Name:</strong></td>
+                <td class="pb-2">{{ order.data.created_user_id.name }}</td>
               </tr>
               <tr>
-                <strong>
-                  <td>Email:</td>
-                </strong>
-                <td>{{ order.data.created_user_id.email }}</td>
+                <td class="pb-2"><strong>Email:</strong></td>
+                <td class="pb-2">{{ order.data.created_user_id.email }}</td>
               </tr>
               <tr>
-                <td><strong>Adderss:</strong></td>
-                <td>{{ order.data.address }}</td>
+                <td class="pb-2">
+                  <strong>Adderss:</strong>
+                </td>
+                <td class="pb-2">{{ order.data.address }}</td>
               </tr>
               <tr>
-                <td><strong>Payment Method:</strong></td>
-                <td>{{ order.data.credit }}</td>
+                <td class="pb-2"><strong>Payment Method:</strong></td>
+                <td class="pb-2">{{ order.data.credit }}</td>
               </tr>
               <tr>
-                <td><strong>Card Name:</strong></td>
-                <td>{{ order.data.created_user_id.name }}</td>
+                <td class="pb-3"><strong>Card Name:</strong></td>
+                <td class="pb-3">{{ order.data.created_user_id.name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Status:</strong></td>
+                <td>
+                  <span
+                    class="status py-1 px-2"
+                    [style]="getStyle(order.data.order_status)"
+                    >{{ getStatus(order.data.order_status) }}</span
+                  >
+                </td>
               </tr>
               <!--<tr>
                 <td><strong>Card Number:</strong></td>

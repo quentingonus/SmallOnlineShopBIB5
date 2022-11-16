@@ -33,7 +33,13 @@ export class OrderService {
 
   async orderFindbyCustomer(customerId: any) {
     let orders: any = await this.postGetOrder()
-    return orders.data.filter((order: any) => order.created_user_id._id == customerId)
+    return orders.data.filter((order: any) => {
+      if (order.created_user_id) {
+        return order.created_user_id._id == customerId
+      } else {
+        return false
+      }
+    })
   }
 
 
@@ -58,7 +64,7 @@ export class OrderService {
   }
 
   postGetOrder() {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase`))
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase?page=1&chunk=1000`))
   }
 
   postSearchOrder(id: String) {

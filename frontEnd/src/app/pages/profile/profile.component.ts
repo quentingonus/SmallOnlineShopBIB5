@@ -140,7 +140,6 @@ export class ProfileComponent implements OnInit {
     } else {
       this.addressForm.get('dob')?.setValue({})
     }
-    console.log(this.addressForm)
     this.form.disable();
     this.addressForm.disable();
     let tmpOrder = await this.orderService.orderFindbyCustomer(this.currentUser._id);

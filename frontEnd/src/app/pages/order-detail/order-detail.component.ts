@@ -29,6 +29,36 @@ export class OrderDetailComponent implements OnInit {
   ) {
   }
 
+
+  getStatus(status: any) {
+    if (status == "pending") {
+      return "Pending"
+    } else if (status == "arrive") {
+      return "Arrived"
+    } else if (status == "shipping") {
+      return "Shipping"
+    } else {
+      return "Cancelled"
+    }
+  }
+
+  getStyle(status: any) {
+
+    if (status == 'pending') {
+      return "color:#2268d0; backgroundColor: #f2f4f8"
+    }
+    else if (status == 'shipping') {
+      return "color:#ffc107; backgroundColor: #fff7e6"
+    }
+    else if (status == 'arrive') {
+      return "color:#08b967; backgroundColor: #f2f4f8"
+    }
+    else {
+      return "color:#ef0f24; backgroundColor: #f9ebeb"
+    }
+
+  }
+
   totalPrice(orderProducts: any) {
     if (!orderProducts) {
       return 0;
