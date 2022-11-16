@@ -69,6 +69,10 @@ export class OrderService {
     return lastValueFrom(this.http.put(`${environment.apiUrl}/purchase/${id}`, payload))
   }
 
+  deleteOrder(id: string) {
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/purchase/${id}`))
+  }
+
   constructor(private http: HttpClient) {
   }
 }
