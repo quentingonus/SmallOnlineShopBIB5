@@ -1,5 +1,5 @@
 import { OrderService } from 'src/app/services/order.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   isUpdate2 = false;
   form;
   addressForm;
+  passwordForm;
   myOrder: any[] = [];
   userId: any = ""
   currentUser!: any;
@@ -41,6 +42,12 @@ export class ProfileComponent implements OnInit {
       address2: [''],
       city: [''],
       state: [''],
+    });
+
+    this.passwordForm = fb.group({
+      oldpass: ['', Validators.required],
+      newpass: ['', Validators.required],
+      confpass: ['', Validators.required]
     })
   }
 
@@ -114,6 +121,15 @@ export class ProfileComponent implements OnInit {
         alert("An error occurs at Updating User")
         this.form.disable();
       })
+  }
+
+  resetPassword() {
+    let oldPass = this.passwordForm.get('oldpass')?.value;
+    let newPass = this.passwordForm.get('newpass')?.value;
+    console.log('Password Form', this.passwordForm)
+    console.log('Old Pass', oldPass);
+    console.log('New Pass', newPass);
+    this.authService.resetPassword(this.userId, oldPass, newPass);
   }
 
   async ngOnInit() {
