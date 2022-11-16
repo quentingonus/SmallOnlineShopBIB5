@@ -23,6 +23,7 @@ export class OrderListComponent implements OnInit {
   shippingList: any;
   timer: String = 'Calculating...';
   orderLink!: any;
+  isTimeout = false;
 
   constructor(private orderService: OrderService, private router: Router) {}
 
@@ -45,6 +46,10 @@ export class OrderListComponent implements OnInit {
   }
 
   onChange() {
+    this.isTimeout = false;
+
+    if (this.order.order_status == 'cancel')
+      this.isTimeout = true;
 
     console.log('Orders From Status', this.order);
     //let data = { order_status: element.value };
@@ -80,6 +85,7 @@ export class OrderListComponent implements OnInit {
       if (this.timer == 'Timeout') {
         console.log('Timer: ', this.timer);
         this.order.order_status = 'cancel';
+        this.isTimeout = true;
         console.log('Change Order: ', this.order);
         this.updateOrder(this.order._id, this.order);
       }
@@ -96,6 +102,10 @@ export class OrderListComponent implements OnInit {
     console.log('Order ID', id);
     console.log('Order Data', data);
     return await this.orderService.updateOrder(id, data);
+  }
+
+  async deleteOrder(id: string) {
+    return await this.orderService.deleteOrder(id);
   }
 
   ngAfterViewInit() {

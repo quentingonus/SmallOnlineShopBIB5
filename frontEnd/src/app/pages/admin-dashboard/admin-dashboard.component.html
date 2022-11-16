@@ -1,16 +1,24 @@
 <ul class="d-flex flex-row justify-content-center mt-4 custom-list">
   <li
     (click)="pageName = 'products'"
-    class="list-item d-flex flex-column align-items-center px-5 text-success"
-    [class.active]="pageName == 'products'"
+    class="list-item d-flex flex-column align-items-center px-5"
+    [ngClass]="{
+      'active': isProduct(),
+      'text-success': isProduct(),
+      'text-info': !isProduct()
+    }"
   >
     <i class="bi bi-basket"></i>
     <p>Products</p>
   </li>
   <li
     (click)="pageName = 'users'"
-    class="list-item d-flex flex-column align-items-center px-5 text-info"
-    [class.active]="pageName == 'users'"
+    class="list-item d-flex flex-column align-items-center px-5"
+    [ngClass]="{
+      'active': !isProduct(),
+      'text-success': !isProduct(),
+      'text-info': isProduct()
+    }"
   >
     <i class="bi bi-people"></i>
     <p>Users</p>

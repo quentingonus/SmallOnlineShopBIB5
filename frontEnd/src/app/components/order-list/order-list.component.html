@@ -24,9 +24,12 @@
       <i class="bi bi-box-arrow-in-right"></i>
     </td>
   </a>
+
+ 
+    <button *ngIf="isTimeout" class="btn btn-light no-border text-danger ms-3">
+      <td>
+        <i class="bi bi-trash"></i>
+      </td>
+    </button>
 </td>
-<td>
-  <!--<button class="btn btn-outline-primary" (click)="addShippingList(order)">
-    <td>ship</td>
-  </button>-->
-</td>
+

@@ -1,7 +1,7 @@
 <td>{{ order.index }}</td>
 <td>{{ order.created_user_id.name }}</td>
 <td>{{ order.date | date: "fullDate" }}</td>
-<td>{{ getStatus(order.order_status) }}</td>
+<td> <span class="status" [style]="getStyle(order.order_status)">{{ getStatus(order.order_status) }}</span></td>
 <td>{{ timer }}</td>
 <td>
   <button class="btn btn-light" (click)="viewOrder()">
