@@ -167,22 +167,20 @@ export class CartService {
       }))
       return
     }
-    if (productArr.length) {
-      let formData = new FormData()
-      formData.append("productId", JSON.stringify(productArr))
-      formData.append("quantity", JSON.stringify(quantityArr))
-      formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
-      return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${cartCached._id}`, formData))
-        .then((res: any) => {
-          res = res.data
-          localStorage.setItem("CART", JSON.stringify(res))
-          return res
-        })
-        .catch((err: any) => {
-          console.log(err)
-          throw "An error occurs at updating cart."
-        })
-    }
+    let formData = new FormData()
+    formData.append("productId", JSON.stringify(productArr))
+    formData.append("quantity", JSON.stringify(quantityArr))
+    formData.append("created_user_id", "_id" in currentUser ? currentUser._id : "")
+    return await lastValueFrom(this.http.put(`${environment.apiUrl}/carts/${cartCached._id}`, formData))
+      .then((res: any) => {
+        res = res.data
+        localStorage.setItem("CART", JSON.stringify(res))
+        return res
+      })
+      .catch((err: any) => {
+        console.log(err)
+        throw "An error occurs at updating cart."
+      })
   }
 
   async postDeleteCart() {
@@ -235,16 +233,16 @@ export class CartService {
   }
 
   async removeFromCart(item: any) {
-    console.log("Remove Cart: " + item.title + " | amount: " + item.id)
+    console.log("Remove Cart: " + item.title + " | amount: " + item.amount)
     const index = this.findById(item.id, this.cartItem);
-    const shopItem = await this.getShop()
+    //const shopItem = await this.getShop()
     if (index > -1) {
       this.cartItem.splice(index, 1);
     }
-    const shopIndex = this.findById(item.id, shopItem);
-    if (shopIndex > -1) {
-      shopItem[shopIndex].amount = 0
-    }
+    //const shopIndex = this.findById(item.id, shopItem);
+    //if (shopIndex > -1) {
+    //  shopItem[shopIndex].amount = 0
+    //}
     this.postUpdateCart()
     this.cartItem$.next(this.cartItem)
   }
