@@ -41,6 +41,8 @@ import { PromotionCardComponent } from './components/promotion-card/promotion-ca
 import { FocusOnInitDirective } from './services/focus-on-init.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { environment } from '../environments/environment';
     ProfileComponent,
     CustomerOrderComponent,
     PromotionCardComponent,
-    FocusOnInitDirective
+    FocusOnInitDirective,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +96,7 @@ import { environment } from '../environments/environment';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    NgxChartsModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

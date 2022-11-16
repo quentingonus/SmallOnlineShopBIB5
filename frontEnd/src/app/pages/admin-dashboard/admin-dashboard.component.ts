@@ -170,11 +170,15 @@ export class AdminDashboardComponent implements OnInit {
     return this.users[userIndex]._id;
   }
 
-  async deleteUser(user: any) {
+  async deleteUser(user: any, button:any ) {
+    button.classList.add('loading');
+
     let userIndex = this.users.indexOf(user);
     let userId = this.getUserId(userIndex);
     console.log('User ID: ', userId);
-    return await this.authService.deleteUser(userId);
+
+    await this.authService.deleteUser(userId);
+    this.users.splice(userIndex, 1);
   }
 
   isProduct(): boolean {
