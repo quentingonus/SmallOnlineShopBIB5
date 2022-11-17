@@ -61,6 +61,8 @@ export const findUserService = async (req: any, res: Response) => {
     const findData: any = await User.findById(req.params.id)
     return res.status(200).send({ data: findData })
   } catch (err) {
+    console.log(err);
+
     logger.userErrorLogger.log('info', 'Error User Not Found')
     return res.send("An Error occured in find user");
   }
