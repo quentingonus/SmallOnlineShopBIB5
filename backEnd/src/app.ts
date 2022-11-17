@@ -8,6 +8,8 @@ import passport from 'passport';
 import { rootDir } from "./utils";
 import { v4 } from 'uuid';
 import cors from 'cors';
+import fs from 'fs';
+
 
 const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs');
@@ -23,7 +25,6 @@ import category_route from "./routes/category_route";
 import popular_route from "./routes/PopularProduct_route";
 import search_route from "./routes/search_route";
 import chart_route from "./routes/chart_route";
-
 require("./config/passport")
 
 dotenv.config();
@@ -38,6 +39,18 @@ const fileStorage = multer.diskStorage({
     cb(null, `${v4()}_${file.originalname}`);
   },
 });
+
+try {
+  if (fs.existsSync('apiuploads')) {
+    console.log("apiuploads folder Exists")
+  } else {
+    console.log("apiuploads folder not Exists")
+    fs.mkdirSync('apiuploads', { recursive: true })
+    console.log("apiuploads folder created")
+  }
+} catch (err) {
+  console.error(err)
+}
 
 const fileFilter = (_req: Request, file: any, cb: FileFilterCallback) => {
   if (
