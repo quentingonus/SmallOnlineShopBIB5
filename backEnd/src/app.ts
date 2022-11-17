@@ -22,6 +22,7 @@ import contact_route from "./routes/contact_route";
 import category_route from "./routes/category_route";
 import popular_route from "./routes/PopularProduct_route";
 import search_route from "./routes/search_route";
+import chart_route from "./routes/chart_route";
 
 require("./config/passport")
 
@@ -73,4 +74,5 @@ mongoose
     app.use('/contactus', contact_route);
     app.use('/popular', popular_route);
     app.use('/search', search_route);
+    app.use('/chart', chart_route)
   })
