@@ -30,6 +30,13 @@
         >
           Socials
         </li>
+        <li
+          class="list-group-item"
+          [class.active]="pageName == 'password'"
+          (click)="pageName = 'password'"
+        >
+          Password Reset
+        </li>
       </ul>
     </div>
 
@@ -67,14 +74,10 @@
                 />
               </div>
 
-              <button
-                *ngIf="!isconfirm"
-                class="btn btn-success m-3"
-                type="button"
-                (click)="update()"
-              >
+              <button *ngIf="!isconfirm" class="btn btn-success m-3" type="button" (click)="update()">
                 Update Profile
               </button>
+
               <button
                 *ngIf="isconfirm"
                 class="btn btn-success m-3"
@@ -255,6 +258,94 @@
               Cancel
             </button>
           </form>
+        </div>
+
+        <div *ngSwitchCase="'password'" class="address">
+          <form [formGroup]="passwordForm" class="shadow-sm rounded p-3">
+            <div class="form-group my-4">
+              <label for="oldPass">Old Password</label>
+              <input
+                id="oldPass"
+                formControlName="oldpass"
+                class="form-control"
+                type="password"
+                name=""
+              />
+              <div
+                *ngIf="passwordForm.get('oldpass')?.touched && passwordForm.get('oldpass')?.errors?.['required']"
+                class="invalid-feedback"
+              >
+                Password is required
+              </div>
+            </div>
+            <div class="form-group my-4">
+              <label for="newPass">New Password</label>
+              <input
+                id="newPass"
+                formControlName="newpass"
+                class="form-control"
+                type="password"
+                name=""
+              />
+              <div
+                *ngIf="passwordForm.get('newpass')?.touched && passwordForm.get('newpass')?.errors?.['required']"
+                class="invalid-feedback"
+              >
+                New Password is required
+              </div>
+
+              <div
+                *ngIf="passwordForm.get('newpass')?.touched && passwordForm.get('newpass')?.errors?.['minlength']"
+                class="invalid-feedback"
+              >
+                Password sholud be mininum
+                {{ passwordForm.get('newpass')?.errors?.['minlength'].requiredLength }}
+                characters
+              </div>
+            </div>
+            <div class="form-group my-4">
+              <label for="confPass">Confirm Password</label>
+              <input
+                id="confPass"
+                formControlName="confpass"
+                class="form-control"
+                type="password"
+                name=""
+              />
+            </div>
+            <div
+              *ngIf="passwordForm.get('confpass')?.touched && passwordForm.errors?.['passwordShouldMatch']"
+              class="invalid-feedback"
+            >
+              Password should be match
+            </div>
+
+            <button
+              *ngIf="!isReset"
+              class="btn btn-success"
+              (click)="resetPassword()"
+            >
+              Reset Password
+            </button>
+        
+
+            <button
+              *ngIf="isReset"
+              class="btn btn-success"
+              (click)="confirmPassword()"
+            >
+              Confirm Password
+            </button>
+            <button
+            *ngIf="isReset"
+            class="btn btn-danger m-3"
+            type="button"
+            (click)="cancelUpdate()"
+          >
+            Cancel
+          </button>
+          </form>
+          
         </div>
       </div>
     </div>
