@@ -49,7 +49,7 @@ export class AuthService {
 
   postUpdateUser(payload: any) {
     const options = {
-      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer "+(localStorage.getItem("TOKEN") || ""))
     };
     let formData = new FormData()
     formData.append("name", payload.name)
@@ -65,7 +65,7 @@ export class AuthService {
 
   postUpdateUserAddress(user: any, address: any) {
     const options = {
-      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer "+(localStorage.getItem("TOKEN") || ""))
     };
     let formData = new FormData()
     formData.append("name", user.name)
@@ -103,14 +103,14 @@ export class AuthService {
 
   public getUsers() {
     const options = {
-      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer "+(localStorage.getItem("TOKEN") || ""))
     };
     return lastValueFrom(this.http.get(`${environment.apiUrl}/users?page=1&chunk=1000`, options));
   }
 
   public deleteUser(userId: any) {
     const options = {
-      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer "+(localStorage.getItem("TOKEN") || ""))
     };
     return lastValueFrom(this.http.delete(`${environment.apiUrl}/users/${userId}`, options));
   }
@@ -131,7 +131,7 @@ export class AuthService {
 
   public resetPassword(userId: any, oldPass: any, newPass: any) {
     const options = {
-      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer "+(localStorage.getItem("TOKEN") || ""))
     };
     let formData = new FormData();
     formData.append("userId", userId);

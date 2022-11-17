@@ -33,7 +33,7 @@ export class OrderService {
 
   async orderFindbyCustomer(customerId: any) {
     const options = {
-      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
     };
     return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/user/${customerId}`, options))
   }
