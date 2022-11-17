@@ -181,10 +181,15 @@ export class AdminDashboardComponent implements OnInit {
     let userId = this.getUserId(userIndex);
     this.authService.deleteUser(userId)
       .then((res: any) => {
-        this.users.splice(userIndex, 1);
-        button.classList.remove('loading');
+        if (res.success) {
+          this.users.splice(userIndex, 1);
+          button.classList.remove('loading');
+        } else {
+          alert("An Error Occurs")
+        }
       })
       .catch((err: any) => {
+        console.log(err)
         alert(err.error)
         button.classList.remove('loading');
       })

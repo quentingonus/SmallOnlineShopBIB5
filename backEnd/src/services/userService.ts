@@ -133,13 +133,16 @@ export const deleteUserService = async (req: any, res: Response) => {
     if (!user) {
       return res.status(401).send("Cannot find the user")
     }
-    if (requestedUser._id != user._id && requestedUser.type != "Admin") {
+    if (requestedUser.type != "Admin") {
       return res.status(403).send("Not Authorized")
     }
 
     await User.findByIdAndDelete(req.params.id);
 
-    return res.status(200).send("User Deleted Successfully")
+    return res.status(200).send({
+      success: true,
+      msg: "User Deleted Successfully"
+    })
 
   } catch (err) {
     logger.userErrorLogger.log('info', 'Error Delete User')

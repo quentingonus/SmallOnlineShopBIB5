@@ -85,16 +85,9 @@ export const forgetPasswordService = async (req: any, res: Response) => {
 
 export const resetPasswordService = async (req: Request, res: Response) => {
   try {
-    let requestedUser = await User.findById((req as any).decoded.id)
-    if (!requestedUser) {
-      return res.status(401).send("Cannot find the user")
-    }
     const user = await User.findById(req.body.userId);
     if (!user) {
       return res.status(404).send("UserId does not exist");
-    }
-    if (requestedUser._id != user._id && requestedUser.type != "Admin") {
-      return res.status(403).send("Not Authorized")
     }
     const PasswordResetToken: any = await PasswordReset.findOne({
       token: req.params.token
@@ -130,6 +123,14 @@ export const passwordChangeService = async (req: Request, res: Response) => {
         })
       }
 
+      let requestedUser = await User.findById((req as any).decoded.id)
+      if (!requestedUser) {
+        return res.status(401).send("Cannot find the user")
+      }
+
+      if (requestedUser.type != "Admin") {
+        return res.status(403).send("Not Authorized")
+      }
 
       if (!compareSync(req.body.oldPassword, user.password)) {
         return res.send({
