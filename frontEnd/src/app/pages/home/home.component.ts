@@ -103,7 +103,6 @@ export class HomeComponent implements OnInit {
       newPop.splice(4)
     }
     this.popularProduct = newPop
-    console.log(this.popularProduct)
   }
 
   goToCategory(category: any) {

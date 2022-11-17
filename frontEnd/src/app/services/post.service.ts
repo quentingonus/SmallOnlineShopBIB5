@@ -113,5 +113,14 @@ export class PostService {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/forgot_password`, formData))
   }
 
+  // Get Chart
+  getChart(): Promise<any> {
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/chart`, options))
+  }
+
+
 
 }

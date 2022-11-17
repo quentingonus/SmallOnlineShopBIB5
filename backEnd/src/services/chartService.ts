@@ -1,10 +1,25 @@
 import Purchase from "../models/purchase";
-// import { } from "./productService";
-// import products from "../models/products";
+import Products from "../models/products";
+import User from '../models/User'
 import { Response } from "express";
 
-export const getChartServices = async (_req: any, res: Response) => {
+const searchName = (id: any, arr: any) => {
+  for (let i of arr) {
+    if (i._id == id) {
+      return i.title
+    }
+  }
+}
+
+export const getChartServices = async (req: any, res: Response) => {
   try {
+    let requestedUser = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Unauthorized")
+    }
     const result = await Purchase.find().populate("created_user_id");
     let newObj = {}
 
@@ -30,7 +45,22 @@ export const getChartServices = async (_req: any, res: Response) => {
       return b[1] - a[1]
     });
 
-    return res.json({ data: newArr });
+
+    const products = await Products.find({})
+
+    newArr = newArr.map((item: any) => {
+      let tmpName = searchName(item[0], products)
+      item.push(tmpName)
+      return item
+    })
+
+    return res.json({
+      data: newArr.filter((item: any) => {
+        if (item[2]) {
+          return item
+        }
+      })
+    });
 
   } catch (err) {
     return console.log(err)
