@@ -16,9 +16,11 @@ export class AppComponent implements OnInit {
     private route: Router
   ) { }
   async ngOnInit() {
-    if (!this.authService.isAuthenticated()) {
-      this.route.navigate(['/logout'])
+    if (localStorage.hasOwnProperty('USER')) {
+      if (!this.authService.isAuthenticated()) {
+        this.route.navigate(['/logout'])
+      }
+      await this.cartService.postGetCart()
     }
-    await this.cartService.postGetCart()
   }
 }

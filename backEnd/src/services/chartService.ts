@@ -63,6 +63,7 @@ export const getChartServices = async (req: any, res: Response) => {
     });
 
   } catch (err) {
-    return console.log(err)
+    console.log(err)
+    return res.status(400).send("General Error.")
   }
 };

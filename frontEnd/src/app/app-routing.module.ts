@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'categories/:id', component: CategoryDetailComponent },
   { path: 'categories', component: AllCategoriesComponent },
   { path: 'search', component: AllCategoriesComponent },
+  { path: 'api/password-reset-update/:id/:token', component: ResetComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -54,7 +55,6 @@ const routes: Routes = [
   { path: 'refund', component: RefundsComponent },
   { path: 'privacy-and-policy', component: PrivacyAndPolicyComponent },
   { path: 'promotion', component: PromotionComponent },
-  { path: 'api/password-reset-update/:id/:token', component: ResetComponent },
   { path: '**', component: HomeComponent }
 ];
 
