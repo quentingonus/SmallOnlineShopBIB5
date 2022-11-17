@@ -106,7 +106,7 @@ export class AuthService {
   }
 
   public getUsers() {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/users`));
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/users?page=1&chunk=1000`));
   }
 
   public deleteUser(userId: any) {

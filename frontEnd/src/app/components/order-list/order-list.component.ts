@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
   orderLink!: any;
   isTimeout = false;
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(private orderService: OrderService, private router: Router) { }
 
   addShippingList(order: any) {
     this.shippingList = this.orderService.addShippingList(order);
@@ -40,9 +40,8 @@ export class OrderListComponent implements OnInit {
     let hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((time % (1000 * 60)) / 1000);
-    return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${
-      minutes > 1 ? 's' : ''
-    } ${seconds} second${seconds > 1 ? 's' : ''}`;
+    return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''
+      } ${seconds} second${seconds > 1 ? 's' : ''}`;
   }
 
   onChange() {
@@ -58,6 +57,7 @@ export class OrderListComponent implements OnInit {
 
   styleChange(element: any) {
     if (element.value == 'pending') {
+      return "color:#2268d0; backgroundColor: #f2f4f8"
     }
     else if (element.value == 'shipping') {
       return "color:#ffc107; backgroundColor: #fff7e6"
@@ -65,14 +65,13 @@ export class OrderListComponent implements OnInit {
     else if (element.value == 'arrive') {
       return "color:#08b967; backgroundColor: #f2f4f8"
     }
-    else if (element.value == 'cancel') {
+    else {
       return "color:#ef0f24; backgroundColor: #f9ebeb"
     }
-    return "color:#2268d0; backgroundColor: #f2f4f8"
   }
 
   async ngOnInit() {
-    
+
     let x = setInterval(() => {
       let customerBuyDate = new Date(this.order.date);
       let dateDiff = this.formatDate(
@@ -83,19 +82,20 @@ export class OrderListComponent implements OnInit {
       this.timer = dateDiff ? dateDiff : 'Timeout';
 
       if (this.timer == 'Timeout') {
-        console.log('Timer: ', this.timer);
         this.order.order_status = 'cancel';
         this.isTimeout = true;
-        console.log('Change Order: ', this.order);
         this.updateOrder(this.order._id, this.order);
       }
 
       if (!dateDiff) clearInterval(x);
     }, 1000);
 
+    if (this.order.order_status == 'arrive') {
+      clearInterval(x)
+      this.timer = "---"
+    }
+
     this.orderLink = `/admin/order/detail/${this.order._id}`;
-    console.log(this.orderLink);
-    console.log('Order: ', this.order);
   }
 
   async updateOrder(id: string, data: any) {
@@ -128,8 +128,5 @@ export class OrderListComponent implements OnInit {
       this.select.nativeElement.style.color = '#ef0f24';
       this.select.nativeElement.style.backgroundColor = '#f9ebeb';
     }
-
-    console.log('After View Init :', this.order);
-    console.log('Order Status:', this.order.order_status);
   }
 }

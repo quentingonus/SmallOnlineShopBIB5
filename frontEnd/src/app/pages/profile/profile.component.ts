@@ -194,7 +194,6 @@ export class ProfileComponent implements OnInit {
     } else {
       this.addressForm.get('dob')?.setValue({});
     }
-    console.log(this.addressForm);
     this.form.disable();
     this.addressForm.disable();
     this.passwordForm.disable();
