@@ -58,9 +58,7 @@ export const createUserService = async (req: any, res: Response) => {
 
 export const findUserService = async (req: any, res: Response) => {
   try {
-
     const findData: any = await User.findById(req.params.id)
-
     return res.status(200).send({ data: findData })
   } catch (err) {
     console.log(err);
