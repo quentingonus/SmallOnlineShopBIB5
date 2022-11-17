@@ -23,7 +23,6 @@ import category_route from "./routes/category_route";
 import popular_route from "./routes/PopularProduct_route";
 import search_route from "./routes/search_route";
 
-
 require("./config/passport")
 
 dotenv.config();

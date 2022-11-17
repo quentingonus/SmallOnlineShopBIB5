@@ -1,4 +1,5 @@
 import Purchase from "../models/purchase";
+import User from '../models/User'
 import { Response } from "express";
 const logger = require('../loggers/logger');
 
@@ -46,14 +47,39 @@ export const createPurchaseServices = async (req: any, res: Response) => {
   }
 };
 
+export const getPurchaseByUserIdServices = async (req: any, res: Response) => {
+  try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser._id != req.params.userid && requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
+    let purchase: any = await Purchase.find({}).populate("created_user_id")
+    purchase = purchase.filter((order: any) => {
+      if (order.created_user_id) {
+        return order.created_user_id._id == req.params.userid
+      } else {
+        return false
+      }
+    })
+    return res.status(200).send({ data: purchase })
+  } catch (err) {
+    console.log(err)
+    logger.purchaseErrorLogger.log('info', 'Error Purchase Not Found')
+    return res.status(400).send("An Error occured in find purchase");
+  }
+}
+
 export const findPurchaseServices = async (req: any, res: Response) => {
   try {
     const findData = await Purchase.findById(req.params.id).populate("created_user_id")
     res.send({ data: findData })
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in find purchase");
     logger.purchaseErrorLogger.log('info', 'Error Purchase Not Found')
+    res.send("An Error occured in find purchase");
   }
 };
 

@@ -43,7 +43,7 @@ export class CustomerOrderComponent implements OnInit {
   }
 
   getStyle(status: any) {
-    
+
     if (status == 'pending') {
       return "color:#2268d0; backgroundColor: #f2f4f8"
     }
@@ -56,16 +56,24 @@ export class CustomerOrderComponent implements OnInit {
     else {
       return "color:#ef0f24; backgroundColor: #f9ebeb"
     }
-   
+
   }
 
 
   ngOnInit(): void {
-    setInterval(() => {
+    let x = setInterval(() => {
       let customerBuyDate = new Date(this.order.date)
-      let dateDiff = this.formatDate(new Date(customerBuyDate.setDate(customerBuyDate.getDate() + 1)).getTime() - new Date().getTime());
-      this.timer = dateDiff ? dateDiff : "Timeout"
+      let dateDiff: any = this.formatDate(new Date(customerBuyDate.setDate(customerBuyDate.getDate() + 1)).getTime() - new Date().getTime());
+      this.timer = dateDiff
     }, 1000)
+    if (this.order.order_status == "arrive") {
+      clearInterval(x)
+      this.timer = "---"
+    }
+    if (this.order.order_status == "cancel") {
+      clearInterval(x)
+      this.timer = "Timeout"
+    }
   }
 
 }

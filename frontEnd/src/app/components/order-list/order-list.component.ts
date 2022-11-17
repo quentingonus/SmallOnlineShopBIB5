@@ -46,12 +46,11 @@ export class OrderListComponent implements OnInit {
 
   onChange() {
     this.isTimeout = false;
-
-    if (this.order.order_status == 'cancel')
+    if (this.order.order_status == 'cancel') { this.isTimeout = true; }
+    if (this.order.order_status == 'arrive') {
       this.isTimeout = true;
-
-    console.log('Orders From Status', this.order);
-    //let data = { order_status: element.value };
+      setTimeout(() => { this.timer = "---" }, 1000)
+    }
     this.updateOrder(this.order._id, this.order);
   }
 
@@ -73,6 +72,9 @@ export class OrderListComponent implements OnInit {
   async ngOnInit() {
 
     let x = setInterval(() => {
+      if (this.isTimeout) {
+        clearInterval(x)
+      }
       let customerBuyDate = new Date(this.order.date);
       let dateDiff = this.formatDate(
         new Date(
