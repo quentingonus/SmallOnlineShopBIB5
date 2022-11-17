@@ -34,7 +34,7 @@ export class LineChartComponent implements OnInit {
       }
     ]
   };
-  public lineChartOptions: ChartOptions<'line'> = {
+  public lineChartOptions: any = {
     responsive: false
   };
   public lineChartLegend = true;

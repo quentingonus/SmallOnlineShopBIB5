@@ -48,16 +48,9 @@ export class AuthService {
   }
 
   postUpdateUser(payload: any) {
-    //const token = localStorage.getItem("TOKEN") || "";
-    //const options = {
-    //  headers: new HttpHeaders()
-    //    .set('Content-Type', 'application/json;charset=utf-8;')
-    //    .set('Cache-Control', 'no-cache')
-    //    .set('Pragma', 'no-cache')
-    //    .set('userType', payload.type)
-    //    .set('userId', payload._id)
-    //    .set('Authorization', `Bearer ${token}`)
-    //};
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
     let formData = new FormData()
     formData.append("name", payload.name)
     formData.append("email", payload.email)
@@ -67,10 +60,13 @@ export class AuthService {
     formData.append("dob", "")
     formData.append("created_user_id", payload._id)
     formData.append("updated_user_id", payload._id)
-    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${payload._id}`, formData))
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${payload._id}`, formData, options))
   }
 
   postUpdateUserAddress(user: any, address: any) {
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
     let formData = new FormData()
     formData.append("name", user.name)
     formData.append("email", user.email)
@@ -80,7 +76,7 @@ export class AuthService {
     formData.append("dob", `${address.dob.year}-${address.dob.month}-${address.dob.day}`)
     formData.append("created_user_id", user._id)
     formData.append("updated_user_id", user._id)
-    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${user._id}`, formData))
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/users/${user._id}`, formData, options))
   }
 
 
