@@ -27,6 +27,8 @@ tags:
     description: Operations about Contact Us
   - name: Search
     description: Operations about Search
+  - name: Chart
+    description: Operations about Chart
 
 paths:
   # Auth Routes
@@ -158,6 +160,9 @@ paths:
             schema:
               type: object
               properties:
+                userId:
+                  type: string
+                  example: "321651654651652"
                 password:
                   type: string
                   example: "password123"
@@ -165,24 +170,11 @@ paths:
         "200":
           description: Password reset sucessfully.
 
-  /auth/password-change/{userId}/{token}:
+  /auth/password-change:
     post:
       tags:
         - Password
       summary: Password Change
-      parameters:
-        - name: userId
-          in: path
-          description: UserId id that want to change password
-          required: true
-          schema:
-            type: string
-        - name: token
-          in: path
-          description: Token of user who want to change password
-          required: true
-          schema:
-            type: string
       requestBody:
         description: Change old password with new one
         content:
@@ -190,6 +182,9 @@ paths:
             schema:
               type: object
               properties:
+                userId:
+                  type: string
+                  example: "13215643246155646"
                 oldPassword:
                   type: string
                   example: "passwordold"
@@ -1501,9 +1496,9 @@ paths:
       tags:
         - Popular Products
       summary: Get all Popular Propucts
-      # description: This can only be done by the logged in user.
-      # security:
-      #   - bearerAuth: []
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Returns all Users
@@ -1597,6 +1592,22 @@ paths:
                   created_category_id:
                     type: string
                     example: "62c6a49a087a13d74076e514"
+
+  # Chart Routes
+  /chart:
+    get:
+      tags:
+        - Chart
+      summary: Get all Popular Purchases
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Returns all Popular Purchases
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
 components:
   securitySchemes:
     bearerAuth: # arbitrary name for the security scheme

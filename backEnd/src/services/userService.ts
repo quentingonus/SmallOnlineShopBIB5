@@ -58,16 +58,13 @@ export const createUserService = async (req: any, res: Response) => {
 
 export const findUserService = async (req: any, res: Response) => {
   try {
-    let requestedUser = await User.findById(req.decoded.id)
-    if (!requestedUser) {
-      return res.status(401).send("Cannot find the user")
-    }
+
     const findData: any = await User.findById(req.params.id)
-    if (requestedUser._id != findData._id && requestedUser.type != "Admin") {
-      return res.status(403).send("Not Authorized")
-    }
+
     return res.status(200).send({ data: findData })
   } catch (err) {
+    console.log(err);
+
     logger.userErrorLogger.log('info', 'Error User Not Found')
     return res.send("An Error occured in find user");
   }
