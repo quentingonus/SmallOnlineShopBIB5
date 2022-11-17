@@ -135,10 +135,17 @@ export class AdminDashboardComponent implements OnInit {
     this.router.navigate(['/admin/edit-product']);
   }
 
-  async deleteProduct(product: any, button: any) {
+  deleteProduct(product: any, button: any) {
     button.classList.add('loading');
-    await this.postService.deleteProduct(product);
-    this.products.splice(this.products.indexOf(product), 1);
+    this.postService.deleteProduct(product)
+      .then((res: any) => {
+        this.products.splice(this.products.indexOf(product), 1);
+        button.classList.remove('loading');
+      })
+      .catch((err: any) => {
+        alert(err.error)
+        button.classList.remove('loading');
+      })
   }
 
   sliceIntoChunks(arr: any, chunkSize: any) {
@@ -167,14 +174,19 @@ export class AdminDashboardComponent implements OnInit {
     return this.users[userIndex]._id;
   }
 
-  async deleteUser(user: any, button: any) {
+  deleteUser(user: any, button: any) {
     button.classList.add('loading');
     let userIndex = this.users.indexOf(user);
     let userId = this.getUserId(userIndex);
-    console.log('User ID: ', userId);
-    await this.authService.deleteUser(userId);
-    this.users.splice(userIndex, 1);
-    button.classList.remove('loading');
+    this.authService.deleteUser(userId)
+      .then((res: any) => {
+        this.users.splice(userIndex, 1);
+        button.classList.remove('loading');
+      })
+      .catch((err: any) => {
+        alert(err.error)
+        button.classList.remove('loading');
+      })
   }
 
   isProduct(): boolean {
@@ -192,7 +204,6 @@ export class AdminDashboardComponent implements OnInit {
 
     this.users = await this.authService.getUsers();
     this.users = this.users.data.map((item: any, index: any) => { item.index = index + 1; return item; });
-    console.log('Users', this.users)
 
   }
 }

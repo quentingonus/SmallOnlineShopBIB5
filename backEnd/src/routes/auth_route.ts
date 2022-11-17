@@ -2,6 +2,7 @@ import express from 'express';
 import { createUser } from "../controllers/UserController";
 import { body } from "express-validator";
 import { login, logout, forgotPassword, resetPassword, passwordChange, checkPasswdResetToken } from "../controllers/AuthController";
+import { verifyToken } from '../middleware/auth'
 
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router
       body("password").notEmpty().withMessage("Password must not be empty")
     ], createUser);
 
+//To send a reset link for password
 router
   .route("/forgot_password")
   .post(
@@ -31,16 +33,20 @@ router
       body("email").notEmpty().withMessage("Email must be empty"),
     ], forgotPassword);
 
+//Checking token in reset link is valid or not
+router
+  .route('/password-token/check')
+  .post(checkPasswdResetToken);
+
+//Reset password using reset link
 router
   .route('/password-reset-update/:userId/:token')
   .post(resetPassword);
 
+//Reset Password using old password
 router
-  .route('/password-change/:userId/:token')
-  .post(passwordChange);
+  .route('/password-change')
+  .post([verifyToken], passwordChange);
 
-router
-  .route('/password-token/check')
-  .post(checkPasswdResetToken);
 
 export default router;

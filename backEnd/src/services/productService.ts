@@ -1,8 +1,8 @@
 import products from "../models/products";
+import User from '../models/User'
 import { Response } from "express";
 import { deleteFile } from "../utils";
 const logger = require('../loggers/logger');
-//import { isAuthenticate } from "./customService";
 
 export const getproductServices = async (req: any, res: Response) => {
   try {
@@ -27,28 +27,31 @@ export const getproductServices = async (req: any, res: Response) => {
 
 export const createproductServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
     let profile = req.body.profileImage;
     if (req.file) {
       profile = req.file.path.replace('\\', '/');
     }
-
-    console.log(req.body)
     const productData = {
       created_user_id: req.body.created_user_id,
       profile: profile,
       title: req.body.title,
       price: req.body.price,
-      created_category_id: req.body.created_category_id
+      created_category_id: req.body.created_category_id,
+      detail: req.body.detail
     }
-
-    console.log(productData)
     const product = new products(productData);
     const result = await product.save();
-    res.status(201).json({ message: "Created Successfully", data: result })
+    return res.status(200).json({ message: "Created Successfully", data: result })
   } catch (err) {
-    console.log(err)
-    res.send("An Error occured in create product");
     logger.productInfoLogger.log('info', 'Error Create Product')
+    return res.send("An Error occured in create product");
   }
 };
 
@@ -65,6 +68,13 @@ export const findproductServices = async (req: any, res: Response) => {
 
 export const updateproductServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
     const Product = await products.findById(req.params.id);
     if (!Product) {
       const error = new Error("Not Found");
@@ -83,23 +93,31 @@ export const updateproductServices = async (req: any, res: Response) => {
     const product: any = await products.findById(req.params.id)
     product.title = req.body.title;
     product.price = req.body.price;
+    product.detail = req.body.detail;
     const result = await product.save();
-    res.json({ message: "Updated Successfully!", data: result })
+    return res.status(200).json({ message: "Updated Successfully!", data: result })
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in update product");
     logger.productErrorLogger.log('error', 'Error Update Product')
+    return res.status(400).send("An Error occured in update product");
   }
 };
 
 export const deleteproductServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
     await products.findById(req.params.id);
     await products.findByIdAndRemove(req.params.id);
-    res.json({ message: "product with id " + req.params.id + " removed." })
+    return res.status(200).json({ message: "product with id " + req.params.id + " removed." })
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in delete product");
     logger.productErrorLogger.log('error', 'Error Delete Product')
+    return res.status(400).send("An Error occured in delete product");
   }
 };

@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import User from '../models/User';
 import { compareSync } from 'bcrypt';
 import crypto from "crypto";
-
 import PasswordReset from '../models/passwordReset';
 import sendEmail from '../utils/sendEmail'
 
@@ -30,7 +29,7 @@ export const loginService = async (req: Request, res: Response) => {
       id: user.id
     }
 
-    const token = jwt.sign(payload, 'furtive', { expiresIn: '1d' });
+    const token = jwt.sign(payload, (process.env.JWT_SECRET as any), { expiresIn: '1d' });
 
     return res.status(200).send({
       success: true,
@@ -86,9 +85,16 @@ export const forgetPasswordService = async (req: any, res: Response) => {
 
 export const resetPasswordService = async (req: Request, res: Response) => {
   try {
+    let requestedUser = await User.findById((req as any).decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
     const user = await User.findById(req.body.userId);
     if (!user) {
       return res.status(404).send("UserId does not exist");
+    }
+    if (requestedUser._id != user._id && requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
     }
     const PasswordResetToken: any = await PasswordReset.findOne({
       token: req.params.token
@@ -118,15 +124,11 @@ export const passwordChangeService = async (req: Request, res: Response) => {
   try {
     await User.findById(req.body.userId).then(async (user: any) => {
       if (!user) {
-        return res.status(404).send({
+        return res.send({
           success: false,
           message: 'Could not find user'
         })
       }
-
-      const token = req.params.token;
-
-      if (!token) return res.status(401).send("Unauthorized");
 
 
       if (!compareSync(req.body.oldPassword, user.password)) {
@@ -137,7 +139,7 @@ export const passwordChangeService = async (req: Request, res: Response) => {
       }
 
       if (compareSync(req.body.newPassword, user.password)) {
-        return res.status(401).send({
+        return res.send({
           success: false,
           message: 'Current Password and New Password are same.'
         });

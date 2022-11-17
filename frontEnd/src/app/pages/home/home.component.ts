@@ -84,7 +84,26 @@ export class HomeComponent implements OnInit {
       item.category = this.util.searchCategory(item.category, category.data)
       return item
     })
-    this.popularProduct = this.util.getRandomFromArray(this.products, 4)
+    let popular = await this.postService.getPopular()
+    let newPop: any = []
+    popular = popular.data.map((item: any) => {
+      for (let i of this.products) {
+        if (item[0] == i.id) {
+          i.order = item[1]
+          newPop.push(i)
+        }
+      }
+    })
+    if (newPop.length == 4) {
+      newPop = newPop
+    }
+    else if (newPop.length < 4) {
+      newPop += this.util.getRandomFromArray(this.products, (4 - newPop.length))
+    } else {
+      newPop.splice(4)
+    }
+    this.popularProduct = newPop
+    console.log(this.popularProduct)
   }
 
   goToCategory(category: any) {

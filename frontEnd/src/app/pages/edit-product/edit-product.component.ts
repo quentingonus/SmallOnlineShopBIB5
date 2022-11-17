@@ -64,10 +64,16 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  async updateProduct(button: any) {
+  updateProduct(button: any) {
     button.classList.add("loading")
-    let res = await this.postService.updateProducts({ id: this.selectProduct.id, ...this.form.value });
-    this.router.navigate(['/admin']);
+    this.postService.updateProducts({ id: this.selectProduct.id, ...this.form.value })
+      .then((res: any) => {
+        this.router.navigate(['/admin']);
+      })
+      .catch((err: any) => {
+        alert(err.error)
+        button.classList.remove("loading")
+      })
   }
 
   cancel() {

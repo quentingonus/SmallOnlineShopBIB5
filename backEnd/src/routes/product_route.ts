@@ -1,6 +1,7 @@
 import express from 'express';
 import { createProduct, deleteProduct, findProduct, getProduct, updateProduct } from "../controllers/productController";
 import { body } from 'express-validator';
+import { verifyToken } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -10,7 +11,8 @@ router
   .post(
     [
       body("name").notEmpty().withMessage("Name must not be empty"),
-      body("price").notEmpty().withMessage("Price must note be empty")
+      body("price").notEmpty().withMessage("Price must note be empty"),
+      verifyToken
     ],
     createProduct)
 
@@ -21,8 +23,9 @@ router
     [
       body("name").notEmpty().withMessage("Name must not be empty"),
       body("price").notEmpty().withMessage("Price must note be empty"),
+      verifyToken
     ],
     updateProduct)
-  .delete(deleteProduct)
+  .delete([verifyToken], deleteProduct)
 
 export default router;

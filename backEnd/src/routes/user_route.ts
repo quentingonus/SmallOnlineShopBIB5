@@ -1,17 +1,18 @@
 import express from 'express';
 import { createUser, deleteUser, findUser, getUser, updateUser } from '../controllers/UserController';
+import { verifyToken } from '../middleware/auth'
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(getUser)
-  .post(createUser)
+  .get([verifyToken], getUser)
+  .post([verifyToken], createUser)
 
 router
   .route('/:id')
   .get(findUser)
-  .put(updateUser)
-  .delete(deleteUser)
+  .put([verifyToken], updateUser)
+  .delete([verifyToken], deleteUser)
 
 export default router;

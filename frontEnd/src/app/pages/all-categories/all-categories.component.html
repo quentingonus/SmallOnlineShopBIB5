@@ -12,10 +12,10 @@
         />
       </div>
     </form>
-    <div class="row col-12" *ngFor="let category of util.getKeyArr(shopItems)">
+    <div class="row" *ngFor="let category of util.getKeyArr(shopItems)">
       <h4 class="text-left my-4">{{ category | titlecase }}</h4>
       <app-item-card
-        class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3"
+        class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3"
         *ngFor="let shopItem of shopItems[category]"
         [cardItem]="shopItem"
       ></app-item-card>

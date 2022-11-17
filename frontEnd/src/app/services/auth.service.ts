@@ -106,11 +106,17 @@ export class AuthService {
   }
 
   public getUsers() {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/users?page=1&chunk=1000`));
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/users?page=1&chunk=1000`, options));
   }
 
   public deleteUser(userId: any) {
-    return lastValueFrom(this.http.delete(`${environment.apiUrl}/users/${userId}`));
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/users/${userId}`, options));
   }
 
   public changePassword(userId: any, resetToken: any, newPassword: any) {
@@ -119,6 +125,7 @@ export class AuthService {
     formData.append("password", newPassword)
     return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-reset-update/${userId}/${resetToken}`, formData));
   }
+
   checkResetToken(userId: any, resetToken: any) {
     let formData = new FormData()
     formData.append("userId", userId)
@@ -126,13 +133,16 @@ export class AuthService {
     return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-token/check`, formData));
   }
 
-  public resetPassword(userId: any, oldPass:any, newPass:any) {
+  public resetPassword(userId: any, oldPass: any, newPass: any) {
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
     let formData = new FormData();
     formData.append("userId", userId);
     formData.append("oldPassword", oldPass);
     formData.append("newPassword", newPass);
 
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-change/${userId}/fghjkhhui`, formData));
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/auth/password-change`, formData, options));
   }
 }
 

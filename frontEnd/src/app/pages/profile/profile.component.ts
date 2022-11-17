@@ -139,8 +139,8 @@ export class ProfileComponent implements OnInit {
 
   cancelUpdate() {
     this.passwordForm.get('oldpass')?.setValue(''),
-    this.passwordForm.get('newpass')?.setValue(''),
-    this.passwordForm.get('confpass')?.setValue('');
+      this.passwordForm.get('newpass')?.setValue(''),
+      this.passwordForm.get('confpass')?.setValue('');
     this.isReset = false;
     this.passwordForm.disable();
   }
@@ -152,12 +152,10 @@ export class ProfileComponent implements OnInit {
     this.authService
       .resetPassword(this.userId, oldPass, newPass)
       .then((res: any) => {
-        console.log(res);
-
         if (res.success) {
-          this.passwordForm.get('oldpass')?.setValue(''),
-            this.passwordForm.get('newpass')?.setValue(''),
-            this.passwordForm.get('confpass')?.setValue('');
+          this.passwordForm.get('oldpass')?.setValue('');
+          this.passwordForm.get('newpass')?.setValue('');
+          this.passwordForm.get('confpass')?.setValue('');
           this.passwordForm.disable();
           this.isReset = false;
         } else {
@@ -197,12 +195,17 @@ export class ProfileComponent implements OnInit {
     this.form.disable();
     this.addressForm.disable();
     this.passwordForm.disable();
-    let tmpOrder = await this.orderService.orderFindbyCustomer(
+    this.orderService.orderFindbyCustomer(
       this.currentUser._id
-    );
-    this.myOrder = tmpOrder.map((item: any, index: any) => {
-      item.index = index + 1;
-      return item;
-    });
+    ).then((res: any) => {
+      this.myOrder = res.data.map((item: any, index: any) => {
+        item.index = index + 1;
+        return item;
+      });
+    })
+      .catch((err: any) => {
+        alert(err.error)
+        this.myOrder = []
+      })
   }
 }

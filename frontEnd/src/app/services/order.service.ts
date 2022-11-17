@@ -32,14 +32,10 @@ export class OrderService {
   }
 
   async orderFindbyCustomer(customerId: any) {
-    let orders: any = await this.postGetOrder()
-    return orders.data.filter((order: any) => {
-      if (order.created_user_id) {
-        return order.created_user_id._id == customerId
-      } else {
-        return false
-      }
-    })
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/user/${customerId}`, options))
   }
 
 

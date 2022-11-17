@@ -19,6 +19,10 @@ export class PostService {
     return lastValueFrom(this.http.get(`${environment.apiUrl}/product?page=1&chunk=1000`))
   }
 
+  getPopular(): Promise<any> {
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/popular?page=1&chunk=1000`))
+  }
+
   async getProductsByCategory(categoryId: any): Promise<any> {
     let product = await this.getProducts()
     product = product.data.map((item: any) => {
@@ -32,51 +36,38 @@ export class PostService {
   }
 
   createProducts(product: any) {
-    //const token = localStorage.getItem("TOKEN") || "";
-    //const user = JSON.parse(localStorage.getItem("USER") || "[]")
-    //if (!user.length) {
-    //  return null
-    //}
-    //const options = {
-    //  headers: new HttpHeaders()
-    //    .set('Content-Type', 'application/json;charset=utf-8;')
-    //    .set('Cache-Control', 'no-cache')
-    //    .set('Pragma', 'no-cache')
-    //    .set('userType', user.type)
-    //    .set('userId', user._id)
-    //    .set('Authorization', `Bearer ${token}`)
-    //};
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
     let formData = new FormData();
-
-    //Temporary Adding Default Value
     formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
-
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
     formData.append("detail", product.detail)
     formData.append("created_category_id", product.category)
-
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/product`, formData))
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/product`, formData, options))
   }
 
   updateProducts(product: any): Promise<any> {
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
     let formData = new FormData();
-
-    //Temporary Adding Default Value
     formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
-
     formData.append("title", product.title)
     formData.append("price", product.price)
     formData.append("profileImage", product.imageUrl)
     formData.append("detail", product.detail)
     formData.append("created_category_id", product.category)
-
-    return lastValueFrom(this.http.put(`${environment.apiUrl}/product/${product.id}`, formData))
+    return lastValueFrom(this.http.put(`${environment.apiUrl}/product/${product.id}`, formData, options))
   }
 
   deleteProduct(product: any): Promise<any> {
-    return lastValueFrom(this.http.delete(`${environment.apiUrl}/product/${product.id}`))
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/product/${product.id}`, options))
   }
 
   // Category Service
@@ -86,10 +77,13 @@ export class PostService {
   }
 
   createCategory(name: any, image: any): Promise<any> {
+    const options = {
+      headers: new HttpHeaders().set('x-access-token', (localStorage.getItem("TOKEN") || ""))
+    };
     let formData = new FormData();
     formData.append("name", name)
     formData.append("profileImage", image)
-    return lastValueFrom(this.http.post(`${environment.apiUrl}/category`, formData))
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/category`, formData, options))
   }
 
   searchCategory(id: any) {

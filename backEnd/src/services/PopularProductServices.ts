@@ -9,7 +9,6 @@ export const getPopularProductServices = async (_req: any, res: Response) => {
     let newObj = {}
 
     // Collecting same items & Adding Items to Obj
-    console.log(result);
 
     for (let i of result) {
       for (let [index, j] of i.productId.entries()) {
@@ -20,8 +19,6 @@ export const getPopularProductServices = async (_req: any, res: Response) => {
         }
       }
     }
-
-    console.log(newObj);
 
     // Sorting to Array
 
