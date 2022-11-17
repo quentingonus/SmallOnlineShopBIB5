@@ -63,6 +63,7 @@ export class SignupComponent implements OnInit {
       .catch((err: any) => {
         this.errArr.push(err.error)
         console.log(err)
+        signupBtn.classList.remove("loading")
       })
   }
 

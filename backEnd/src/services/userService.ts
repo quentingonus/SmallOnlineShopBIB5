@@ -31,13 +31,6 @@ export const getUserService = async (req: any, res: Response) => {
 
 export const createUserService = async (req: any, res: Response) => {
   try {
-    let requestedUser = await User.findById(req.decoded.id)
-    if (!requestedUser) {
-      return res.status(401).send("Cannot find the user")
-    }
-    if (requestedUser.type != "Admin") {
-      return res.status(401).send("Only Admins can request.")
-    }
     let profile = req.body.profileImage;
     if (req.file) {
       profile = req.file.path.replace('\\', '/');
@@ -57,6 +50,7 @@ export const createUserService = async (req: any, res: Response) => {
     const result = await post.save();
     return res.status(200).json({ msg: "Created User Successfully!!", data: result, status: 1 });
   } catch (err) {
+    console.log(err)
     logger.userInfoLogger.log('info', 'Error Create User')
     return res.status(400).send("An Error occured in create user");
   }
@@ -89,7 +83,7 @@ export const updateUserService = async (req: any, res: Response) => {
     if (!user) {
       return res.status(401).send("Cannot find the user")
     }
-    if (requestedUser._id != user._id && requestedUser.type != "Admin") {
+    if (requestedUser._id != req.params.id && requestedUser.type != "Admin") {
       return res.status(403).send("Not Authorized")
     }
     let profile = req.body.profileImage;
