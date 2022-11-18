@@ -8,10 +8,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.scss']
+  styleUrls: ['./edit-product.component.scss'],
 })
 export class EditProductComponent implements OnInit {
-
   form;
   id: any;
   category: any;
@@ -37,15 +36,12 @@ export class EditProductComponent implements OnInit {
       imageUrl: [this.selectProduct.imageUrl, Validators.required],
       price: [this.selectProduct.price, Validators.required],
       category: [this.selectProduct.category, Validators.required],
-      detail: [this.selectProduct.detail, Validators.required]
+      detail: [this.selectProduct.detail, Validators.required],
     });
-
-
   }
 
   changeConfirm() {
     this.isConfirm = !this.isConfirm;
-
 
     if (this.isConfirm) {
       this.form.controls['title'].disable();
@@ -53,9 +49,7 @@ export class EditProductComponent implements OnInit {
       this.form.controls['price'].disable();
       this.form.controls['category'].disable();
       this.form.controls['detail'].disable();
-    }
-
-    else {
+    } else {
       this.form.controls['title'].enable();
       this.form.controls['imageUrl'].enable();
       this.form.controls['price'].enable();
@@ -65,15 +59,16 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct(button: any) {
-    button.classList.add("loading")
-    this.postService.updateProducts({ id: this.selectProduct.id, ...this.form.value })
+    button.classList.add('loading');
+    this.postService
+      .updateProducts({ id: this.selectProduct.id, ...this.form.value })
       .then((res: any) => {
         this.router.navigate(['/admin']);
       })
       .catch((err: any) => {
-        alert(err.error)
-        button.classList.remove("loading")
-      })
+        alert(err.error);
+        button.classList.remove('loading');
+      });
   }
 
   cancel() {

@@ -7,12 +7,12 @@ import { UtilsService } from 'src/app/services/utils.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  username = "";
-  password = "";
-  errorMsg = "";
+  username = '';
+  password = '';
+  errorMsg = '';
   params!: any;
 
   constructor(
@@ -21,44 +21,46 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public util: UtilsService
-  ) {
-  }
+  ) {}
 
   login(signinBtn: any) {
-    signinBtn.classList.add("loading")
+    signinBtn.classList.add('loading');
     if (this.username.trim().length === 0) {
-      this.errorMsg = "Email is required";
+      this.errorMsg = 'Email is required';
     }
     if (this.password.trim().length === 0) {
-      this.errorMsg = "Password is required";
-
+      this.errorMsg = 'Password is required';
     }
-    let mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let mailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!this.username.trim().match(mailRegex)) {
-      this.errorMsg = "Invalid email format";
+      this.errorMsg = 'Invalid email format';
     }
-    if (this.errorMsg != "") {
-      signinBtn.classList.remove("loading")
-      return
+    if (this.errorMsg != '') {
+      signinBtn.classList.remove('loading');
+      return;
     }
 
-    this.authService.login({
-      mail: this.username,
-      password: this.password
-    }).then(async (dist: any) => {
-      localStorage.setItem('TOKEN', dist.token);
-      localStorage.setItem('USER', JSON.stringify(dist.user));
-      localStorage.setItem('ROLE', dist.user.type.toUpperCase());
-      await this.cartService.postLoginCart()
-      if ("redirect" in this.params) {
-        this.router.navigate([this.params.redirect]);
-      } else {
-        this.router.navigate(['home']);
-      }
-    }).catch((err: any) => {
-      this.errorMsg = "Creditionals doesn't match."
-      signinBtn.classList.remove("loading")
-    })
+    this.authService
+      .login({
+        mail: this.username,
+        password: this.password,
+      })
+      .then(async (dist: any) => {
+        localStorage.setItem('TOKEN', dist.token);
+        localStorage.setItem('USER', JSON.stringify(dist.user));
+        localStorage.setItem('ROLE', dist.user.type.toUpperCase());
+        await this.cartService.postLoginCart();
+        if ('redirect' in this.params) {
+          this.router.navigate([this.params.redirect]);
+        } else {
+          this.router.navigate(['home']);
+        }
+      })
+      .catch((err: any) => {
+        this.errorMsg = "Creditionals doesn't match.";
+        signinBtn.classList.remove('loading');
+      });
   }
 
   forget() {
@@ -75,8 +77,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.activatedRoute.queryParams.subscribe((params: any) => {
-      this.params = params
+      this.params = params;
     });
   }
-
 }

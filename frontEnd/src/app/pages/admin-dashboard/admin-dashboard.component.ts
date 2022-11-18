@@ -56,20 +56,18 @@ export class NgbdSortableHeader {
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
 })
-
 export class AdminDashboardComponent implements OnInit {
-
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
 
   products!: Product[];
   category!: any;
   filteredProducts!: Product[];
-  pageName = 'products'
+  pageName = 'products';
 
   page = 1;
   pageSize = 4;
   collectionSize: any;
-  searchQuery = "";
+  searchQuery = '';
   users!: any;
   customChartData!: any;
 
@@ -80,7 +78,7 @@ export class AdminDashboardComponent implements OnInit {
     private postService: PostService,
     public util: UtilsService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   onSort({ column, direction }: SortEvent) {
     this.headers.forEach((header) => {
@@ -115,19 +113,16 @@ export class AdminDashboardComponent implements OnInit {
       return this.products.filter((product: any) => {
         let price = product.price;
         return (
-          product.title
-            .toLowerCase()
-            .includes(query.trim().toLowerCase())
-          || this.util
+          product.title.toLowerCase().includes(query.trim().toLowerCase()) ||
+          this.util
             .searchCategory(product.category, this.category)
             .toLowerCase()
-            .includes(query.trim().toLowerCase())
-          || String(price)
-            .includes(query.trim().toLowerCase())
+            .includes(query.trim().toLowerCase()) ||
+          String(price).includes(query.trim().toLowerCase())
         );
-      })
+      });
     } catch (error) {
-      return []
+      return [];
     }
   }
 
@@ -138,15 +133,16 @@ export class AdminDashboardComponent implements OnInit {
 
   deleteProduct(product: any, button: any) {
     button.classList.add('loading');
-    this.postService.deleteProduct(product)
+    this.postService
+      .deleteProduct(product)
       .then((res: any) => {
         this.products.splice(this.products.indexOf(product), 1);
         button.classList.remove('loading');
       })
       .catch((err: any) => {
-        alert(err.error)
+        alert(err.error);
         button.classList.remove('loading');
-      })
+      });
   }
 
   sliceIntoChunks(arr: any, chunkSize: any) {
@@ -159,16 +155,15 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   filteredProduct() {
-    let query = this.searchQuery ? this.searchQuery : ""
-    let tmpProduct = this.filter(query)
+    let query = this.searchQuery ? this.searchQuery : '';
+    let tmpProduct = this.filter(query);
     if (tmpProduct && tmpProduct.length) {
-      let filtered = this.sliceIntoChunks(tmpProduct, this.pageSize)
-      filtered = filtered[this.page - 1]
-      return filtered
+      let filtered = this.sliceIntoChunks(tmpProduct, this.pageSize);
+      filtered = filtered[this.page - 1];
+      return filtered;
     } else {
-      return []
+      return [];
     }
-
   }
 
   getUserId(userIndex: any) {
@@ -179,20 +174,21 @@ export class AdminDashboardComponent implements OnInit {
     button.classList.add('loading');
     let userIndex = this.users.indexOf(user);
     let userId = this.getUserId(userIndex);
-    this.authService.deleteUser(userId)
+    this.authService
+      .deleteUser(userId)
       .then((res: any) => {
         if (res.success) {
           this.users.splice(userIndex, 1);
           button.classList.remove('loading');
         } else {
-          alert("An Error Occurs")
+          alert('An Error Occurs');
         }
       })
       .catch((err: any) => {
-        console.log(err)
-        alert(err.error)
+        console.log(err);
+        alert(err.error);
         button.classList.remove('loading');
-      })
+      });
   }
 
   isProduct(): boolean {
@@ -202,22 +198,28 @@ export class AdminDashboardComponent implements OnInit {
 
   async ngOnInit() {
     this.products = await this.cartService.getShop();
-    this.products = this.products.map((product, i) => ({ index: i + 1, ...product }));
-    this.pageSize = this.products.length
+    this.products = this.products.map((product, i) => ({
+      index: i + 1,
+      ...product,
+    }));
+    this.pageSize = this.products.length;
 
     this.category = await this.postService.getCategory();
     this.category = this.category.data;
 
     this.users = await this.authService.getUsers();
-    this.users = this.users.data.map((item: any, index: any) => { item.index = index + 1; return item; });
+    this.users = this.users.data.map((item: any, index: any) => {
+      item.index = index + 1;
+      return item;
+    });
 
-    let tmpChart = await this.postService.getChart()
+    let tmpChart = await this.postService.getChart();
     let chartLabels: any = [];
     let chartData: any = [];
     tmpChart.data.forEach((item: any) => {
-      chartLabels.push(item[2])
-      chartData.push(item[1])
-    })
+      chartLabels.push(item[2]);
+      chartData.push(item[1]);
+    });
     this.customChartData = {
       labels: chartLabels,
       datasets: [
@@ -227,10 +229,10 @@ export class AdminDashboardComponent implements OnInit {
           fill: true,
           tension: 0.1,
           borderColor: 'black',
-          backgroundColor: 'rgba(255,0,0,0.3)'
-        }
-      ]
+          backgroundColor: 'rgba(255,0,0,0.3)',
+        },
+      ],
     };
-    console.log(this.customChartData)
+    console.log(this.customChartData);
   }
 }

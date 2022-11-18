@@ -1,5 +1,4 @@
 :host {
-  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,15 +6,16 @@
   height: 100vh;
   background: linear-gradient(135deg, #656565, #353535 100%);
   font-family: "Aladin", cursive;
+  flex-grow: 1;
 }
 
 .login-form {
   width: 500px;
   padding: 20px 20px 10px 20px;
-  background-color: #fff;
-  border-radius: 10px;
   box-shadow: 5px 5px 20px #383838;
+  background-color: #fff;
   transform: translateY(-15%);
+  border-radius: 10px;
 }
 
 .form-group {
@@ -35,9 +35,9 @@ label {
 }
 
 a {
-  cursor: pointer;
-  text-decoration: none;
   color: #353535;
+  text-decoration: none;
+  cursor: pointer;
   opacity: 0.7;
   &:hover {
     opacity: 1;
@@ -46,8 +46,8 @@ a {
 
 .signup-text {
   color: #353535;
-  opacity: 0.7;
   cursor: pointer;
+  opacity: 0.7;
   &:hover {
     opacity: 1;
   }
