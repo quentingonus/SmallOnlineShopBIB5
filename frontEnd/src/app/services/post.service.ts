@@ -37,7 +37,7 @@ export class PostService {
 
   createProducts(product: any) {
     const options = {
-      headers: new HttpHeaders().set("Authentication", "Bearer "+(localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
     };
     let formData = new FormData();
     formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
@@ -51,7 +51,7 @@ export class PostService {
 
   updateProducts(product: any): Promise<any> {
     const options = {
-      headers: new HttpHeaders().set("Authentication", "Bearer "+(localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
     };
     let formData = new FormData();
     formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
@@ -65,7 +65,7 @@ export class PostService {
 
   deleteProduct(product: any): Promise<any> {
     const options = {
-      headers: new HttpHeaders().set("Authentication", "Bearer "+(localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
     };
     return lastValueFrom(this.http.delete(`${environment.apiUrl}/product/${product.id}`, options))
   }
@@ -78,7 +78,7 @@ export class PostService {
 
   createCategory(name: any, image: any): Promise<any> {
     const options = {
-      headers: new HttpHeaders().set("Authentication", "Bearer "+(localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
     };
     let formData = new FormData();
     formData.append("name", name)
@@ -116,7 +116,7 @@ export class PostService {
   // Get Chart
   getChart(): Promise<any> {
     const options = {
-      headers: new HttpHeaders().set("Authentication", "Bearer "+(localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
     };
     return lastValueFrom(this.http.get(`${environment.apiUrl}/chart`, options))
   }
