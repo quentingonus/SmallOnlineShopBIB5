@@ -83,6 +83,7 @@ export const forgetPasswordService = async (req: any, res: Response) => {
   }
 }
 
+
 export const resetPasswordService = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.body.userId);

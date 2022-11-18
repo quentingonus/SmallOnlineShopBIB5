@@ -54,7 +54,7 @@ export class OrderService {
     formData.append("quantity", JSON.stringify(quantityArr))
     formData.append("address", `${customer.address1}, ${customer.address2}, ${customer.city},  ${customer.zip}, ${customer.state}, ${customer.country}`)
     formData.append("credit", customer.payment)
-    formData.append("date", new Date().toLocaleString())
+    formData.append("date", "")
     formData.append("order_status", "pending")
     return lastValueFrom(this.http.post(`${environment.apiUrl}/purchase`, formData))
   }

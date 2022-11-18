@@ -212,24 +212,17 @@ export class AdminDashboardComponent implements OnInit {
     this.users = this.users.data.map((item: any, index: any) => { item.index = index + 1; return item; });
 
     let tmpChart = await this.postService.getChart()
-    let chartLabels: any = [];
+    let chartLabels: any = ["Products"];
     let chartData: any = [];
     tmpChart.data.forEach((item: any) => {
-      chartLabels.push(item[2])
-      chartData.push(item[1])
+      chartData.push({
+        data: [item[1]],
+        label: item[2]
+      })
     })
     this.customChartData = {
       labels: chartLabels,
-      datasets: [
-        {
-          data: chartData,
-          label: 'Products Chart',
-          fill: true,
-          tension: 0.1,
-          borderColor: 'black',
-          backgroundColor: 'rgba(255,0,0,0.3)'
-        }
-      ]
+      datasets: [...chartData]
     };
     console.log(this.customChartData)
   }

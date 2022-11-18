@@ -10,6 +10,9 @@
       <div
         class="d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
       >
+        <div class="me-3" routerLink="/search">
+          <i class="bi h4 bi-search"></i>
+        </div>
         <div class="me-3" (click)="openCart(cartCanvas)">
           <i
             class="bi h3"
@@ -28,6 +31,20 @@
             navItem.name
           }}</a>
         </li>
+        <div ngbDropdown class="d-inline-block" *ngIf="isLoggedIn()">
+          <button type="button" class="btn" ngbDropdownToggle>
+            Hello, {{ getCurrentUser().name.split(" ")[0] }}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="admin">
+            <a
+              ngbDropdownItem
+              [routerLink]="'/profile/' + getCurrentUser()._id"
+            >
+              Profile
+            </a>
+            <a ngbDropdownItem routerLink="/logout"> Logout </a>
+          </div>
+        </div>
         <div ngbDropdown class="d-inline-block" *ngIf="checkAdmin()">
           <button type="button" class="btn" id="admin" ngbDropdownToggle>
             Admin
@@ -38,6 +55,9 @@
           </div>
         </div>
         <li class="nav-item">
+          <button class="btn btn-light" routerLink="/search">
+            <i class="bi bi-search"></i>
+          </button>
           <button
             class="btn btn-light"
             type="button"
@@ -81,6 +101,23 @@
           >{{ navItem.name }}</a
         >
       </li>
+      <div ngbDropdown class="d-inline-block" *ngIf="isLoggedIn()">
+        <button type="button" class="btn fs-2" ngbDropdownToggle>
+          Hello, {{ getCurrentUser().name.split(" ")[0] }}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="admin">
+          <a
+            ngbDropdownItem
+            [routerLink]="'/profile/' + getCurrentUser()._id"
+            (click)="offcanvas.dismiss()"
+          >
+            Profile
+          </a>
+          <a ngbDropdownItem routerLink="/logout" (click)="offcanvas.dismiss()">
+            Logout
+          </a>
+        </div>
+      </div>
       <div ngbDropdown class="d-inline-block" *ngIf="checkAdmin()">
         <button type="button" class="btn fs-2" ngbDropdownToggle>Admin</button>
         <div ngbDropdownMenu aria-labelledby="admin">
