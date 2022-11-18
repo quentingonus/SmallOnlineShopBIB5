@@ -1,7 +1,7 @@
 <div class="container">
-  <p class="fs-2 my-3">All Categories</p>
   <div *ngIf="router.url == '/categories'">
-    <form class="mt-3">
+    <p class="fs-2 my-3">All Categories</p>
+    <!--<form class="mt-3">
       <div class="form-group">
         <input
           id="search"
@@ -11,7 +11,7 @@
           (focus)="onFocus()"
         />
       </div>
-    </form>
+    </form>-->
     <div class="row" *ngFor="let category of util.getKeyArr(shopItems)">
       <h4 class="text-left my-4">{{ category | titlecase }}</h4>
       <app-item-card
@@ -23,6 +23,7 @@
   </div>
 
   <div *ngIf="router.url == '/search'" class="search">
+    <p class="fs-2 my-3">Search</p>
     <form class="mt-3">
       <div class="form-group">
         <input

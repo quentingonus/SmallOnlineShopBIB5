@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
+  currentUser!: any;
+
   constructor(
     private offcanvasService: NgbOffcanvas,
     private router: Router,
@@ -84,6 +86,7 @@ export class HeaderComponent implements OnInit {
     return this.cart.updateCart(product)
   }
 
+  //Reduce the item
   reduceItem(product: any) {
     if (product.amount < 0) {
       return
@@ -99,19 +102,17 @@ export class HeaderComponent implements OnInit {
     return this.authService.isAdmin()
   }
 
+  isLoggedIn() {
+    return this.authService.isAuthenticated()
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem("USER")!) || null
+  }
+
   getNav() {
     let tmpNav = [...this.navItem]
-    if (this.authService.isAuthenticated()) {
-      let currentUser = JSON.parse(localStorage.getItem("USER")!)
-      tmpNav.push({
-        name: "Account",
-        route: "/profile/" + currentUser._id
-      })
-      tmpNav.push({
-        name: "Logout",
-        route: "/logout"
-      })
-    } else {
+    if (!this.isLoggedIn()) {
       tmpNav.push({
         name: "Login",
         route: "/login"
@@ -133,6 +134,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem("USER")!)
     this.cart.getCart().subscribe((item: any) => {
       this.cartItem = item
     })

@@ -51,26 +51,18 @@ export class OrderService {
     let quantityArr: any = [];
 
     order.products.forEach((item: any) => {
-      productArr.push(item.id);
-      quantityArr.push(item.amount);
-    });
+      productArr.push(item.id)
+      quantityArr.push(item.amount)
+    })
 
-    formData.append(
-      'created_user_id',
-      JSON.parse(localStorage.getItem('USER')!)._id
-    );
-    formData.append('productId', JSON.stringify(productArr));
-    formData.append('quantity', JSON.stringify(quantityArr));
-    formData.append(
-      'address',
-      `${customer.address1}, ${customer.address2}, ${customer.city},  ${customer.zip}, ${customer.state}, ${customer.country}`
-    );
-    formData.append('credit', customer.payment);
-    formData.append('date', new Date().toLocaleString());
-    formData.append('order_status', 'pending');
-    return lastValueFrom(
-      this.http.post(`${environment.apiUrl}/purchase`, formData)
-    );
+    formData.append("created_user_id", JSON.parse(localStorage.getItem("USER")!)._id)
+    formData.append("productId", JSON.stringify(productArr))
+    formData.append("quantity", JSON.stringify(quantityArr))
+    formData.append("address", `${customer.address1}, ${customer.address2}, ${customer.city},  ${customer.zip}, ${customer.state}, ${customer.country}`)
+    formData.append("credit", customer.payment)
+    formData.append("date", "")
+    formData.append("order_status", "pending")
+    return lastValueFrom(this.http.post(`${environment.apiUrl}/purchase`, formData))
   }
 
   postGetOrder() {
