@@ -3,20 +3,20 @@
   "setupTasks": [
     {
       "name": "Install Dependencies",
-      //"command": "npm install"
+      "command": "cd backEnd && npm i && cd .. && cd frontEnd npm i --force"
     }
   ],
 
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
     "cd backEnd && npm i && npm run dev": {
-      "name": "cd backEnd && npm i && npm run dev",
+      "name": "BackEnd",
       "command": "cd backEnd && npm i && npm run dev",
       "runAtStart": true
     },
     "cd frontEnd && npm i --force && ng serve": {
-      "name": "cd frontEnd && npm i --force && ng serve",
-      "command": "cd frontEnd && npm i --force && ng serve"
+      "name": "FrontEnd",
+      "command": "cd frontEnd && npm i --force && npm i -g @angular/cli && ng serve"
     }
   }
 }
