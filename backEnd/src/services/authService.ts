@@ -7,6 +7,12 @@ import crypto from "crypto";
 import PasswordReset from '../models/passwordReset';
 import sendEmail from '../utils/sendEmail'
 
+/**
+ * Login Services
+ * @param req 
+ * @param res 
+ */
+
 export const loginService = async (req: Request, res: Response) => {
   User.findOne({ email: req.body.email }).then(async (user: any) => {
     if (!user) {
@@ -49,10 +55,24 @@ export const loginService = async (req: Request, res: Response) => {
   })
 }
 
+/**
+ * LogOut Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const logoutService = (req: any, res: Response) => {
   req.session = null;
   return res.json({ "message": "Logout Successfully" });
 };
+
+/**
+ * Forget Password Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const forgetPasswordService = async (req: any, res: Response) => {
   try {
@@ -83,6 +103,13 @@ export const forgetPasswordService = async (req: any, res: Response) => {
   }
 }
 
+/**
+ * Reset Password Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const resetPasswordService = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.body.userId);
@@ -112,6 +139,12 @@ export const resetPasswordService = async (req: Request, res: Response) => {
     })
   }
 };
+
+/**
+ * Password Change Services
+ * @param req 
+ * @param res 
+ */
 
 export const passwordChangeService = async (req: Request, res: Response) => {
   try {
@@ -158,6 +191,13 @@ export const passwordChangeService = async (req: Request, res: Response) => {
     res.send("An error occured");
   }
 };
+
+/**
+ * Check Password Reset Token Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const checkPasswdResetTokenService = async (req: Request, res: Response) => {
   try {

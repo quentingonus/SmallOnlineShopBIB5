@@ -3,11 +3,15 @@ import User from '../models/User'
 import { Response } from "express";
 const logger = require('../loggers/logger');
 
+/**
+ * Get Purchase Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const getPurchaseServices = async (req: any, res: Response) => {
   try {
-    // const result = await Purchase.find().populate("created_user_id");
-    // res.json({ data: result });
-
     const page: any = req.query.page ? req.query.page - 1 : 0;
     const purchasePerPage: any = req.query.chunk || 5;
 
@@ -23,6 +27,12 @@ export const getPurchaseServices = async (req: any, res: Response) => {
 
   }
 };
+
+/**
+ * Create Purchase Services
+ * @param req 
+ * @param res 
+ */
 
 export const createPurchaseServices = async (req: any, res: Response) => {
   try {
@@ -46,6 +56,13 @@ export const createPurchaseServices = async (req: any, res: Response) => {
     logger.purchaseInfoLogger.log('info', 'Error Create Purchase')
   }
 };
+
+/**
+ * Get Purchase By User Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const getPurchaseByUserIdServices = async (req: any, res: Response) => {
   try {
@@ -72,16 +89,30 @@ export const getPurchaseByUserIdServices = async (req: any, res: Response) => {
   }
 }
 
+/**
+ * Find Purchase Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const findPurchaseServices = async (req: any, res: Response) => {
   try {
     const findData = await Purchase.findById(req.params.id).populate("created_user_id")
-    res.send({ data: findData })
+    return res.send({ data: findData })
   } catch (err) {
     console.log(err)
     logger.purchaseErrorLogger.log('info', 'Error Purchase Not Found')
-    res.send("An Error occured in find purchase");
+    return res.send("An Error occured in find purchase");
   }
 };
+
+/**
+ * Update Purchase Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const updatePurchaseServices = async (req: any, res: Response) => {
   try {
@@ -92,22 +123,30 @@ export const updatePurchaseServices = async (req: any, res: Response) => {
     purchase.credit = req.body.credit;
     purchase.order_status = req.body.order_status;
     const result = await purchase.save();
-    res.json({ message: "Updated Successfully!", data: result })
+    return res.json({ message: "Updated Successfully!", data: result })
   } catch (err) {
-    res.send("an error occured in Edit Purchase");
     console.log(err)
-    logger.purchaseErrorLogger.log('info', 'Error Update Purchase')
+    logger.purchaseErrorLogger.log('info', 'Error Update Purchase');
+    return res.send("an error occured in Edit Purchase");
+
   }
 };
+
+/**
+ * Delete Purchase Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const deletePurchaseServices = async (req: any, res: Response) => {
   try {
     await Purchase.findById(req.params.id);
     await Purchase.findByIdAndRemove(req.params.id);
-    res.json({ message: "purchase with id " + req.params.id + " removed." })
+    return res.json({ message: "purchase with id " + req.params.id + " removed." })
   } catch (err) {
-    res.send("An Error Occured During Delete Purchase")
     console.log(err)
     logger.purchaseErrorLogger.log('info', 'Error Delete Purchase')
+    return res.send("An Error Occured During Delete Purchase")
   }
 };

@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
-  profile : {
-    type : String,
+  profile: {
+    type: String,
     default: ""
   },
   name: {
@@ -21,11 +21,11 @@ const userSchema = new Schema({
     type: String,
     default: ""
   },
-  phone:{
+  phone: {
     type: Number,
     default: ""
   },
-  dob:{
+  dob: {
     type: Date,
     default: ""
   },

@@ -11,6 +11,13 @@ const searchName = (id: any, arr: any) => {
   }
 }
 
+/**
+ * Get Chart Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const getChartServices = async (req: any, res: Response) => {
   try {
     let requestedUser = await User.findById(req.decoded.id)

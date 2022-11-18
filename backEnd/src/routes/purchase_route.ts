@@ -11,7 +11,7 @@ router
 
 router
   .route('/user/:userid')
-  .get([verifyToken],getPurchaseByUserId)
+  .get([verifyToken], getPurchaseByUserId)
 
 router
   .route('/:id')
