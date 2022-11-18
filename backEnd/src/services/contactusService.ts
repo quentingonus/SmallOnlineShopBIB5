@@ -2,6 +2,13 @@ import { Response } from 'express';
 import contactEmail from '../utils/contactMail';
 // import user from "../models/User";
 
+/**
+ * Contact Us Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const contactusService = async (req: any, res: Response) => {
   try {
     const email = req.body.email;

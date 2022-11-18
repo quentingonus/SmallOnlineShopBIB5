@@ -11,10 +11,9 @@ import { PostService } from 'src/app/services/post.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   isAddToCart = false;
   cart: any[] = [];
   products: any;
@@ -23,38 +22,38 @@ export class HomeComponent implements OnInit {
   categories: any;
 
   slideConfig = {
-    "slidesToShow": 4,
-    "slidesToScroll": 1,
-    "dots": true,
-    "infinite": true,
-    "arrow": true,
-    "autoplay": true,
-    "interval": 2000,
-    "responsive": [
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    dots: true,
+    infinite: true,
+    arrow: true,
+    autoplay: true,
+    interval: 2000,
+    responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2
-        }
+          slidesToScroll: 2,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   constructor(
@@ -72,41 +71,40 @@ export class HomeComponent implements OnInit {
     config.pauseOnHover = true;
     config.showNavigationArrows = true;
 
-    this.getData()
-    this.cartService.getCart().subscribe(data => this.cart = data);
+    this.getData();
+    this.cartService.getCart().subscribe((data) => (this.cart = data));
   }
 
   async getData() {
-    let category = await this.postService.getCategory()
+    let category = await this.postService.getCategory();
     this.products = await this.cartService.getShop();
     this.categories = await this.cartService.getCategory();
     this.products.map((item: any) => {
-      item.category = this.util.searchCategory(item.category, category.data)
-      return item
-    })
-    let popular = await this.postService.getPopular()
-    let newPop: any = []
+      item.category = this.util.searchCategory(item.category, category.data);
+      return item;
+    });
+    let popular = await this.postService.getPopular();
+    let newPop: any = [];
     popular = popular.data.map((item: any) => {
       for (let i of this.products) {
         if (item[0] == i.id) {
-          i.order = item[1]
-          newPop.push(i)
+          i.order = item[1];
+          newPop.push(i);
         }
       }
-    })
+    });
     if (newPop.length == 4) {
-      newPop = newPop
-    }
-    else if (newPop.length < 4) {
-      newPop += this.util.getRandomFromArray(this.products, (4 - newPop.length))
+      newPop = newPop;
+    } else if (newPop.length < 4) {
+      newPop += this.util.getRandomFromArray(this.products, 4 - newPop.length);
     } else {
-      newPop.splice(4)
+      newPop.splice(4);
     }
-    this.popularProduct = newPop
+    this.popularProduct = newPop;
   }
 
   goToCategory(category: any) {
-    this.router.navigate([`categories/${category.id}`])
+    this.router.navigate([`categories/${category.id}`]);
   }
 
   onClick(product: any) {
@@ -130,13 +128,10 @@ export class HomeComponent implements OnInit {
     let index = this.cart.indexOf(product);
     if (this.cart.length > 0) {
       let item = this.cart[index].amount;
-      return (item ? item : 0);
-    }
-
-    else {
+      return item ? item : 0;
+    } else {
       return 0;
     }
-
   }
 
   slickInit(e: any) {
@@ -155,7 +150,5 @@ export class HomeComponent implements OnInit {
     console.log('beforeChange');
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

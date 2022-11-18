@@ -46,7 +46,7 @@ export class CheckOutComponent implements OnInit {
       products: [...this.cartService.getCartNormal()],
     };
 
-    await this.orderService.postCreateOrder(newCustomer, this.newOrder)
+    await this.orderService.postCreateOrder(newCustomer, this.newOrder);
 
     this.confirmOrder = true;
     this.cartService.deleteCart();

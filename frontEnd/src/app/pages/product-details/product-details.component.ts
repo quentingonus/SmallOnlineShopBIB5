@@ -11,10 +11,9 @@ import { HeaderService } from 'src/app/services/header.service';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
-
   isFavorite = false;
   product: any;
   productAmount: any;
@@ -32,17 +31,16 @@ export class ProductDetailsComponent implements OnInit {
     }
     this.product = this.productService.selectProduct;
     if (!('amount' in this.product)) {
-      this.product.amount = 0
+      this.product.amount = 0;
     }
-    this.productAmount = new FormControl(1)
+    this.productAmount = new FormControl(1);
   }
 
   addItem() {
-    this.product.amount += this.productAmount.value
-    this.cartService.addToCart(this.product)
-    this.productAmount.setValue(1)
+    this.product.amount += this.productAmount.value;
+    this.cartService.addToCart(this.product);
+    this.productAmount.setValue(1);
   }
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {}
 }

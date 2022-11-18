@@ -18,7 +18,7 @@ import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.c
 import { ResetComponent } from './pages/reset/reset.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
 import { AboutComponent } from './pages/about/about.component';
-import AuthGuard from "./guards/auth.guard";
+import AuthGuard from './guards/auth.guard';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { FaqComponent } from './pages/faq/faq.component';
 import { OrderandshippingComponent } from './pages/orderandshipping/orderandshipping.component';
@@ -37,11 +37,27 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'products/detail', component: ProductDetailsComponent },
-  { path: 'admin/order/detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin/order/detail/:id',
+    component: OrderDetailComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'admin/order', component: OrdersComponent, canActivate: [AuthGuard] },
-  { path: 'admin/edit-product', component: EditProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin/add-product', component: AddProductComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin/edit-product',
+    component: EditProductComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin/add-product',
+    component: AddProductComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactUsComponent },
@@ -55,12 +71,11 @@ const routes: Routes = [
   { path: 'refund', component: RefundsComponent },
   { path: 'privacy-and-policy', component: PrivacyAndPolicyComponent },
   { path: 'promotion', component: PromotionComponent },
-  { path: '**', component: HomeComponent }
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}

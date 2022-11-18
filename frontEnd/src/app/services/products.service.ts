@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
-
   selectProduct: any;
   products: any;
-  category: any[] = []
+  category: any[] = [];
 
-  constructor() {
-  }
+  constructor() {}
 
   addProduct(product: any) {
     let id = this.products.length;
@@ -24,7 +22,11 @@ export class ProductsService {
 
   editProduct(product: any) {
     let index = this.products.indexOf(this.selectProduct);
-    let newProduct = { id: this.selectProduct.id, amount: this.selectProduct.amount, ...product }
+    let newProduct = {
+      id: this.selectProduct.id,
+      amount: this.selectProduct.amount,
+      ...product,
+    };
     this.products.splice(index, 1, newProduct);
   }
 

@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
 })
-
 export class OrdersComponent implements OnInit {
   orderLists: any;
   shippingList: any;
@@ -24,7 +23,6 @@ export class OrdersComponent implements OnInit {
     this.orderService.viewOrder = order;
     let index = this.orderService.order.indexOf(order);
     this.router.navigate(['/admin/order/detail/' + index]);
-
   }
 
   getShippingList(shippingList: any) {
@@ -44,10 +42,10 @@ export class OrdersComponent implements OnInit {
         address: item.address,
         credit: item.credit,
         date: item.date,
-        order_status: item.order_status
-      }
-    })
-    return this.downloadInCSV(newData)
+        order_status: item.order_status,
+      };
+    });
+    return this.downloadInCSV(newData);
   }
 
   downloadInCSV(data: Array<any>) {
@@ -84,7 +82,7 @@ export class OrdersComponent implements OnInit {
     tmp.target = '_blank';
     tmp.download = 'ordersList.csv';
     tmp.click();
-    return
+    return;
   }
 
   addArrivedList(order: any) {
@@ -92,10 +90,12 @@ export class OrdersComponent implements OnInit {
   }
 
   async ngOnInit() {
-    let orders: any = await this.orderService.postGetOrder()
-    orders = orders.data.filter((item: any) => item.created_user_id)
-    this.orderLists = orders.map((item: any, index: any) => { item.index = index + 1; return item; });
+    let orders: any = await this.orderService.postGetOrder();
+    orders = orders.data.filter((item: any) => item.created_user_id);
+    this.orderLists = orders.map((item: any, index: any) => {
+      item.index = index + 1;
+      return item;
+    });
     console.log('Orders From Order Component :', this.orderLists);
   }
-
 }

@@ -4,11 +4,15 @@ import { Response } from "express";
 import { deleteFile } from "../utils";
 const logger = require('../loggers/logger');
 
+/**
+ * Get Product Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const getproductServices = async (req: any, res: Response) => {
   try {
-    // const result = await products.find().populate("created_user_id");
-    // res.json({ data: result });
-
     const page: any = req.query.page ? req.query.page - 1 : 0;
     const productPerPage: any = req.query.chunk || 5;
 
@@ -24,6 +28,13 @@ export const getproductServices = async (req: any, res: Response) => {
 
   }
 };
+
+/**
+ * Create Product Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const createproductServices = async (req: any, res: Response) => {
   try {
@@ -55,16 +66,30 @@ export const createproductServices = async (req: any, res: Response) => {
   }
 };
 
+/**
+ * Find Product Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const findproductServices = async (req: any, res: Response) => {
   try {
     const findData = await products.findById(req.params.id).populate("created_user_id", "created_category_id")
-    res.send({ data: findData })
+    return res.send({ data: findData })
   } catch (err) {
     console.log(err)
-    res.send("An Error occured in find product");
     logger.productErrorLogger.log('error', 'Error Product Not Found')
+    return res.send("An Error occured in find product");
   }
 };
+
+/**
+ * Update Product Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const updateproductServices = async (req: any, res: Response) => {
   try {
@@ -102,6 +127,13 @@ export const updateproductServices = async (req: any, res: Response) => {
     return res.status(400).send("An Error occured in update product");
   }
 };
+
+/**
+ * Delete Product Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const deleteproductServices = async (req: any, res: Response) => {
   try {

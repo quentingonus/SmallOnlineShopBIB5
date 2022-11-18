@@ -8,10 +8,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss']
+  styleUrls: ['./add-product.component.scss'],
 })
 export class AddProductComponent implements OnInit {
-
   form;
   id: any;
   category: any;
@@ -32,13 +31,12 @@ export class AddProductComponent implements OnInit {
       imageUrl: ['', Validators.required],
       price: ['', Validators.required],
       category: ['', Validators.required],
-      detail: ['', Validators.required]
+      detail: ['', Validators.required],
     });
   }
 
   changeConfirm() {
     this.isConfirm = !this.isConfirm;
-
 
     if (this.isConfirm) {
       this.form.controls['title'].disable();
@@ -46,9 +44,7 @@ export class AddProductComponent implements OnInit {
       this.form.controls['price'].disable();
       this.form.controls['category'].disable();
       this.form.controls['detail'].disable();
-    }
-
-    else {
+    } else {
       this.form.controls['title'].enable();
       this.form.controls['imageUrl'].enable();
       this.form.controls['price'].enable();
@@ -59,14 +55,17 @@ export class AddProductComponent implements OnInit {
 
   async confirm(button: any) {
     button.classList.add('loading');
-    let tmpForm = { ...this.form.value }
-    tmpForm.imageUrl = this.uploadFile
+    let tmpForm = { ...this.form.value };
+    tmpForm.imageUrl = this.uploadFile;
     if (this.addNewCategory) {
-      let res = await this.postService.createCategory(tmpForm.category, tmpForm.imageUrl)
-      tmpForm.category = (res as any).data._id
+      let res = await this.postService.createCategory(
+        tmpForm.category,
+        tmpForm.imageUrl
+      );
+      tmpForm.category = (res as any).data._id;
     }
-    let res = await this.postService.createProducts(tmpForm)
-    console.log(res)
+    let res = await this.postService.createProducts(tmpForm);
+    console.log(res);
     this.router.navigate(['/admin']);
   }
 
@@ -78,17 +77,17 @@ export class AddProductComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
 
-      this.uploadFile = file
+      this.uploadFile = file;
       const reader = new FileReader();
-      reader.onload = e => this.uploadFilePreview = reader.result;
+      reader.onload = (e) => (this.uploadFilePreview = reader.result);
       reader.readAsDataURL(file);
     }
   }
 
   watchCategory(event: any) {
-    if (event.target.value == "add-new-category") {
+    if (event.target.value == 'add-new-category') {
       this.addNewCategory = true;
-      this.form.get("category")?.setValue("")
+      this.form.get('category')?.setValue('');
     }
   }
 
@@ -96,5 +95,4 @@ export class AddProductComponent implements OnInit {
     this.category = await this.postService.getCategory();
     this.category = this.category.data;
   }
-
 }

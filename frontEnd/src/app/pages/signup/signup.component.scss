@@ -1,5 +1,4 @@
 :host {
-  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,15 +6,16 @@
   height: 100vh;
   background: linear-gradient(135deg, #656565, #353535 100%);
   font-family: "Aladin", cursive;
+  flex-grow: 1;
 }
 
 .login-form {
   width: 550px;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
   box-shadow: 5px 5px 20px #a9a9a9;
+  background-color: #fff;
   transform: translateY(-15%);
+  border-radius: 10px;
 }
 
 .row {

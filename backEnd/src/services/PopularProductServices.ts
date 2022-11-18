@@ -3,6 +3,13 @@ import Purchase from "../models/purchase";
 // import products from "../models/products";
 import { Response } from "express";
 
+/**
+ * Get Best Sale of Product with Array
+ * @param _req 
+ * @param res 
+ * @returns 
+ */
+
 export const getPopularProductServices = async (_req: any, res: Response) => {
   try {
     const result = await Purchase.find().populate("created_user_id");

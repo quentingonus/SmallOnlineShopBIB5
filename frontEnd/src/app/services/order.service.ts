@@ -4,10 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
-
   order: any[] = [];
   viewOrder: any;
 
@@ -33,16 +32,23 @@ export class OrderService {
 
   async orderFindbyCustomer(customerId: any) {
     const options = {
-      headers: new HttpHeaders().set("Authorization", "Bearer " + (localStorage.getItem("TOKEN") || ""))
+      headers: new HttpHeaders().set(
+        'Authorization',
+        'Bearer ' + (localStorage.getItem('TOKEN') || '')
+      ),
     };
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/user/${customerId}`, options))
+    return lastValueFrom(
+      this.http.get(
+        `${environment.apiUrl}/purchase/user/${customerId}`,
+        options
+      )
+    );
   }
 
-
   postCreateOrder(customer: any, order: any) {
-    let formData = new FormData()
-    let productArr: any = []
-    let quantityArr: any = []
+    let formData = new FormData();
+    let productArr: any = [];
+    let quantityArr: any = [];
 
     order.products.forEach((item: any) => {
       productArr.push(item.id)
@@ -60,21 +66,26 @@ export class OrderService {
   }
 
   postGetOrder() {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase?page=1&chunk=1000`))
+    return lastValueFrom(
+      this.http.get(`${environment.apiUrl}/purchase?page=1&chunk=1000`)
+    );
   }
 
   postSearchOrder(id: String) {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`))
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`));
   }
 
   updateOrder(id: string, payload: any) {
-    return lastValueFrom(this.http.put(`${environment.apiUrl}/purchase/${id}`, payload))
+    return lastValueFrom(
+      this.http.put(`${environment.apiUrl}/purchase/${id}`, payload)
+    );
   }
 
   deleteOrder(id: string) {
-    return lastValueFrom(this.http.delete(`${environment.apiUrl}/purchase/${id}`))
+    return lastValueFrom(
+      this.http.delete(`${environment.apiUrl}/purchase/${id}`)
+    );
   }
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 }

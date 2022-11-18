@@ -2,11 +2,15 @@ import { Response } from "express";
 import Cart from "../models/Cart";
 const logger = require('../loggers/logger');
 
+/**
+ * Get Cart Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const getCartService = async (req: any, res: Response) => {
   try {
-    // const result = await Cart.find();
-    // res.json({ data: result });
-
     const page: any = req.query.page ? req.query.page - 1 : 0;
     const cartPerPage: any = req.query.chunk || 5;
 
@@ -22,6 +26,12 @@ export const getCartService = async (req: any, res: Response) => {
 
   }
 };
+
+/**
+ * Create Cart Services
+ * @param req 
+ * @param res 
+ */
 
 export const createCartService = async (req: any, res: Response) => {
   try {
@@ -40,6 +50,12 @@ export const createCartService = async (req: any, res: Response) => {
   }
 };
 
+/**
+ * Find Cart Services
+ * @param req 
+ * @param res 
+ */
+
 export const findCartService = async (req: any, res: Response) => {
   try {
     const findData = await Cart.findById(req.params.id)
@@ -50,6 +66,12 @@ export const findCartService = async (req: any, res: Response) => {
     logger.cartErrorLogger.log('info', 'Error Cart Not Found')
   }
 };
+
+/**
+ * Update Cart Services
+ * @param req 
+ * @param res 
+ */
 
 export const updateCartService = async (req: any, res: Response) => {
   try {
@@ -65,6 +87,12 @@ export const updateCartService = async (req: any, res: Response) => {
     logger.cartErrorLogger.log('info', 'Error Update Cart')
   }
 };
+
+/**
+ * Delete Cart Services
+ * @param req 
+ * @param res 
+ */
 
 export const deleteCartService = async (req: any, res: Response) => {
   try {
