@@ -1,7 +1,14 @@
 import categorys from "../models/categorys";
+import User from "../models/User";
 import { Response } from "express";
 import { deleteFile } from "../utils";
 const logger = require('../loggers/logger');
+
+/**
+ * Get Category Services
+ * @param _req 
+ * @param res 
+ */
 
 export const getcategoryServices = async (_req: any, res: Response) => {
   try {
@@ -13,6 +20,13 @@ export const getcategoryServices = async (_req: any, res: Response) => {
     logger.categoryErrorLogger.log('info', 'Error Category Lists')
   }
 };
+
+/**
+ * Create Category Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const createcategoryServices = async (req: any, res: Response) => {
   try {
@@ -40,6 +54,12 @@ export const createcategoryServices = async (req: any, res: Response) => {
   }
 };
 
+/**
+ * Find Category Services
+ * @param req 
+ * @param res 
+ */
+
 export const findcategoryServices = async (req: any, res: Response) => {
   try {
     const findData = await categorys.findById(req.params.id)
@@ -50,6 +70,13 @@ export const findcategoryServices = async (req: any, res: Response) => {
     logger.categoryErrorLogger.log('info', 'Error Category Not Found')
   }
 };
+
+/**
+ * Update Category Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const updatecategoryServices = async (req: any, res: Response) => {
   try {
@@ -86,6 +113,13 @@ export const updatecategoryServices = async (req: any, res: Response) => {
     return res.send("an error occured in Edit Category");
   }
 };
+
+/**
+ * Delete Category Services
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const deletecategoryServices = async (req: any, res: Response) => {
   try {

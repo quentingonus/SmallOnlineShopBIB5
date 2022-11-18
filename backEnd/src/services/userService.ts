@@ -4,6 +4,13 @@ import { deleteFile } from "../utils";
 import bcrypt from "bcrypt";
 const logger = require('../loggers/logger');
 
+/**
+ * Get User Service
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const getUserService = async (req: any, res: Response) => {
   try {
     let requestedUser = await User.findById(req.decoded.id)
@@ -28,6 +35,13 @@ export const getUserService = async (req: any, res: Response) => {
     return res.status(400).send("An Error occured in get user");
   }
 };
+
+/**
+ * Create User Service
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const createUserService = async (req: any, res: Response) => {
   try {
@@ -56,6 +70,13 @@ export const createUserService = async (req: any, res: Response) => {
   }
 };
 
+/**
+ * Find User Service
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+
 export const findUserService = async (req: any, res: Response) => {
   try {
     const findData: any = await User.findById(req.params.id)
@@ -67,6 +88,13 @@ export const findUserService = async (req: any, res: Response) => {
     return res.send("An Error occured in find user");
   }
 };
+
+/**
+ * Update User Service
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const updateUserService = async (req: any, res: Response) => {
   try {
@@ -116,6 +144,13 @@ export const updateUserService = async (req: any, res: Response) => {
     return res.status(400).send("an error occured in Edit User");
   }
 };
+
+/**
+ * Delete User Service
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 
 export const deleteUserService = async (req: any, res: Response) => {
   try {

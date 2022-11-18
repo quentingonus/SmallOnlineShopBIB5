@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import multer, { FileFilterCallback } from 'multer';
 import path from "path";
-import passport from 'passport';
 import { rootDir } from "./utils";
 import { v4 } from 'uuid';
 import cors from 'cors';
@@ -25,7 +24,6 @@ import category_route from "./routes/category_route";
 import popular_route from "./routes/PopularProduct_route";
 import search_route from "./routes/search_route";
 import chart_route from "./routes/chart_route";
-require("./config/passport")
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -71,7 +69,6 @@ app.use(cors());
 
 app.use(multer({ storage: fileStorage, fileFilter }).single('profileImage'));
 app.use("/apiuploads", express.static(path.join(rootDir, "apiuploads")));
-app.use(passport.initialize());
 
 mongoose
   .connect(process.env.DATABASE || "")

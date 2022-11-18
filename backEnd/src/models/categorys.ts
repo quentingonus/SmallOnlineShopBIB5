@@ -1,11 +1,11 @@
 import { Schema, model } from "mongoose";
 
 const categorySchema = new Schema({
-  profile : {
-    type : String,
+  profile: {
+    type: String,
     required: true
   },
-  name : {
+  name: {
     type: String,
     required: true
   },
@@ -13,4 +13,4 @@ const categorySchema = new Schema({
   timestamps: true
 }
 )
-export default model("category", categorySchema)                    
+export default model("category", categorySchema)
