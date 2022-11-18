@@ -24,12 +24,12 @@ export class OrderListComponent implements OnInit {
   timer: String = 'Calculating...';
   orderLink!: any;
   isTimeout = false;
+  xInterval!: any;
 
   constructor(private orderService: OrderService, private router: Router) { }
 
   addShippingList(order: any) {
     this.shippingList = this.orderService.addShippingList(order);
-    console.log(this.shippingList);
     this.change.emit(this.shippingList);
   }
 
@@ -46,11 +46,20 @@ export class OrderListComponent implements OnInit {
 
   onChange() {
     this.isTimeout = false;
-    if (this.order.order_status == 'cancel') { this.isTimeout = true; }
-    if (this.order.order_status == 'arrive') {
-      this.isTimeout = true;
+    if (this.order.order_status == "shipping" || this.order.order_status == "pending") {
+      this.createInterval()
+    } else if (this.order.order_status == "cancel") {
+      this.isTimeout = true
+      this.timer = "Timeout"
+      this.order.order_status = 'cancel';
+    }
+    else {
       setTimeout(() => { this.timer = "---" }, 1000)
     }
+    //if (this.order.order_status == 'cancel') {
+    //  this.isTimeout = true;
+    //  this.order.order_status = 'cancel';
+    //}
     this.updateOrder(this.order._id, this.order);
   }
 
@@ -69,11 +78,13 @@ export class OrderListComponent implements OnInit {
     }
   }
 
-  async ngOnInit() {
-
-    let x = setInterval(() => {
-      if (this.isTimeout) {
-        clearInterval(x)
+  createInterval() {
+    if (this.xInterval) {
+      clearInterval(this.xInterval)
+    }
+    this.xInterval = setInterval(() => {
+      if (this.order.order_status == 'cancel' || this.order.order_status == 'arrive') {
+        clearInterval(this.xInterval)
       }
       let customerBuyDate = new Date(this.order.date);
       let dateDiff = this.formatDate(
@@ -81,19 +92,26 @@ export class OrderListComponent implements OnInit {
           customerBuyDate.setDate(customerBuyDate.getDate() + 1)
         ).getTime() - new Date().getTime()
       );
-      this.timer = dateDiff ? dateDiff : 'Timeout';
-
-      if (this.timer == 'Timeout') {
+      if (dateDiff) {
+        this.timer = dateDiff
+      } else {
+        this.isTimeout = true
+        this.timer = "Timeout"
         this.order.order_status = 'cancel';
-        this.isTimeout = true;
         this.updateOrder(this.order._id, this.order);
+        clearInterval(this.xInterval);
       }
-
-      if (!dateDiff) clearInterval(x);
     }, 1000);
+  }
 
-    if (this.order.order_status == 'arrive') {
-      clearInterval(x)
+  async ngOnInit() {
+    if (this.order.order_status == "shipping" || this.order.order_status == "pending") {
+      this.createInterval()
+    } else if (this.order.order_status == "cancel") {
+      this.isTimeout = true
+      this.timer = "Timeout"
+    }
+    else {
       this.timer = "---"
     }
 
@@ -101,8 +119,6 @@ export class OrderListComponent implements OnInit {
   }
 
   async updateOrder(id: string, data: any) {
-    console.log('Order ID', id);
-    console.log('Order Data', data);
     return await this.orderService.updateOrder(id, data);
   }
 

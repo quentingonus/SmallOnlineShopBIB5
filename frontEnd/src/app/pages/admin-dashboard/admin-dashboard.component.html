@@ -185,6 +185,7 @@
                 class="btn btn-light"
                 (click)="deleteUser(user, deleteuser)"
                 #deleteuser
+                [disabled]="user.type == 'Admin'"
               >
                 <span *ngIf="!util.isLoading(deleteuser)"
                   ><i class="bi bi-trash text-danger"></i
