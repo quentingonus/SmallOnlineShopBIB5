@@ -19,7 +19,7 @@ export class AllCategoriesComponent implements OnInit {
     private postService: PostService,
     public util: UtilsService,
     public router: Router
-  ) { }
+  ) {}
 
   onFocus() {
     this.router.navigate(['/search']);
@@ -27,24 +27,31 @@ export class AllCategoriesComponent implements OnInit {
 
   textType(elem: any) {
     clearTimeout(elem.delay);
-    elem.delay = setTimeout(function () {
-      elem.dispatchEvent(new Event('search'))
-    }.bind(elem), 800);
+    elem.delay = setTimeout(
+      function () {
+        elem.dispatchEvent(new Event('search'));
+      }.bind(elem),
+      800
+    );
   }
 
   async findProduct(query: any) {
     if (query.value.trim().length > 0) {
-      this.postService.postSearchService(query.value)
+      this.postService
+        .postSearchService(query.value)
         .then((res: any) => {
           this.filterProducts = res.data.map((item: any) => {
-            item = this.cart.modifyItem(item)
-            item.category = this.util.searchCategory(item.category, this.categories.data)
-            return item
-          })
+            item = this.cart.modifyItem(item);
+            item.category = this.util.searchCategory(
+              item.category,
+              this.categories.data
+            );
+            return item;
+          });
         })
         .catch((e: any) => {
-          this.filterProducts = null
-        })
+          this.filterProducts = null;
+        });
     }
     if (query.value.trim().length == 0) {
       this.filterProducts = null;

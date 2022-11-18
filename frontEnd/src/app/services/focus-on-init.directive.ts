@@ -1,13 +1,12 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[FocusOnInit]'
+  selector: '[FocusOnInit]',
 })
 export class FocusOnInitDirective {
-  
   constructor(public el: ElementRef) {}
 
   ngAfterContentInit() {
-   this.el.nativeElement.focus();
+    this.el.nativeElement.focus();
   }
 }

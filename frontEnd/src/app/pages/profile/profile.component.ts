@@ -195,17 +195,17 @@ export class ProfileComponent implements OnInit {
     this.form.disable();
     this.addressForm.disable();
     this.passwordForm.disable();
-    this.orderService.orderFindbyCustomer(
-      this.currentUser._id
-    ).then((res: any) => {
-      this.myOrder = res.data.map((item: any, index: any) => {
-        item.index = index + 1;
-        return item;
-      });
-    })
-      .catch((err: any) => {
-        alert(err.error)
-        this.myOrder = []
+    this.orderService
+      .orderFindbyCustomer(this.currentUser._id)
+      .then((res: any) => {
+        this.myOrder = res.data.map((item: any, index: any) => {
+          item.index = index + 1;
+          return item;
+        });
       })
+      .catch((err: any) => {
+        alert(err.error);
+        this.myOrder = [];
+      });
   }
 }
