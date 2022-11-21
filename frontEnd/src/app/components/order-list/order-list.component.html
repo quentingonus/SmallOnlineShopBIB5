@@ -25,11 +25,10 @@
     </td>
   </a>
 
- 
-    <button *ngIf="isTimeout" class="btn btn-light no-border text-danger ms-3">
-      <td>
-        <i class="bi bi-trash"></i>
-      </td>
-    </button>
+  <button
+    *ngIf="isTimeout"
+    class="btn btn-light btn-loading loading no-border text-danger ms-3"
+  >
+    <span class="btn-loading__text"><i class="bi bi-trash"></i></span>
+  </button>
 </td>
-

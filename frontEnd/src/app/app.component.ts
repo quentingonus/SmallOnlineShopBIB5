@@ -9,12 +9,12 @@ import { CartService } from './services/cart.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'frontEnd';
+  title = 'Everything Shop';
   constructor(
     private cartService: CartService,
     private authService: AuthService,
     private route: Router
-  ) {}
+  ) { }
   async ngOnInit() {
     if (localStorage.hasOwnProperty('USER')) {
       if (!this.authService.isAuthenticated()) {
