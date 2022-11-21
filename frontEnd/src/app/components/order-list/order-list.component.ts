@@ -122,10 +122,11 @@ export class OrderListComponent implements OnInit {
     return await this.orderService.updateOrder(id, data);
   }
 
-  async deleteOrder(id: string) {
-    let orderIndex = this.orderService.order.findIndex(this.order);
+  async deleteOrder() {
+    let orderIndex = this.orderService.order.indexOf(this.order);
+    console.log('orderIndex', orderIndex);
     this.orderService.order.splice(orderIndex, 1);
-    return await this.orderService.deleteOrder(id);
+    return await this.orderService.deleteOrder(this.order._id);
   }
 
   ngAfterViewInit() {
