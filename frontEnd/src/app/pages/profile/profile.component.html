@@ -46,11 +46,15 @@
           <form class="card profile shadow-sm" [formGroup]="form">
             <div class="card-body">
               <div class="card-img">
-                <img
-                  class="card-img-top"
-                  [src]="currentUser.profile"
-                  [alt]="currentUser.name"
-                />
+                  <img
+                    class="card-img-top"
+                    [src]="currentUser.profile"
+                    [alt]="currentUser.name"
+                    (click)="imageUpload.click()"
+                  />
+
+                <input type="file" #imageUpload hidden>
+
               </div>
               <div class="form-group m-3">
                 <label for="username">Name</label>
