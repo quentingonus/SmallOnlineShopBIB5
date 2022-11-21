@@ -41,27 +41,25 @@ table {
     background-position: center;
   }
 
-  .card-img-top {
+  .img-container {
+    //display: inline-block;
     position: absolute;
     top: 50%;
-    width: 180px;
-    height: 180px;
     border: 3px solid #fff;
     border-radius: 100%;
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     transition: .5s;
   }
 
   .card-img-top:hover {
-    border: 3px solid rgba(255, 255, 255, 1);
     opacity: .8;
     cursor: pointer;
-
-  .card-img:hover::before {
-    content: "hello ";
-    //background: url(https://t4.ftcdn.net/jpg/01/64/16/59/360_F_164165971_ELxPPwdwHYEhg4vZ3F4Ej7OmZVzqq4Ov.jpg);
-
-  }
   }
 }
 

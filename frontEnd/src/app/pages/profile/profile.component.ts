@@ -25,7 +25,9 @@ export class ProfileComponent implements OnInit {
   userId: any = '';
   currentUser!: any;
   tmpForm!: any;
-
+  profile: any;
+  profileImage: any;
+  uploadImagePreview: any;
   constructor(
     private fb: FormBuilder,
     private orderService: OrderService,
@@ -168,11 +170,24 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  uploadImage(event: any) {
+    console.log(event.target.file)
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      this.uploadImage = file;
+      const reader = new FileReader();
+      reader.onload = (e) => (this.uploadImagePreview = reader.result);
+      reader.readAsDataURL(file);
+    }
+  }
+
   async ngOnInit() {
     this.route.params.subscribe((params) => {
       this.userId = params['id'];
     });
     this.currentUser = this.authService.getCurrentUser();
+    this.profile = this.currentUser.profileImage;
     this.form.get('username')?.setValue(this.currentUser.name);
     this.form.get('email')?.setValue(this.currentUser.email);
     let addr = this.currentUser.address.split('|');
