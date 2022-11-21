@@ -123,6 +123,8 @@ export class OrderListComponent implements OnInit {
   }
 
   async deleteOrder(id: string) {
+    let orderIndex = this.orderService.order.findIndex(this.order);
+    this.orderService.order.splice(orderIndex, 1);
     return await this.orderService.deleteOrder(id);
   }
 
