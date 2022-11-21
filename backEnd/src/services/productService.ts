@@ -45,6 +45,7 @@ export const createproductServices = async (req: any, res: Response) => {
     if (requestedUser.type != "Admin") {
       return res.status(403).send("Not Authorized")
     }
+    console.log("Everything OK")
     let profile = req.body.profileImage;
     if (req.file) {
       profile = req.file.path.replace('\\', '/');
@@ -61,6 +62,7 @@ export const createproductServices = async (req: any, res: Response) => {
     const result = await product.save();
     return res.status(200).json({ message: "Created Successfully", data: result })
   } catch (err) {
+    console.log(err)
     logger.productInfoLogger.log('info', 'Error Create Product')
     return res.send("An Error occured in create product");
   }
