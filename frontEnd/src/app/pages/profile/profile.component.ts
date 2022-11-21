@@ -119,6 +119,8 @@ export class ProfileComponent implements OnInit {
     this.isUpdate = false;
     this.currentUser.name = this.form.value.username;
     this.currentUser.email = this.form.value.email;
+    this.currentUser.profile = this.uploadImage;
+    console.log('Current User',this.currentUser)
     this.authService
       .postUpdateUser(this.currentUser)
       .then((res: any) => {
@@ -171,14 +173,18 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadImage(event: any) {
-    console.log(event.target.file)
+    this.form.enable();
+    this.isconfirm = true;
+    this.isUpdate = true;
+    console.log(event.target.files)
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
 
       this.uploadImage = file;
       const reader = new FileReader();
-      reader.onload = (e) => (this.uploadImagePreview = reader.result);
+      reader.onload = (e) => (this.profile = reader.result);
       reader.readAsDataURL(file);
+      console.log(this.profile);
     }
   }
 
@@ -187,9 +193,12 @@ export class ProfileComponent implements OnInit {
       this.userId = params['id'];
     });
     this.currentUser = this.authService.getCurrentUser();
-    this.profile = this.currentUser.profileImage;
+    this.profile = this.currentUser.profile ? this.currentUser.profile : this.profile;
+
+    console.log("Profile", this.currentUser.profile);
     this.form.get('username')?.setValue(this.currentUser.name);
     this.form.get('email')?.setValue(this.currentUser.email);
+
     let addr = this.currentUser.address.split('|');
     this.addressForm.get('address1')?.setValue(addr[0]);
     this.addressForm.get('address2')?.setValue(addr[1]);
@@ -197,6 +206,7 @@ export class ProfileComponent implements OnInit {
     this.addressForm.get('state')?.setValue(addr[3]);
     this.addressForm.get('phone')?.setValue(this.currentUser.phone);
     let tmpDob = this.currentUser.dob;
+
     if (tmpDob) {
       tmpDob = new Date(tmpDob);
       this.addressForm.get('dob')?.setValue({
