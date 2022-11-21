@@ -15,9 +15,11 @@ import {
 import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export type SortColumn = keyof Product | '';
 export type SortDirection = 'asc' | 'desc' | '';
+
 const rotate: { [key: string]: SortDirection } = {
   asc: 'desc',
   desc: '',
@@ -40,6 +42,7 @@ export interface SortEvent {
     '(click)': 'rotate()',
   },
 })
+
 export class NgbdSortableHeader {
   @Input() sortable: SortColumn = '';
   @Input() direction: SortDirection = '';
@@ -51,11 +54,13 @@ export class NgbdSortableHeader {
   }
 }
 
+
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
 })
+
 export class AdminDashboardComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
 
@@ -70,6 +75,8 @@ export class AdminDashboardComponent implements OnInit {
   searchQuery = '';
   users!: any;
   customChartData!: any;
+  deleteUserName = ""
+
 
   constructor(
     private productService: ProductsService,
@@ -77,8 +84,9 @@ export class AdminDashboardComponent implements OnInit {
     private cartService: CartService,
     private postService: PostService,
     public util: UtilsService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private modalService: NgbModal
+  ) { }
 
   onSort({ column, direction }: SortEvent) {
     this.headers.forEach((header) => {
@@ -170,8 +178,20 @@ export class AdminDashboardComponent implements OnInit {
     return this.users[userIndex]._id;
   }
 
-  deleteUser(user: any, button: any) {
+  deleteConfirm(user: any, button: any, content: any) {
     button.classList.add('loading');
+    this.deleteUserName = user.name
+    this.modalService.open(content).result.then(
+      (result) => {
+        this.continueDelete(user, button)
+      },
+      (reason) => {
+        button.classList.remove('loading');
+      },
+    )
+  }
+
+  continueDelete(user: any, button: any) {
     let userIndex = this.users.indexOf(user);
     let userId = this.getUserId(userIndex);
     this.authService
@@ -226,6 +246,5 @@ export class AdminDashboardComponent implements OnInit {
       labels: chartLabels,
       datasets: [...chartData]
     };
-    console.log(this.customChartData);
   }
 }

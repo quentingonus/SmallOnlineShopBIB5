@@ -10,7 +10,7 @@
       <div
         class="d-md-none d-lg-none d-xl-none d-flex justify-content-center align-items-center"
       >
-        <div class="me-3" routerLink="/search">
+        <div class="me-3" (click)="openSearch(searchModel)">
           <i class="bi h4 bi-search"></i>
         </div>
         <div class="me-3" (click)="openCart(cartCanvas)">
@@ -55,7 +55,7 @@
           </div>
         </div>
         <li class="nav-item">
-          <button class="btn btn-light" routerLink="/search">
+          <button class="btn btn-light" (click)="openSearch(searchModel)">
             <i class="bi bi-search"></i>
           </button>
           <button
@@ -203,6 +203,26 @@
     <div class="d-grid checkout-btn">
       <button class="btn btn-info" type="button" (click)="checkout(offcanvas)">
         Checkout
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #searchModel let-modal>
+  <div class="modal-body">
+    <h3>Search</h3>
+    <div class="input-group flex-nowrap">
+      <input
+        id="search"
+        class="form-control"
+        type="search"
+        placeholder="Search..."
+        [(ngModel)]="searchText"
+        #search
+        required
+      />
+      <button class="btn btn-light">
+        <i class="bi bi-search" (click)="startSearch(modal)"></i>
       </button>
     </div>
   </div>

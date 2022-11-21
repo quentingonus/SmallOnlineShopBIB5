@@ -11,19 +11,21 @@
     </div>
   </div>
 
-  <div *ngIf="router.url == '/search'" class="search">
+  <div *ngIf="router.url.includes('/search')" class="search">
     <p class="fs-2 my-3">Search</p>
     <form class="my-3">
       <div class="form-group">
         <input
           id="search"
+          name="search"
           class="form-control"
           type="search"
           placeholder="Search..."
+          [(ngModel)]="searchText"
           FocusOnInit
           #search
           (input)="textType(search)"
-          (search)="findProduct(search)"
+          (search)="findProduct()"
         />
       </div>
     </form>

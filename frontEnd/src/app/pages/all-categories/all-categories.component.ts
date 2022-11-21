@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
@@ -13,17 +13,16 @@ export class AllCategoriesComponent implements OnInit {
   shopItems!: any;
   categories!: any;
   filterProducts!: any;
+  params!: any
+  searchText: any
 
   constructor(
     private cart: CartService,
     private postService: PostService,
     public util: UtilsService,
-    public router: Router
-  ) {}
-
-  onFocus() {
-    this.router.navigate(['/search']);
-  }
+    public router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   textType(elem: any) {
     clearTimeout(elem.delay);
@@ -35,10 +34,10 @@ export class AllCategoriesComponent implements OnInit {
     );
   }
 
-  async findProduct(query: any) {
-    if (query.value.trim().length > 0) {
+  async findProduct() {
+    if (this.searchText.trim().length > 0) {
       this.postService
-        .postSearchService(query.value)
+        .postSearchService(this.searchText)
         .then((res: any) => {
           this.filterProducts = res.data.map((item: any) => {
             item = this.cart.modifyItem(item);
@@ -53,12 +52,19 @@ export class AllCategoriesComponent implements OnInit {
           this.filterProducts = null;
         });
     }
-    if (query.value.trim().length == 0) {
+    if (this.searchText.trim().length == 0) {
       this.filterProducts = null;
     }
   }
 
   async ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.params = params;
+    });
+    if ('q' in this.params) {
+      this.searchText = this.params.q;
+      setTimeout(() => { this.findProduct() }, 1300)
+    }
     let shopItem = await this.cart.getShop();
     this.categories = await this.postService.getCategory();
     shopItem.map((item: any) => {
