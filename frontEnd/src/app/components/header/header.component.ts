@@ -4,6 +4,8 @@ import { NgbOffcanvas, OffcanvasDismissReasons } from '@ng-bootstrap/ng-bootstra
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { HeaderService } from 'src/app/services/header.service';
+import { PostService } from 'src/app/services/post.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +18,8 @@ export class HeaderComponent implements OnInit {
   cartItem!: any;
 
   burgurMenu = false;
+
+  searchText = ""
 
   navItem = [
     {
@@ -35,7 +39,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private cart: CartService,
     private headerService: HeaderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: NgbModal
   ) { }
 
 
@@ -119,6 +124,21 @@ export class HeaderComponent implements OnInit {
       })
     }
     return tmpNav
+  }
+
+  openSearch(content: any) {
+    this.modalService.open(content)
+  }
+
+  startSearch(modal: any) {
+    modal.close()
+    if (!this.searchText.length) {
+      return
+    }
+    this.router.navigate(
+      ['/search'],
+      { queryParams: { q: this.searchText } }
+    );
   }
 
   checkout(offcanvas: any) {

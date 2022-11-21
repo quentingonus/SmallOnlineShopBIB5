@@ -16,7 +16,7 @@ export class AuthService {
     private router: Router,
     private http: HttpClient,
     public jwtHelper: JwtHelperService
-  ) {}
+  ) { }
 
   async isLoggedIn() {
     if (localStorage.getItem('userLoginData')) {
@@ -137,7 +137,11 @@ export class AuthService {
   }
 
   public getCurrentUser() {
-    return JSON.parse(localStorage.getItem('USER') || '{}');
+    let currentUser = JSON.parse(localStorage.getItem('USER') || '{}');
+    if (!currentUser.profile.includes(environment.apiUrl)) {
+      currentUser.profile = environment.apiUrl + '/' + currentUser.profile
+    }
+    return currentUser
   }
 
   public getUsers() {
