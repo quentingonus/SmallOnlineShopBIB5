@@ -13,18 +13,9 @@ export const createsearchServices = async (req: any, res: Response) => {
     console.log("Query is ", req.body.query)
     let search = await products.find(
       {
-        "$or": [
-          {
-            title: {
-              $regex: `(?i)(?<= |^)${req.body.query}(?= |$)`
-            }
-          },
-          {
-            title: {
-              $regex: req.body.query
-            }
-          }
-        ]
+        title: {
+          '$regex': req.body.query, '$options': 'i'
+        }
       }
     )
     if (search.length) {
