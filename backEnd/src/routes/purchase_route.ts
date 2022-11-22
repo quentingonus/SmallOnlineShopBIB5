@@ -6,7 +6,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(getPurchase)
+  .get([verifyToken], getPurchase)
   .post(createPurchase)
 
 router
@@ -15,9 +15,9 @@ router
 
 router
   .route('/:id')
-  .get(findPurchase)
-  .put(updatePurchase)
-  .delete(deletePurchase)
+  .get([verifyToken], findPurchase)
+  .put([verifyToken], updatePurchase)
+  .delete([verifyToken], deletePurchase)
 
 
 export default router;

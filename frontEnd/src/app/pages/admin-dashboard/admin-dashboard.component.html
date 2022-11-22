@@ -169,6 +169,7 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Type</th>
+            <th scope="col">Promote/Demote</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -179,6 +180,24 @@
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.type }}</td>
+            <td>
+              <button
+                class="btn btn-light text-success"
+                *ngIf="user.type == 'User'"
+                (click)="promoteUser(user)"
+                [disabled]="isCurrentUser(user)"
+              >
+                Promote <i class="bi bi-caret-up"></i>
+              </button>
+              <button
+                class="btn btn-light text-danger"
+                *ngIf="user.type == 'Admin'"
+                (click)="demoteAdmin(user)"
+                [disabled]="isCurrentUser(user)"
+              >
+                Demote <i class="bi bi-caret-down"></i>
+              </button>
+            </td>
 
             <td>
               <button

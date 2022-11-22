@@ -17,8 +17,14 @@ export class AppComponent implements OnInit {
   ) { }
   async ngOnInit() {
     if (localStorage.hasOwnProperty('USER')) {
+      let currentUser = JSON.parse(localStorage.getItem("USER") || "{}")
       if (!this.authService.isAuthenticated()) {
         this.route.navigate(['/logout']);
+      }
+      if ("type" in currentUser) {
+        if (currentUser.type.toUpperCase() != localStorage.getItem("ROLE")) {
+          this.route.navigate(['/logout']);
+        }
       }
       await this.cartService.postGetCart();
     }

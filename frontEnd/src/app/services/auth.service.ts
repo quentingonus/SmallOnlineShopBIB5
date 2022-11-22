@@ -42,7 +42,7 @@ export class AuthService {
     formData.append('password', payload.password);
     formData.append(
       'profileImage',
-      'https://st3.depositphotos.com/15437752/19006/i/600/depositphotos_190061104-stock-photo-silhouette-male-gradient-background-white.jpg'
+      'apiuploads/424bccf3-f1f5-4ce5-9980-4d9b037063d6_depositphotos_190061104-stock-photo-silhouette-male-gradient-background-white.jpg'
     );
     formData.append('address', '');
     formData.append('phone', '');
@@ -71,6 +71,24 @@ export class AuthService {
     return lastValueFrom(
       this.http.put(
         `${environment.apiUrl}/users/${payload._id}`,
+        formData,
+        options
+      )
+    );
+  }
+
+  postUpdateUserType(payload: any) {
+    const options = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        'Bearer ' + (localStorage.getItem('TOKEN') || '')
+      ),
+    };
+    let formData = new FormData();
+    formData.append('type', payload.type);
+    return lastValueFrom(
+      this.http.put(
+        `${environment.apiUrl}/users/privilege/${payload._id}`,
         formData,
         options
       )

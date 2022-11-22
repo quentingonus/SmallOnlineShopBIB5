@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reset',
@@ -12,7 +13,6 @@ export class ResetComponent implements OnInit {
   new_password = '';
   password_confirm = '';
   formErr: any = [];
-  successArr: any = false;
   userId!: any;
   resetToken!: any;
   tokenValid = 'unknown';
@@ -21,7 +21,7 @@ export class ResetComponent implements OnInit {
     private route: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -42,7 +42,6 @@ export class ResetComponent implements OnInit {
       });
   }
   reset() {
-    this.successArr = false;
     this.formErr = [];
     if (!this.new_password.length) {
       this.formErr.push('New Password is required');
@@ -57,22 +56,23 @@ export class ResetComponent implements OnInit {
       this.formErr.push('Password and Confirm Password needs to be the same.');
     }
     if (this.formErr.length) {
-      return;
+      Swal.fire("An Error Occurs!", this.formErr[0], "error");
+    } else {
+      this.authService
+        .changePassword(this.userId, this.resetToken, this.new_password)
+        .then((res: any) => {
+          if (!res.success) {
+            Swal.fire("An Error Occurs!", res.message, "error")
+          } else {
+            Swal.fire("Reset Success!", "Password reset successful!", "success")
+              .then(res => {
+                this.route.navigate(['/login']);
+              })
+          }
+        })
+        .catch((err: any) => {
+          Swal.fire("An Error Occurs!", err.error, "error")
+        });
     }
-    this.authService
-      .changePassword(this.userId, this.resetToken, this.new_password)
-      .then((res: any) => {
-        if (!res.success) {
-          this.formErr.push(res.message);
-        } else {
-          this.successArr = true;
-          setTimeout(() => {
-            this.route.navigate(['/login']);
-          }, 5000);
-        }
-      })
-      .catch((err: any) => {
-        alert('An error occurs at updating password.');
-      });
   }
 }

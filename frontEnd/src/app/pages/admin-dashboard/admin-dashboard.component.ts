@@ -16,6 +16,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { PostService } from 'src/app/services/post.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 export type SortColumn = keyof Product | '';
 export type SortDirection = 'asc' | 'desc' | '';
@@ -141,16 +142,30 @@ export class AdminDashboardComponent implements OnInit {
 
   deleteProduct(product: any, button: any) {
     button.classList.add('loading');
-    this.postService
-      .deleteProduct(product)
-      .then((res: any) => {
-        this.products.splice(this.products.indexOf(product), 1);
-        button.classList.remove('loading');
-      })
-      .catch((err: any) => {
-        alert(err.error);
-        button.classList.remove('loading');
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This will delete " + product.title,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm.',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.value) {
+        this.postService
+          .deleteProduct(product)
+          .then((res: any) => {
+            Swal.fire('Delete Success!', 'Product ' + product.title + ' is deleted.', 'success')
+              .then(res => {
+                this.products.splice(this.products.indexOf(product), 1);
+                button.classList.remove('loading');
+              })
+          })
+          .catch((err: any) => {
+            Swal.fire('An Error Occurs!', err.error, 'error');
+            button.classList.remove('loading');
+          });
+      }
+    });
   }
 
   sliceIntoChunks(arr: any, chunkSize: any) {
@@ -214,6 +229,70 @@ export class AdminDashboardComponent implements OnInit {
   isProduct(): boolean {
     if (this.pageName == 'products') return true;
     return false;
+  }
+
+  isCurrentUser(user: any) {
+    let currentUser = JSON.parse(localStorage.getItem("USER") || "{}")
+    if (currentUser) {
+      if (currentUser._id == user._id) {
+        return true
+      }
+    }
+    return false
+  }
+
+  promoteUser(user: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This will promote " + user.name + " to ADMIN privileges.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm.',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.value) {
+        this.authService.postUpdateUserType({
+          _id: user._id,
+          type: "Admin"
+        })
+          .then((res: any) => {
+            this.users[user.index - 1].type = "Admin"
+            Swal.fire('Promoted!', 'User ' + user.name + ' is now an ADMIN.', 'success');
+          })
+          .catch((err: any) => {
+            Swal.fire('An Error Occurs!', err.error, 'error');
+          })
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'User ' + user.name + ' is still NORMAL USER.', 'success');
+      }
+    });
+  }
+
+  demoteAdmin(user: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This will demote " + user.name + " to NORMAL USER.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm.',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.value) {
+        this.authService.postUpdateUserType({
+          _id: user._id,
+          type: "Admin"
+        })
+          .then((res: any) => {
+            this.users[user.index - 1].type = "User"
+            Swal.fire('Demoted!', 'User ' + user.name + ' is now NORMAL USER.', 'success');
+          })
+          .catch((err: any) => {
+            Swal.fire('An Error Occurs!', err.error, 'error');
+          })
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'User ' + user.name + ' is still ADMIN.', 'success');
+      }
+    });
   }
 
   async ngOnInit() {

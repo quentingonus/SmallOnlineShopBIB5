@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { enableDebugTools } from '@angular/platform-browser';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-profile',
@@ -78,24 +79,31 @@ export class ProfileComponent implements OnInit {
     this.addressForm.get('state')?.setValue(this.tmpForm.state);
   }
   confirm2() {
-    this.isconfirm2 = false;
-    this.isUpdate2 = false;
     this.authService
       .postUpdateUserAddress(this.currentUser, { ...this.addressForm.value })
       .then((res: any) => {
-        this.addressForm.disable();
-        this.tmpForm = {};
-        localStorage.setItem('USER', JSON.stringify(res.data));
+        Swal.fire("Update Success", "User profile is updated!", "success")
+          .then(res2 => {
+            this.addressForm.disable();
+            this.tmpForm = {};
+            localStorage.setItem('USER', JSON.stringify(res.data));
+            this.isconfirm2 = false;
+            this.isUpdate2 = false;
+          })
       })
       .catch((err) => {
-        this.addressForm.get('phone')?.setValue(this.tmpForm.phone);
-        this.addressForm.get('dob')?.setValue(this.tmpForm.dob);
-        this.addressForm.get('address1')?.setValue(this.tmpForm.address1);
-        this.addressForm.get('address2')?.setValue(this.tmpForm.address2);
-        this.addressForm.get('city')?.setValue(this.tmpForm.city);
-        this.addressForm.get('state')?.setValue(this.tmpForm.state);
-        alert('An error occurs at Updating Address');
-        this.addressForm.disable();
+        Swal.fire("An Error Occurs", 'An error occurs at Updating Address', "error")
+          .then(res => {
+            this.addressForm.get('phone')?.setValue(this.tmpForm.phone);
+            this.addressForm.get('dob')?.setValue(this.tmpForm.dob);
+            this.addressForm.get('address1')?.setValue(this.tmpForm.address1);
+            this.addressForm.get('address2')?.setValue(this.tmpForm.address2);
+            this.addressForm.get('city')?.setValue(this.tmpForm.city);
+            this.addressForm.get('state')?.setValue(this.tmpForm.state);
+            this.addressForm.disable();
+            this.isconfirm2 = false;
+            this.isUpdate2 = false;
+          })
       });
   }
 
@@ -115,24 +123,30 @@ export class ProfileComponent implements OnInit {
   }
 
   confirm() {
-    this.isconfirm = false;
-    this.isUpdate = false;
     this.currentUser.name = this.form.value.username;
     this.currentUser.email = this.form.value.email;
     this.currentUser.profile = this.uploadImage;
-    console.log('Current User',this.currentUser)
     this.authService
       .postUpdateUser(this.currentUser)
       .then((res: any) => {
-        this.form.disable();
-        this.tmpForm = {};
-        localStorage.setItem('USER', JSON.stringify(res.data));
+        Swal.fire("Update Success", "User profile is updated!", "success")
+          .then(res2 => {
+            this.form.disable();
+            this.tmpForm = {};
+            localStorage.setItem('USER', JSON.stringify(res.data));
+            this.isconfirm = false;
+            this.isUpdate = false;
+          })
       })
       .catch((err) => {
-        this.form.get('username')?.setValue(this.tmpForm.username);
-        this.form.get('email')?.setValue(this.tmpForm.email);
-        alert('An error occurs at Updating User');
-        this.form.disable();
+        Swal.fire("An Error Occurs", 'An error occurs at Updating User', "error")
+          .then(res => {
+            this.form.get('username')?.setValue(this.tmpForm.username);
+            this.form.get('email')?.setValue(this.tmpForm.email);
+            this.form.disable();
+            this.isconfirm = false;
+            this.isUpdate = false;
+          })
       });
   }
 
@@ -152,24 +166,49 @@ export class ProfileComponent implements OnInit {
   confirmPassword() {
     let oldPass = this.passwordForm.get('oldpass')?.value;
     let newPass = this.passwordForm.get('newpass')?.value;
+    let newPass2 = this.passwordForm.get('confpass')?.value;
+    let errArr: any = []
 
-    this.authService
-      .resetPassword(this.userId, oldPass, newPass)
-      .then((res: any) => {
-        if (res.success) {
-          this.passwordForm.get('oldpass')?.setValue('');
-          this.passwordForm.get('newpass')?.setValue('');
-          this.passwordForm.get('confpass')?.setValue('');
-          this.passwordForm.disable();
-          this.isReset = false;
-        } else {
-          throw new Error(res.message);
-        }
-      })
-      .catch((error) => {
-        alert(`Error occurs at Updating Password ${error}`);
-        console.log(error);
-      });
+    if (!oldPass) {
+      errArr.push("Old Password is required.")
+    }
+    if (!newPass) {
+      errArr.push("New Password is required.")
+    }
+    if (!newPass2) {
+      errArr.push("Confirm Password is required.")
+    }
+    if (newPass.length < 6) {
+      errArr.push("New Password min-length is 6.")
+    }
+    if (newPass != newPass2) {
+      errArr.push("New Password and Confirm Password needs to be the same.")
+    }
+
+    if (errArr.length) {
+      Swal.fire("An Error Occurs!", errArr[0], "error")
+    }
+    else {
+      this.authService
+        .resetPassword(this.userId, oldPass, newPass)
+        .then((res: any) => {
+          if (res.success) {
+            Swal.fire("Update Success", "User profile is updated!", "success")
+              .then(res3 => {
+                this.passwordForm.get('oldpass')?.setValue('');
+                this.passwordForm.get('newpass')?.setValue('');
+                this.passwordForm.get('confpass')?.setValue('');
+                this.passwordForm.disable();
+                this.isReset = false;
+              })
+          } else {
+            throw new Error(res.message);
+          }
+        })
+        .catch((err: any) => {
+          Swal.fire("An Error Occurs!", err.error, "error")
+        });
+    }
   }
 
   uploadImage(event: any) {

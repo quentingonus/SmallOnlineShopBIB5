@@ -12,6 +12,13 @@ const logger = require('../loggers/logger');
 
 export const getPurchaseServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
     const page: any = req.query.page ? req.query.page - 1 : 0;
     const purchasePerPage: any = req.query.chunk || 5;
 
@@ -36,7 +43,6 @@ export const getPurchaseServices = async (req: any, res: Response) => {
 
 export const createPurchaseServices = async (req: any, res: Response) => {
   try {
-    console.log(req.body)
     const CategoryData = {
       created_user_id: req.body.created_user_id,
       productId: JSON.parse(req.body.productId),
@@ -49,11 +55,11 @@ export const createPurchaseServices = async (req: any, res: Response) => {
     console.log(CategoryData)
     const Category = new Purchase(CategoryData);
     const result = await Category.save();
-    res.status(201).json({ message: "Created Successfully", data: result })
+    return res.status(201).json({ message: "Created Successfully", data: result })
   } catch (err) {
-    res.send("An Error occured in create purchase");
     console.log(err)
     logger.purchaseInfoLogger.log('info', 'Error Create Purchase')
+    return res.send("An Error occured in create purchase");
   }
 };
 
@@ -98,6 +104,10 @@ export const getPurchaseByUserIdServices = async (req: any, res: Response) => {
 
 export const findPurchaseServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
     const findData = await Purchase.findById(req.params.id).populate("created_user_id")
     return res.send({ data: findData })
   } catch (err) {
@@ -116,6 +126,13 @@ export const findPurchaseServices = async (req: any, res: Response) => {
 
 export const updatePurchaseServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
     const purchase: any = await Purchase.findById(req.params.id)
     purchase.productId = req.body.productId;
     purchase.quantity = req.body.quantity;
@@ -141,6 +158,13 @@ export const updatePurchaseServices = async (req: any, res: Response) => {
 
 export const deletePurchaseServices = async (req: any, res: Response) => {
   try {
+    let requestedUser: any = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(403).send("Not Authorized")
+    }
     await Purchase.findById(req.params.id);
     await Purchase.findByIdAndRemove(req.params.id);
     return res.json({ message: "purchase with id " + req.params.id + " removed." })

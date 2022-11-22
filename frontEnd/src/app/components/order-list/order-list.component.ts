@@ -27,7 +27,7 @@ export class OrderListComponent implements OnInit {
   xInterval!: any;
   orderIndex!: any;
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(private orderService: OrderService, private router: Router) { }
 
   formatDate(time: number) {
     if (time < 0) {
@@ -36,9 +36,8 @@ export class OrderListComponent implements OnInit {
     let hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((time % (1000 * 60)) / 1000);
-    return `${hours} hour${hours > 1 ? "s" : ""} ${minutes} minute${
-      minutes > 1 ? "s" : ""
-    } ${seconds} second${seconds > 1 ? "s" : ""}`;
+    return `${hours} hour${hours > 1 ? "s" : ""} ${minutes} minute${minutes > 1 ? "s" : ""
+      } ${seconds} second${seconds > 1 ? "s" : ""}`;
   }
 
   onChange() {
@@ -50,6 +49,7 @@ export class OrderListComponent implements OnInit {
       this.createInterval();
     } else if (this.order.order_status == "cancel") {
       this.isTimeout = true;
+      clearInterval(this.xInterval);
       this.timer = "Timeout";
       this.order.order_status = "cancel";
     } else {
@@ -57,10 +57,6 @@ export class OrderListComponent implements OnInit {
         this.timer = "---";
       }, 1000);
     }
-    //if (this.order.order_status == 'cancel') {
-    //  this.isTimeout = true;
-    //  this.order.order_status = 'cancel';
-    //}
     this.updateOrder(this.order._id, this.order);
   }
 
@@ -113,8 +109,10 @@ export class OrderListComponent implements OnInit {
       this.createInterval();
     } else if (this.order.order_status == "cancel") {
       this.isTimeout = true;
+      clearInterval(this.xInterval);
       this.timer = "Timeout";
     } else {
+      clearInterval(this.xInterval);
       this.timer = "---";
     }
 

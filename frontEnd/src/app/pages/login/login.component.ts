@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public util: UtilsService
-  ) {}
+  ) { }
 
   login(signinBtn: any) {
     signinBtn.classList.add('loading');
@@ -54,12 +55,15 @@ export class LoginComponent implements OnInit {
         if ('redirect' in this.params) {
           this.router.navigate([this.params.redirect]);
         } else {
-          this.router.navigate(['home']);
+          Swal.fire("Welcome " + dist.user.name, "Login Successful", "success")
+            .then(res => {
+              this.router.navigate(['home']);
+            })
         }
       })
       .catch((err: any) => {
-        this.errorMsg = "Creditionals doesn't match.";
         signinBtn.classList.remove('loading');
+        Swal.fire("An Error Occurs", err.error, "error")
       });
   }
 

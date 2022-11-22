@@ -74,26 +74,50 @@ export class OrderService {
   }
 
   postGetOrder() {
+    const options = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        'Bearer ' + (localStorage.getItem('TOKEN') || '')
+      ),
+    };
     return lastValueFrom(
-      this.http.get(`${environment.apiUrl}/purchase?page=1&chunk=1000`)
+      this.http.get(`${environment.apiUrl}/purchase?page=1&chunk=1000`, options)
     );
   }
 
   postSearchOrder(id: String) {
-    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`));
+    const options = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        'Bearer ' + (localStorage.getItem('TOKEN') || '')
+      ),
+    };
+    return lastValueFrom(this.http.get(`${environment.apiUrl}/purchase/${id}`, options));
   }
 
   updateOrder(id: string, payload: any) {
+    const options = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        'Bearer ' + (localStorage.getItem('TOKEN') || '')
+      ),
+    };
     return lastValueFrom(
-      this.http.put(`${environment.apiUrl}/purchase/${id}`, payload)
+      this.http.put(`${environment.apiUrl}/purchase/${id}`, payload, options)
     );
   }
 
   deleteOrder(id: string) {
+    const options = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        'Bearer ' + (localStorage.getItem('TOKEN') || '')
+      ),
+    };
     return lastValueFrom(
-      this.http.delete(`${environment.apiUrl}/purchase/${id}`)
+      this.http.delete(`${environment.apiUrl}/purchase/${id}`, options)
     );
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 }
