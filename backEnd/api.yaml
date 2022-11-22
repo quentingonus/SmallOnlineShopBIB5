@@ -13,6 +13,8 @@ tags:
     description: Operations about Password
   - name: Users
     description: Operations about Users
+  - name: Promote
+    description: Operations about Promote
   - name: Categories
     description: Operations about Categories
   - name: Products
@@ -1303,6 +1305,73 @@ paths:
           description: Deleted User Successfully!
         "400":
           description: Invalid post value
+
+  # Pomote Routes
+  /users/privilege/{userId}:
+    put:
+      tags:
+        - Promote
+      summary: Promote/demote a user
+      description: This can only be done by the logged in admin.
+      security:
+        - bearerAuth: []
+      operationId: promoteUserId
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing user data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: User Roles
+                  enum:
+                    - Admin
+                    - User
+      responses:
+        "200":
+          description: Promoted Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "62fde243b554f4955fdf7914"
+                  profile:
+                    type: string
+                    example: "apiuploads/0fe05c06-2f9d-4056-b80d-ffa37dee7c93_img1.jpg"
+                  name:
+                    type: string
+                    example: "User one"
+                  email:
+                    type: string
+                    example: "userone@gmail.com"
+                  address:
+                    type: string
+                    example: "Address"
+                  dob:
+                    type: string
+                    format: date
+                  type:
+                    type: string
+                    description: User Roles
+                    enum:
+                      - Admin
+                      - User
+        "405":
+          description: Invalid input
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
 
   # Cart Routes
   /carts:
