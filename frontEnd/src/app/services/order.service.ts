@@ -52,7 +52,10 @@ export class OrderService {
 
     order.products.forEach((item: any) => {
       productArr.push(item.id);
-      quantityArr.push(item.amount);
+      quantityArr.push(JSON.stringify({
+        amount: item.amount,
+        price: item.price
+      }));
     });
 
     formData.append(
