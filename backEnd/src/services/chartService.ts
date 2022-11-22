@@ -27,7 +27,13 @@ export const getChartServices = async (req: any, res: Response) => {
     if (requestedUser.type != "Admin") {
       return res.status(403).send("Unauthorized")
     }
-    const result = await Purchase.find().populate("created_user_id");
+    let result = await Purchase.find().populate("created_user_id");
+    result = result.map((item: any) => {
+      item.quantity = item.quantity.map((item2: any) => {
+        return JSON.parse(item2).amount
+      })
+      return item
+    })
     let newObj = {}
 
     // Collecting same items & Adding Items to Obj

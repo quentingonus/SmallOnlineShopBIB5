@@ -215,15 +215,12 @@ export class ProfileComponent implements OnInit {
     this.form.enable();
     this.isconfirm = true;
     this.isUpdate = true;
-    console.log(event.target.files)
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-
       this.uploadImage = file;
       const reader = new FileReader();
       reader.onload = (e) => (this.profile = reader.result);
       reader.readAsDataURL(file);
-      console.log(this.profile);
     }
   }
 
@@ -234,7 +231,6 @@ export class ProfileComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     this.profile = this.currentUser.profile ? this.currentUser.profile : this.profile;
 
-    console.log("Profile", this.currentUser.profile);
     this.form.get('username')?.setValue(this.currentUser.name);
     this.form.get('email')?.setValue(this.currentUser.email);
 

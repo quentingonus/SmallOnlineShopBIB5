@@ -122,8 +122,6 @@ export class OrdersComponent implements OnInit {
     });
 
     if (this.orderService.order) {
-      console.log("Delete Order", this.orderService.order);
     }
-    console.log("Orders From Order Component :", this.orderLists);
   }
 }

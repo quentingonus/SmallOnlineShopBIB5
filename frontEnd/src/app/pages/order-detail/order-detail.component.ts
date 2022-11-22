@@ -25,7 +25,7 @@ export class OrderDetailComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private util: UtilsService
-  ) {}
+  ) { }
 
   getStatus(status: any) {
     if (status == 'pending') {
@@ -59,10 +59,6 @@ export class OrderDetailComponent implements OnInit {
     orderProducts.map((item: any) => {
       totalPrice += item.price * item.amount;
     });
-    //if (hasPromo) {
-    //  let discountPrice = (this.discount / 100) * totalPrice;
-    //  return totalPrice - ((discount / 100) * totalPrice);
-    //}
 
     return totalPrice;
   }
@@ -72,12 +68,15 @@ export class OrderDetailComponent implements OnInit {
       this.orderId = params['id'];
     });
     this.order = await this.orderService.postSearchOrder(this.orderId);
+
     this.categories = await this.postService.getCategory();
     const products = await this.cartService.getShop();
     products.forEach((item: any) => {
       let index = this.order.data.productId.indexOf(item.id);
       if (index > -1) {
-        item.amount = this.order.data.quantity[index];
+        let amg = JSON.parse(this.order.data.quantity[index])
+        item.amount = amg.amount;
+        item.price = amg.price
         item.category = this.util.searchCategory(
           item.category,
           this.categories.data

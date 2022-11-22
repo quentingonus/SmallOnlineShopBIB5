@@ -296,6 +296,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   async ngOnInit() {
+    let currentUser = JSON.parse(localStorage.getItem("USER") || "{}")
+    if (!currentUser || currentUser.type != "Admin") {
+      this.router.navigate(['/home'])
+    }
     this.products = await this.cartService.getShop();
     this.products = this.products.map((product, i) => ({
       index: i + 1,
@@ -315,6 +319,7 @@ export class AdminDashboardComponent implements OnInit {
     let tmpChart = await this.postService.getChart()
     let chartLabels: any = ["Products"];
     let chartData: any = [];
+    //console.log(tmpChart.data)
     tmpChart.data.forEach((item: any) => {
       chartData.push({
         data: [item[1]],
