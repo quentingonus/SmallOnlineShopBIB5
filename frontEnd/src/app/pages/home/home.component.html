@@ -1,8 +1,8 @@
 <section class="container mt-2">
   <div class="container-fluid">
-    <ngb-carousel style="cursor: pointer" routerLink="/promotion">
+    <ngb-carousel style="cursor: pointer">
       <ng-template ngbSlide *ngFor="let image of bannerproducts">
-        <div class="wrapper">
+        <div class="wrapper" routerLink="/promotion">
           <img [src]="image.imageUrl" alt="Random first slide" />
         </div>
         <div class="carousel-caption">
