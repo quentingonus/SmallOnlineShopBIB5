@@ -3,11 +3,16 @@
     <div class="container-fliud">
       <div class="wrapper row">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
-          <img [src]="product.imageUrl" width="80%" />
+          <img
+            [src]="product.imageUrl"
+            style="width: 80%; max-height: 500px; object-fit: cover"
+          />
         </div>
 
         <div class="details col-md-6 p-3">
-          <a routerLink="/home" class="home-link">Back to Home page</a>
+          <a routerLink="/categories" class="home-link"
+            >Back to Category page</a
+          >
           <h2 class="product-title my-3">{{ product.title }}</h2>
           <p class="mb-3"><strong>Category: </strong> {{ product.category }}</p>
 
@@ -18,18 +23,6 @@
           <p class="price">{{ product.price | currency: "USD" }}</p>
           <form>
             <div class="form-group row mt-2">
-              <!--<div class="col-md-3">
-                <label for="colors">Select Colors</label>
-                <select
-                  id="colors"
-                  class="form-select form-control"
-                  aria-label="Default select example"
-                >
-                  <option value="1">White</option>
-                  <option value="2">Black</option>
-                  <option value="3">Yellow</option>
-                </select>
-              </div>-->
               <div class="col-md-3">
                 <label for="amount">Select Amounts</label>
                 <input
