@@ -1,6 +1,7 @@
 import { OrderService } from "./../../services/order.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-orders",
@@ -90,11 +91,26 @@ export class OrdersComponent implements OnInit {
   }
 
   async deleteOrder(order: any) {
-    console.log(order);
-    let orderIndex = this.orderLists.indexOf(order);
-    this.orderLists.splice(orderIndex, 1);
-
-    return await this.orderService.deleteOrder(order._id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This will delete this order",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm.',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.value) {
+        let orderIndex = this.orderLists.indexOf(order);
+        this.orderLists.splice(orderIndex, 1);
+        this.orderService.deleteOrder(order._id)
+          .then((res: any) => {
+            Swal.fire('Order Delete Successful', 'Order is successfully deleted.', 'success');
+          })
+          .catch((err: any) => {
+            Swal.fire('An Error Occurs', err.error, 'error');
+          })
+      }
+    });
   }
 
   async ngOnInit() {

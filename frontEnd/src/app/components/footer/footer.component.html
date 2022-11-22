@@ -26,8 +26,9 @@
             type="text"
             class="form-control mb-2 bg-dark text-white-50"
             placeholder="Your email address"
+            [(ngModel)]="email"
           />
-          <i class="bi bi-caret-right h4"></i>
+          <i class="bi bi-caret-right h4" (click)="subscribe()"></i>
         </div>
         <small class="text-muted">
           By subscribing, you agree our Terms and Privacy Policy

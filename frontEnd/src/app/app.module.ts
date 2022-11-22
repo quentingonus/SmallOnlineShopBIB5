@@ -43,6 +43,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { NgChartsModule } from 'ng2-charts';
     SlickCarouselModule,
     HttpClientModule,
     NgChartsModule,
+    SweetAlert2Module.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

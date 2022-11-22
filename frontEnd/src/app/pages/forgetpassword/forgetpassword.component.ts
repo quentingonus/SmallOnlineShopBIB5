@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-forgetpassword',
@@ -11,14 +12,12 @@ export class ForgetpasswordComponent implements OnInit {
   email = '';
   formErr: any = [];
   formStatus = '';
-  successArr = false;
 
-  constructor(private router: Router, private postService: PostService) {}
+  constructor(private router: Router, private postService: PostService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit() {
-    this.successArr = false;
     let mailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.formErr = [];
@@ -33,18 +32,18 @@ export class ForgetpasswordComponent implements OnInit {
     this.postService
       .forgetPassword(this.email)
       .then((res: any) => {
-        if (res.success) {
-          this.successArr = true;
-          this.email = '';
-          this.formStatus = '';
-        } else {
-          this.successArr = false;
-          this.formStatus = res.msg;
-        }
+        Swal.fire("Mail Sent!", "A link to reset password is sent successfully", 'success')
+          .then(res2 => {
+            this.email = '';
+            this.formStatus = '';
+            this.router.navigate(['/login'])
+          })
       })
       .catch((e: any) => {
-        this.formErr.push(e.error);
-        this.formStatus = '';
+        Swal.fire("An Error Occurs!", e.error, 'error')
+          .then(res3 => {
+            this.formStatus = '';
+          })
       });
   }
 

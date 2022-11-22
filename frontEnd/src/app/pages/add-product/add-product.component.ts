@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-product',
@@ -64,9 +65,16 @@ export class AddProductComponent implements OnInit {
       );
       tmpForm.category = (res as any).data._id;
     }
-    let res = await this.postService.createProducts(tmpForm);
-    console.log(res);
-    this.router.navigate(['/admin']);
+    this.postService.createProducts(tmpForm)
+      .then((res: any) => {
+        Swal.fire("Product Added!", "Product " + tmpForm.title + " is added successfully.", 'success')
+          .then(res => {
+            this.router.navigate(['/admin']);
+          })
+      })
+      .catch((err: any) => {
+        Swal.fire("An Error Occurs!", err.error, 'error')
+      })
   }
 
   cancel() {

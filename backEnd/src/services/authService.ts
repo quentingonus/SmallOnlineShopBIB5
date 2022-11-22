@@ -16,22 +16,15 @@ import sendEmail from '../utils/sendEmail'
 export const loginService = async (req: Request, res: Response) => {
   User.findOne({ email: req.body.email }).then(async (user: any) => {
     if (!user) {
-      return res.status(404).send({
-        success: false,
-        msg: "Could not find user"
-      })
+      return res.status(404).send("Could not find user")
     }
     // console.log(user);
 
     if (!compareSync(req.body.password, user.password)) {
-      return res.status(404).send({
-        success: false,
-        messages: 'Incorrect password'
-      });
+      return res.status(404).send('Incorrect password');
     }
     const payload = {
       email: await bcrypt.hash(user.email, 12),
-      // id: await bcrypt.hash(user.id, 12),
       id: user.id
     }
 
@@ -96,10 +89,7 @@ export const forgetPasswordService = async (req: any, res: Response) => {
     })
   } catch (err) {
     console.log(err);
-    return res.send({
-      success: false,
-      msg: "An Error occured in passwordReset"
-    });
+    return res.status(400).send("An Error occured in passwordReset");
   }
 }
 
@@ -114,7 +104,7 @@ export const resetPasswordService = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.body.userId);
     if (!user) {
-      return res.status(404).send("UserId does not exist");
+      return res.status(404).send("User does not exist");
     }
     const PasswordResetToken: any = await PasswordReset.findOne({
       token: req.params.token
@@ -133,10 +123,7 @@ export const resetPasswordService = async (req: Request, res: Response) => {
       msg: 'Password reset Successfully'
     })
   } catch (err) {
-    return res.send({
-      success: false,
-      msg: "Password Reset Failed"
-    })
+    return res.status(400).send("Password Reset Failed")
   }
 };
 
@@ -150,10 +137,7 @@ export const passwordChangeService = async (req: Request, res: Response) => {
   try {
     await User.findById(req.body.userId).then(async (user: any) => {
       if (!user) {
-        return res.send({
-          success: false,
-          message: 'Could not find user'
-        })
+        return res.status(400).send('Could not find user')
       }
 
       let requestedUser = await User.findById((req as any).decoded.id)
@@ -161,22 +145,16 @@ export const passwordChangeService = async (req: Request, res: Response) => {
         return res.status(401).send("Cannot find the user")
       }
 
-      if (requestedUser.type != "Admin") {
+      if (requestedUser.type != "Admin" && requestedUser._id != req.body.userId) {
         return res.status(403).send("Not Authorized")
       }
 
       if (!compareSync(req.body.oldPassword, user.password)) {
-        return res.send({
-          success: false,
-          message: 'Incorrect password'
-        });
+        return res.status(400).send("Incorrect password");
       }
 
       if (compareSync(req.body.newPassword, user.password)) {
-        return res.send({
-          success: false,
-          message: 'Current Password and New Password are same.'
-        });
+        return res.status(400).send('Current Password and New Password are same.');
       }
 
       user.password = await bcrypt.hash(req.body.newPassword, 12);
@@ -188,7 +166,7 @@ export const passwordChangeService = async (req: Request, res: Response) => {
     })
   } catch (error) {
     console.log(error)
-    res.send("An error occured");
+    res.status(400).send("An error occured");
   }
 };
 
@@ -203,7 +181,7 @@ export const checkPasswdResetTokenService = async (req: Request, res: Response) 
   try {
     const user = await User.findById(req.body.userId);
     if (!user) {
-      return res.status(404).send("UserId does not exist");
+      return res.status(404).send("User does not exist");
     }
 
     const token = await PasswordReset.findOne({ token: req.body.resetToken });
@@ -217,16 +195,9 @@ export const checkPasswdResetTokenService = async (req: Request, res: Response) 
         msg: 'Token is valid'
       })
     }
-
-    return res.json({
-      success: false,
-      msg: 'Token is not valid'
-    })
+    return res.status(400).json('Token is not valid')
   } catch (error) {
     console.log(error)
-    return res.send({
-      success: false,
-      msg: "An error occured"
-    });
+    return res.status(400).send("An error occured");
   }
 };

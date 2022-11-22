@@ -45,6 +45,10 @@ export const getUserService = async (req: any, res: Response) => {
 
 export const createUserService = async (req: any, res: Response) => {
   try {
+    let isExists = await User.find({ email: req.body.email })
+    if (isExists && isExists.length) {
+      return res.status(400).send("User with this email already exists")
+    }
     let profile = req.body.profileImage;
     if (req.file) {
       profile = req.file.path.replace('\\', '/');
@@ -89,6 +93,47 @@ export const findUserService = async (req: any, res: Response) => {
   }
 };
 
+/**
+ * Promote / Demote User Service
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export const changeUserTypeService = async (req: any, res: Response) => {
+  try {
+    let requestedUser = await User.findById(req.decoded.id)
+    if (!requestedUser) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser.type != "Admin") {
+      return res.status(400).send("Not Authorized")
+    }
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(401).send("Cannot find the user")
+    }
+    if (requestedUser._id == req.params.id) {
+      return res.status(403).send("Cannot promote/demote yourself.")
+    }
+    user.type = req.body.type
+    const result = await user.save();
+    return res.status(200).json({
+      msg: "User Type Updated Successfully", data: {
+        _id: result._id,
+        profile: result.profile,
+        name: result.name,
+        email: result.email,
+        address: result.address,
+        phone: result.phone,
+        dob: result.dob,
+        type: result.type
+      }
+    });
+  } catch (err: any) {
+    logger.userErrorLogger.log('info', 'Error Update User')
+    return res.status(400).send("an error occured in update User Type");
+  }
+}
 /**
  * Update User Service
  * @param req 

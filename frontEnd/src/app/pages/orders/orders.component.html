@@ -1,7 +1,9 @@
 <div class="container">
   <h2 class="mt-3">New Orders</h2>
 
-  <div *ngIf="orderLists.length > 0; then orderList; else noOrder"></div>
+  <div
+    *ngIf="orderLists && orderLists.length; then orderList; else noOrder"
+  ></div>
 
   <ng-template #orderList>
     <button
@@ -12,7 +14,6 @@
       <i class="bi bi-file-earmark-arrow-down"></i>
       Download
     </button>
-    <!--<div style="overflow: scroll; width: 100%">-->
     <div class="table-responsive">
       <table class="table table-hover shadow-sm" style="min-width: 1000px">
         <thead class="thead-light">
@@ -31,7 +32,7 @@
             app-order-list
             *ngFor="let order of orderLists"
             [order]="order"
-            (sendDeleteOrder) = "deleteOrder($event)"
+            (sendDeleteOrder)="deleteOrder($event)"
           ></tr>
         </tbody>
       </table>
@@ -43,65 +44,4 @@
       <p>No Order from Customers...</p>
     </ng-template>
   </div>
-
-  <!--<div *ngIf="shippingList && shippingList.length > 0" class="my-5">
-    <h2>Shipping Orders</h2>
-
-    <div>
-      <table class="table table-striped shadow-sm">
-        <thead class="thead-light">
-          <tr>
-            <th>Customers</th>
-            <th>Date</th>
-            <th colspan="2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let order of shippingList">
-            <td>{{ order.customer.fname }}&nbsp; {{ order.customer.lname }}</td>
-            <td>{{ order.customer.date | date: "fullDate" }}</td>
-            <td>
-              <button (click)="viewOrder(order)">
-                <td><i class="bi bi-pencil-square"></i></td>
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-link" (click)="addArrivedList(order)">
-                <td>arrive</td>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div *ngIf="arrivedList && arrivedList.length > 0" class="my-5">
-    <h2>Arrived Orders</h2>
-    <table class="table table-striped">
-      <thead class="thead-light">
-        <tr>
-          <th>Customers</th>
-          <th>Date</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of arrivedList">
-          <td>{{ order.customer.fname }}&nbsp; {{ order.customer.lname }}</td>
-          <td>{{ order.customer.date | date: "fullDate" }}</td>
-          <td>
-            <button class="btn btn-link" (click)="viewOrder(order)">
-              <td>view</td>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-link" (click)="addArrivedList(order)">
-              <td>arrive</td>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>-->
 </div>

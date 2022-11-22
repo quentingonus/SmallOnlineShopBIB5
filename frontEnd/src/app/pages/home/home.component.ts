@@ -17,6 +17,20 @@ export class HomeComponent implements OnInit {
   isAddToCart = false;
   cart: any[] = [];
   products: any;
+  bannerproducts = [
+    {
+      imageUrl: "https://i.pinimg.com/564x/57/00/34/570034aba1e231e17b1ae3555e67313d.jpg",
+      title: "Christmas Sale"
+    },
+    {
+      imageUrl: "https://i.pinimg.com/564x/47/21/20/4721205f2ce03238dbd5ecd524f0ec11.jpg",
+      title: "Super Christmas Sale"
+    },
+    {
+      imageUrl: "https://i.pinimg.com/564x/eb/25/7b/eb257bcd71bda73b975c3f9cbd72eb6e.jpg",
+      title: "Fresh Sale"
+    }
+  ]
   popularProduct: any;
 
   categories: any;
@@ -150,5 +164,5 @@ export class HomeComponent implements OnInit {
     console.log('beforeChange');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
