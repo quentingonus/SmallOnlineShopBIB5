@@ -25,7 +25,7 @@
     </td>
   </a>
 
-  <button *ngIf="isTimeout" class="btn btn-light no-border text-danger ms-3">
+  <button *ngIf="isTimeout" class="btn btn-light no-border text-danger ms-3" (click)="deleteOrder()">
     <i class="bi bi-trash"></i>
   </button>
 </td>
