@@ -49,7 +49,7 @@ export const createPurchaseServices = async (req: any, res: Response) => {
       quantity: JSON.parse(req.body.quantity),
       address: req.body.address,
       credit: req.body.credit,
-      date: new Date().toLocaleString(),
+      date: new Date().toLocaleString('en', { timeZone: 'Asia/Yangon' }),
       order_status: req.body.order_status
     }
     console.log(CategoryData)

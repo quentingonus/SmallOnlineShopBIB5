@@ -116,7 +116,7 @@ export class OrderListComponent implements OnInit {
       this.timer = "---";
     }
 
-    this.orderLink = `/admin/order/detail/${this.order._id}`;
+    this.orderLink = `/order/detail/${this.order._id}`;
   }
 
   async updateOrder(id: string, data: any) {
