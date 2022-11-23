@@ -1,124 +1,130 @@
 <div class="container mb-5">
-  <div class="col-md-6 col-12 m-lg-0 mt-3">
-    <h3 class="ms-3 mt-3">Add Product</h3>
+  <div class="row">
+    <div class="col-md-6 col-12 m-lg-0 mt-3">
+      <h3 class="ms-3 mt-3">Add Product</h3>
 
-    <form [formGroup]="form" class="p-3">
-      <div class="form-group mb-3">
-        <label for="name">Product Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          formControlName="title"
-        />
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="image">Image File</label>
-        <input
-          type="file"
-          class="form-control"
-          id="image"
-          formControlName="imageUrl"
-          (change)="changeFile($event)"
-          accept="image/jpg, image/jpeg, image/png"
-        />
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="price">Price</label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
-          </div>
+      <form [formGroup]="form" class="p-3">
+        <div class="form-group mb-3">
+          <label for="name">Product Name</label>
           <input
-            type="number"
+            type="text"
             class="form-control"
-            min="0"
-            id="price"
-            formControlName="price"
+            id="name"
+            formControlName="title"
           />
         </div>
-      </div>
 
-      <div class="form-group mb-3">
-        <label for="category">Category</label>
-        <select
-          class="form-control mr-sm-2"
-          id="category"
-          formControlName="category"
-          *ngIf="!addNewCategory"
-          (change)="watchCategory($event)"
-        >
-          <option *ngFor="let ca of category" [value]="ca._id">
-            {{ ca.name }}
-          </option>
-          <option value="add-new-category">Add New Category</option>
-        </select>
-        <input
-          type="text"
-          class="form-control"
-          id="category"
-          *ngIf="addNewCategory"
-          formControlName="category"
-        />
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="detail">Description</label>
-        <div class="input-group mb-2">
-          <textarea
+        <div class="form-group mb-3">
+          <label for="image">Image File</label>
+          <input
+            type="file"
             class="form-control"
-            rows="3"
-            formControlName="detail"
-          ></textarea>
+            id="image"
+            formControlName="imageUrl"
+            (change)="changeFile($event)"
+            accept="image/jpg, image/jpeg, image/png"
+          />
         </div>
-      </div>
 
-      <div *ngIf="!isConfirm" class="button-group">
-        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
-        <button
-          class="btn btn-success"
-          [disabled]="form.invalid"
-          (click)="changeConfirm()"
-        >
-          Watch Preview
-        </button>
-      </div>
-
-      <div *ngIf="isConfirm" class="button-group">
-        <button class="btn btn-danger" (click)="changeConfirm()">Back</button>
-        <button #submitBtn class="btn btn-success" (click)="confirm(submitBtn)">
-          <span *ngIf="!util.isLoading(submitBtn)">Confirm</span>
-          <span *ngIf="util.isLoading(submitBtn)"
-            >Submitting
-            <div
-              class="spinner-border spinner-border-sm text-light"
-              role="status"
-            >
-              <span class="sr-only">Loading...</span>
+        <div class="form-group mb-3">
+          <label for="price">Price</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
             </div>
-          </span>
-        </button>
-      </div>
-    </form>
-  </div>
+            <input
+              type="number"
+              class="form-control"
+              min="0"
+              id="price"
+              formControlName="price"
+            />
+          </div>
+        </div>
 
-  <div *ngIf="isConfirm" class="preview col-md-4 col-12">
-    <h3>Product Preview</h3>
+        <div class="form-group mb-3">
+          <label for="category">Category</label>
+          <select
+            class="form-control mr-sm-2"
+            id="category"
+            formControlName="category"
+            *ngIf="!addNewCategory"
+            (change)="watchCategory($event)"
+          >
+            <option *ngFor="let ca of category" [value]="ca._id">
+              {{ ca.name }}
+            </option>
+            <option value="add-new-category">Add New Category</option>
+          </select>
+          <input
+            type="text"
+            class="form-control"
+            id="category"
+            *ngIf="addNewCategory"
+            formControlName="category"
+          />
+        </div>
 
-    <div class="card mb-3 mb-lg-0">
-      <img
-        class="card-img-top item-img"
-        [src]="uploadFilePreview"
-        alt="Card image cap"
-      />
-      <div class="card-body">
-        <small class="text-small mb-1 text-muted">{{
-          util.searchCategory(form.value.category, category)
-        }}</small>
-        <h2 class="card-title fs-6">{{ form.value.title }}</h2>
-        <p class="card-text">{{ form.value.price | currency }}</p>
+        <div class="form-group mb-3">
+          <label for="detail">Description</label>
+          <div class="input-group mb-2">
+            <textarea
+              class="form-control"
+              rows="3"
+              formControlName="detail"
+            ></textarea>
+          </div>
+        </div>
+
+        <div *ngIf="!isConfirm" class="button-group">
+          <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+          <button
+            class="btn btn-success"
+            [disabled]="form.invalid"
+            (click)="changeConfirm()"
+          >
+            Watch Preview
+          </button>
+        </div>
+
+        <div *ngIf="isConfirm" class="button-group">
+          <button class="btn btn-danger" (click)="changeConfirm()">Back</button>
+          <button
+            #submitBtn
+            class="btn btn-success"
+            (click)="confirm(submitBtn)"
+          >
+            <span *ngIf="!util.isLoading(submitBtn)">Confirm</span>
+            <span *ngIf="util.isLoading(submitBtn)"
+              >Submitting
+              <div
+                class="spinner-border spinner-border-sm text-light"
+                role="status"
+              >
+                <span class="sr-only">Loading...</span>
+              </div>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="isConfirm" class="preview col-md-4 col-12">
+      <h3>Product Preview</h3>
+
+      <div class="card mb-3 mb-lg-0">
+        <img
+          class="card-img-top item-img"
+          [src]="uploadFilePreview"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <small class="text-small mb-1 text-muted">{{
+            util.searchCategory(form.value.category, category)
+          }}</small>
+          <h2 class="card-title fs-6">{{ form.value.title }}</h2>
+          <p class="card-text">{{ form.value.price | currency }}</p>
+        </div>
       </div>
     </div>
   </div>
