@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'products/detail', component: ProductDetailsComponent },
   {
-    path: 'admin/order/detail/:id',
+    path: 'order/detail/:id',
     component: OrderDetailComponent,
     canActivate: [AuthGuard],
   },

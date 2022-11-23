@@ -23,7 +23,7 @@ export class OrdersComponent implements OnInit {
   viewOrder(order: any) {
     this.orderService.viewOrder = order;
     let index = this.orderService.order.indexOf(order);
-    this.router.navigate(["/admin/order/detail/" + index]);
+    this.router.navigate(["/order/detail/" + index]);
   }
 
   getShippingList(shippingList: any) {

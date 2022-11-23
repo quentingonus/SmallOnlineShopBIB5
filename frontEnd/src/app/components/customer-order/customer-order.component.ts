@@ -26,7 +26,7 @@ export class CustomerOrderComponent implements OnInit {
   }
 
   viewOrder() {
-    this.router.navigate(['/admin/order/detail/' + this.order._id]);
+    this.router.navigate(['/order/detail/' + this.order._id]);
 
   }
 
