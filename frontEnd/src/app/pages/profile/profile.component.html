@@ -51,8 +51,13 @@
                     class="card-img-top"
                     [src]="profile"
                     [alt]="currentUser.name"
-                    (click)="imageUpload.click()"
+                    
                   />
+
+                  <div class="profile-change-icon shadow" (click)="imageUpload.click()">
+                    <i class="bi bi-pencil"></i>
+                  </div>
+
                 </div>
 
                 <input
