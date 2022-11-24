@@ -215,6 +215,7 @@ export class ProfileComponent implements OnInit {
     this.form.enable();
     this.isconfirm = true;
     this.isUpdate = true;
+    console.log('File change', event);
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       this.uploadImage = file;
